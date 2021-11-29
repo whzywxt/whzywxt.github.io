@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>2017~2018回顾商城重构收获 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="17年Q4年商城重构接入SOA，18年5月上线流量切换完成，旺季PC端Q4日均pv3000万；双11当天，销售额一千万美金，峰值日pv统计1" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/2017-2018-hui-gu-shang-cheng-zhong-gou-shou-huo/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="2017~2018回顾商城重构收获" />
+<meta property="og:description" content="17年Q4年商城重构接入SOA，18年5月上线流量切换完成，旺季PC端Q4日均pv3000万；双11当天，销售额一千万美金，峰值日pv统计1" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/2017-2018-hui-gu-shang-cheng-zhong-gou-shou-huo/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-03-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-03-19T00:00:00+00:00" />
+
+<meta itemprop="name" content="2017~2018回顾商城重构收获">
+<meta itemprop="description" content="17年Q4年商城重构接入SOA，18年5月上线流量切换完成，旺季PC端Q4日均pv3000万；双11当天，销售额一千万美金，峰值日pv统计1"><meta itemprop="datePublished" content="2020-03-19T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-03-19T00:00:00+00:00" />
+<meta itemprop="wordCount" content="750">
+<meta itemprop="keywords" content="架构," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="2017~2018回顾商城重构收获"/>
+<meta name="twitter:description" content="17年Q4年商城重构接入SOA，18年5月上线流量切换完成，旺季PC端Q4日均pv3000万；双11当天，销售额一千万美金，峰值日pv统计1"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">2017~2018回顾商城重构收获</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-19 </span>
+        <div class="post-category">
+            <a href="/categories/php/"> PHP </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>17年Q4年商城重构接入SOA，18年5月上线流量切换完成，旺季PC端Q4日均pv3000万；双11当天，销售额一千万美金，峰值日pv统计1亿（凌晨期间，PC端流量最大，实时回源qps3000左右），系统稳定运行；</p>
+<p>在双11前期，经过多次调优，单台Web应用服务器，核心业务诸如登陆、加车、订单可以承载tps300~500左右，商详800~1000左右（压测结果），响应时间基本都在正常范围内，但同时服务器的负载也很高（Laravel框架太重，这也是一直的诟病，不过胜在开发效率和结构清晰，同时这也是我一直在寻求与Go语言结合作为Web服务高并发业务替代的架构方向）</p>
+<p>基于PHP做Web服务开发，像电商这类读多写少的业务，在高并发请求面前，需要结合业务特征对数据实时性的要求与缓存层级结构，充分利用好CDN、Nginx代理缓存、Redis这类缓存系统的作用，降低对应用架构的冲击，与此同时，也需要注意缓存不一致的问题，在使用缓存和设计缓存架构时候，需要提前考虑缓存的更新策略以及生存期限，以及对应的清除策略，防止高峰时间流量涌入应用系统导致服务宕机；</p>
+<p>系统压测期间，利用strace进程分析等工具，发现诸如机房方面的DNS限制、Predis的哨兵返回可用IP的选择引起的连接负载不均衡的问题，结合之前的大促优化清单，逐一落实解决后，整体效能提升了3~5倍左右。</p>
+</blockquote>
+<p>PHP聚合</p>
+<p>主要负责：</p>
+<ul>
+<li>营销模块（优惠券、满减活动）和大促活动的技术方案设计与功能开发。</li>
+<li>新老系统之间的数据迁移。</li>
+<li>解决流量切换过程中的问题。</li>
+</ul>
+<p>主要收获：</p>
+<ul>
+<li>熟悉营销体系从0到1的构建流程。</li>
+<li>保证老系统数据迁移到新系统稳定使用。</li>
+<li>流量逐步切换重要性。</li>
+<li>对大流量网站建设和数据库建设积累了经验。</li>
+</ul>
+<p>参与后续优化收获：</p>
+<ul>
+<li>掌握了 <code>strace</code> 等相关的性能优化分析工具</li>
+<li>&hellip;</li>
+</ul>
+<p>全景图：（后来补充的）</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-03-19
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%9E%B6%E6%9E%84/">架构</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/php7-kuo-zhan-kai-fa-zhi-hello-word/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">PHP7扩展开发之hello word</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/mysql-ji-chu-jia-gou-jie-shao/">
+            <span class="next-text nav-default">MySQL基础架构介绍</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

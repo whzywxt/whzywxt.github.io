@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>安装Elasticsearch - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="安装Elasticsearch 安装 Installing Marvel 1 2 3 4 5 6 7 8 9 10 11 12 #Step 1: Install Marvel into Elasticsearch: bin/plugin install license bin/plugin install marvel-agent #Step 2: Install Marvel into Kibana bin/kibana plugin --install elasticsearch/marvel/latest #Step 3: Start Elasticsearch and Kibana bin/elasticsearch bin/kibana #Step 4: Navigate to http://localhost:5601/app/marvel Installing Marvel on Offline" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/an-zhuang-elasticsearch/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="安装Elasticsearch" />
+<meta property="og:description" content="安装Elasticsearch 安装 Installing Marvel 1 2 3 4 5 6 7 8 9 10 11 12 #Step 1: Install Marvel into Elasticsearch: bin/plugin install license bin/plugin install marvel-agent #Step 2: Install Marvel into Kibana bin/kibana plugin --install elasticsearch/marvel/latest #Step 3: Start Elasticsearch and Kibana bin/elasticsearch bin/kibana #Step 4: Navigate to http://localhost:5601/app/marvel Installing Marvel on Offline" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/an-zhuang-elasticsearch/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2016-06-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-06-24T00:00:00+00:00" />
+
+<meta itemprop="name" content="安装Elasticsearch">
+<meta itemprop="description" content="安装Elasticsearch 安装 Installing Marvel 1 2 3 4 5 6 7 8 9 10 11 12 #Step 1: Install Marvel into Elasticsearch: bin/plugin install license bin/plugin install marvel-agent #Step 2: Install Marvel into Kibana bin/kibana plugin --install elasticsearch/marvel/latest #Step 3: Start Elasticsearch and Kibana bin/elasticsearch bin/kibana #Step 4: Navigate to http://localhost:5601/app/marvel Installing Marvel on Offline"><meta itemprop="datePublished" content="2016-06-24T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2016-06-24T00:00:00+00:00" />
+<meta itemprop="wordCount" content="724">
+<meta itemprop="keywords" content="搜索索引," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="安装Elasticsearch"/>
+<meta name="twitter:description" content="安装Elasticsearch 安装 Installing Marvel 1 2 3 4 5 6 7 8 9 10 11 12 #Step 1: Install Marvel into Elasticsearch: bin/plugin install license bin/plugin install marvel-agent #Step 2: Install Marvel into Kibana bin/kibana plugin --install elasticsearch/marvel/latest #Step 3: Start Elasticsearch and Kibana bin/elasticsearch bin/kibana #Step 4: Navigate to http://localhost:5601/app/marvel Installing Marvel on Offline"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">安装Elasticsearch</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-06-24 </span>
+        <div class="post-category">
+            <a href="/categories/es/"> ES </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#安装">安装</a></li>
+            <li><a href="#启动">启动</a></li>
+            <li><a href="#索引">索引</a></li>
+            <li><a href="#分析">分析</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>安装Elasticsearch</p>
+</blockquote>
+<h3 id="安装">安装</h3>
+<ul>
+<li>Installing Marvel</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#Step 1: Install Marvel into Elasticsearch:
+bin/plugin install license
+bin/plugin install marvel-agent
+
+#Step 2: Install Marvel into Kibana
+bin/kibana plugin --install elasticsearch/marvel/latest
+
+#Step 3: Start Elasticsearch and Kibana
+bin/elasticsearch
+bin/kibana
+
+#Step 4: Navigate to http://localhost:5601/app/marvel
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Installing Marvel on Offline Machines 离线安装</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">bin/plugin install file:///Data/tgz/license-2.3.3.zip
+bin/plugin install file:///Data/tgz/marvel-agent-2.3.3.zip
+bin/kibana plugin --install marvel --url file:///Data/tgz/marvel-2.3.3.tar.gz
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="启动">启动</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">bin/elasticsearch
+bin/kibana
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="索引">索引</h3>
+<ul>
+<li>创建索引</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">curl -XPUT &#39;http://localhost:9200/megacorp/employee/1&#39; -d &#39;
+{
+    &#34;first_name&#34; : &#34;John&#34;,
+    &#34;last_name&#34; :  &#34;Smith&#34;,
+    &#34;age&#34; :        25,
+    &#34;about&#34; :      &#34;I love to go rock climbing&#34;,
+    &#34;interests&#34;: [ &#34;sports&#34;, &#34;music&#34; ]
+}&#39;
+
+curl -XPUT &#39;http://localhost:9200/megacorp/employee/2&#39; -d &#39;
+{
+    &#34;first_name&#34; :  &#34;Jane&#34;,
+    &#34;last_name&#34; :   &#34;Smith&#34;,
+    &#34;age&#34; :         32,
+    &#34;about&#34; :       &#34;I like to collect rock albums&#34;,
+    &#34;interests&#34;:  [ &#34;music&#34; ]
+}&#39;
+
+curl -XPUT &#39;http://localhost:9200/megacorp/employee/3&#39; -d &#39;
+{
+    &#34;first_name&#34; :  &#34;Douglas&#34;,
+    &#34;last_name&#34; :   &#34;Fir&#34;,
+    &#34;age&#34; :         35,
+    &#34;about&#34;:        &#34;I like to build cabinets&#34;,
+    &#34;interests&#34;:  [ &#34;forestry&#34; ]
+}&#39;
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>检索文档</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">curl -XGET &#39;http://localhost:9200/megacorp/employee/1?pretty&#39;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>简单搜索</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 搜索全部员工
+curl -XGET &#39;http://localhost:9200/megacorp/employee/_search?pretty&#39;
+
+# 搜索last_name包含&#34;Smith&#34;的记录
+# 使用查询字符串搜索
+curl -XGET &#39;http://localhost:9200/megacorp/employee/_search?pretty&amp;q=last_name:Smith&#39;
+
+# 使用DSL语句查询
+curl -XGET &#39;http://localhost:9200/megacorp/employee/_search?pretty&#39; -d &#39;
+{
+    &#34;query&#34; : {
+        &#34;match&#34; : {
+            &#34;last_name&#34; : &#34;Smith&#34;
+        }
+    }
+}&#39;
+
+# 使用DSL语句查询 更复杂的搜索
+curl -XGET &#39;http://localhost:9200/megacorp/employee/_search?pretty&#39; -d &#39;
+{
+    &#34;query&#34; : {
+        &#34;filtered&#34; : {
+            &#34;filter&#34; : {
+                &#34;range&#34; : {
+                    &#34;age&#34; : { &#34;gt&#34; : 30 }
+                }
+            },
+            &#34;query&#34; : {
+                &#34;match&#34; : {
+                    &#34;last_name&#34; : &#34;smith&#34;
+                }
+            }
+        }
+    }
+}&#39;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>全文搜索</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">curl -XGET &#39;http://localhost:9200/megacorp/employee/_search?pretty&#39; -d &#39;
+{
+    &#34;query&#34; : {
+        &#34;match&#34; : {
+            &#34;about&#34; : &#34;rock climbing&#34;
+        }
+    }
+}&#39;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>短语搜索</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#  查询同时包含&#34;rock&#34;和&#34;climbing&#34;（并且是相邻的）的员工记录
+curl -XGET &#39;http://localhost:9200/megacorp/employee/_search?pretty&#39; -d &#39;
+{
+    &#34;query&#34; : {
+        &#34;match_phrase&#34; : {
+            &#34;about&#34; : &#34;rock climbing&#34;
+        }
+    }
+}&#39;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>高亮搜索结果</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#  查询同时包含&#34;rock&#34;和&#34;climbing&#34;（并且是相邻的）的员工记录,并返回高亮片段
+curl -XGET &#39;http://localhost:9200/megacorp/employee/_search?pretty&#39; -d &#39;
+{
+    &#34;query&#34; : {
+        &#34;match_phrase&#34; : {
+            &#34;about&#34; : &#34;rock climbing&#34;
+        }
+    },
+    &#34;highlight&#34;: {
+        &#34;fields&#34; : {
+            &#34;about&#34; : {}
+        }
+    }
+}&#39;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="分析">分析</h3>
+<ul>
+<li>聚合</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#  按兴趣
+curl -XGET &#39;http://localhost:9200/megacorp/employee/_search?pretty&#39; -d &#39;
+{
+  &#34;aggs&#34;: {
+    &#34;all_interests&#34;: {
+      &#34;terms&#34;: { &#34;field&#34;: &#34;interests&#34; }
+    }
+  }
+}&#39;
+
+#  统计每种兴趣的平均年龄
+curl -XGET &#39;http://localhost:9200/megacorp/employee/_search?pretty&#39; -d &#39;
+{
+    &#34;aggs&#34; : {
+        &#34;all_interests&#34; : {
+            &#34;terms&#34; : { &#34;field&#34; : &#34;interests&#34; },
+            &#34;aggs&#34; : {
+                &#34;avg_age&#34; : {
+                    &#34;avg&#34; : { &#34;field&#34; : &#34;age&#34; }
+                }
+            }
+        }
+    }
+}&#39;
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-06-24
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%90%9C%E7%B4%A2%E7%B4%A2%E5%BC%95/">搜索索引</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/an-zhuang-memcached/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">安装Memcached</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/an-zhuang-rabbitmq/">
+            <span class="next-text nav-default">安装RabbitMQ</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

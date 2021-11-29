@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>架构 on 小叨笔记</title>
+    <link>https://www.stormwan.com/tags/%E6%9E%B6%E6%9E%84/</link>
+    <description>Recent content in 架构 on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 19 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/tags/%E6%9E%B6%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2017~2018回顾商城重构收获</title>
+      <link>https://www.stormwan.com/post/2017-2018-hui-gu-shang-cheng-zhong-gou-shou-huo/</link>
+      <pubDate>Thu, 19 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/2017-2018-hui-gu-shang-cheng-zhong-gou-shou-huo/</guid>
+      <description>17年Q4年商城重构接入SOA，18年5月上线流量切换完成，旺季PC端Q4日均pv3000万；双11当天，销售额一千万美金，峰值日pv统计1</description>
+    </item>
+    
+  </channel>
+</rss>

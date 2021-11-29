@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>php7扩展 on 小叨笔记</title>
+    <link>https://www.stormwan.com/tags/php7%E6%89%A9%E5%B1%95/</link>
+    <description>Recent content in php7扩展 on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 28 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/tags/php7%E6%89%A9%E5%B1%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PHP7扩展开发之hello word</title>
+      <link>https://www.stormwan.com/post/php7-kuo-zhan-kai-fa-zhi-hello-word/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/php7-kuo-zhan-kai-fa-zhi-hello-word/</guid>
+      <description>实验环境Aliyun PHP 7.2.6 (cli) (built: May 23 2019 00:47:11) ( NTS ) Copyright (c) 1997-2018 The PHP Group Zend Engine v3.2.0, Copyright (c) 1998-2018 Zend Technologies with Zend OPcache v7.2.6, Copyright (c) 1999-2018, by Zend Technologies 生成代码 PHP为我们提供了生成基本代码的工具 ext</description>
+    </item>
+    
+  </channel>
+</rss>

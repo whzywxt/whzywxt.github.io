@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Nginx知识 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="一、初识Nginx Nginx的三个主要应用场景 1.静态资源服务 通过本地文件系统提供服务 2.反向代理服务 Nginx的强大性能 缓存 负载均衡 3.A" /><meta name="keywords" content="nginx, nginx知识" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/nginx-zhi-shi/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Nginx知识" />
+<meta property="og:description" content="一、初识Nginx Nginx的三个主要应用场景 1.静态资源服务 通过本地文件系统提供服务 2.反向代理服务 Nginx的强大性能 缓存 负载均衡 3.A" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/nginx-zhi-shi/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-04-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-04-05T00:00:00+00:00" />
+
+<meta itemprop="name" content="Nginx知识">
+<meta itemprop="description" content="一、初识Nginx Nginx的三个主要应用场景 1.静态资源服务 通过本地文件系统提供服务 2.反向代理服务 Nginx的强大性能 缓存 负载均衡 3.A"><meta itemprop="datePublished" content="2020-04-05T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-04-05T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2789">
+<meta itemprop="keywords" content="nginx," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Nginx知识"/>
+<meta name="twitter:description" content="一、初识Nginx Nginx的三个主要应用场景 1.静态资源服务 通过本地文件系统提供服务 2.反向代理服务 Nginx的强大性能 缓存 负载均衡 3.A"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Nginx知识</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-05 </span>
+        <div class="post-category">
+            <a href="/categories/web/"> web </a>
+            <a href="/categories/nginx/"> nginx </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#一初识nginx">一、初识Nginx</a></li>
+            <li><a href="#二nginx架构基础">二、Nginx架构基础</a></li>
+            <li><a href="#三详解http模块">三、详解HTTP模块</a></li>
+            <li><a href="#四反向代理与负载均衡">四、反向代理与负载均衡</a></li>
+            <li><a href="#五nginx的系统层性能优化">五、Nginx的系统层性能优化</a></li>
+            <li><a href="#六从源码视角深入使用nginx与openresty">六、从源码视角深入使用Nginx与OpenResty</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="一初识nginx">一、初识Nginx</h3>
+<h4 id="nginx的三个主要应用场景">Nginx的三个主要应用场景</h4>
+<p>1.静态资源服务</p>
+<ul>
+<li>通过本地文件系统提供服务</li>
+</ul>
+<p>2.反向代理服务</p>
+<ul>
+<li>Nginx的强大性能</li>
+<li>缓存</li>
+<li>负载均衡</li>
+</ul>
+<p>3.API服务</p>
+<ul>
+<li>OpenResty</li>
+</ul>
+<h4 id="nginx为什么会出现">Nginx为什么会出现</h4>
+<ul>
+<li>互联网的数据量快速增长
+<ul>
+<li>互联网的快速普及</li>
+<li>全球化</li>
+<li>物联网</li>
+</ul>
+</li>
+<li>摩尔定律：性能提升</li>
+<li>低效的Apache
+<ul>
+<li>一个连接对应一个进程</li>
+</ul>
+</li>
+</ul>
+<h4 id="nginx的优点">Nginx的优点</h4>
+<ul>
+<li>高并发，高性能
+<ul>
+<li>主流服务器 32核 64G 轻松达到数千万并发连接</li>
+<li>静态文件 百万级 RPS</li>
+</ul>
+</li>
+<li>可扩展性好</li>
+<li>高可靠性</li>
+<li>热部署</li>
+<li>BSD许可证</li>
+</ul>
+<h4 id="nginx的组成">Nginx的组成</h4>
+<ul>
+<li>Nginx二进制可执行文件
+<ul>
+<li>由各模块源码编译出的一个文件</li>
+</ul>
+</li>
+<li>Nginx.conf配置文件
+<ul>
+<li>控制Nginx的行为</li>
+</ul>
+</li>
+<li>access.log访问日志
+<ul>
+<li>记录每一条http请求信息</li>
+</ul>
+</li>
+<li>error.log错误日志
+<ul>
+<li>定位问题</li>
+</ul>
+</li>
+</ul>
+<h4 id="nginx版本发布mainline">Nginx版本发布（mainline）</h4>
+<ul>
+<li><a href="https://nginx.org">Nginx官网</a></li>
+</ul>
+<h4 id="版本选择">版本选择</h4>
+<ul>
+<li>开源免费的 <code>Nginx</code> (<a href="https://nginx.org">https://nginx.org</a>) 与商业版 <code>Nginx Plus</code> (<a href="https://nginx.com">https://nginx.com</a>)</li>
+<li>阿里巴巴的 <code>Tengine</code> 不太推荐 不能跟随Nginx同步升级</li>
+<li>免费 <code>OpenResty</code> (<a href="http://openresty.org">http://openresty.org</a>) 与商业版 <code>OpenResty</code> (<a href="http://openresty.com">http://openresty.com</a>)</li>
+</ul>
+<h4 id="编译nginx">编译nginx</h4>
+<p>按模块需要编译安装</p>
+<h4 id="access-log分析">access log分析</h4>
+<p>使用GoAccess工具 <a href="https://goaccess.io/">https://goaccess.io/</a></p>
+<h5 id="安装">安装</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ wget http://tar.goaccess.io/goaccess-1.2.tar.gz
+$ tar -xzvf goaccess-1.2.tar.gz
+$ cd goaccess-1.2/
+# ./configure --help 查看选项
+$ ./configure --enable-utf8 --enable-geoip=legacy
+$ make
+# make install
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="校对nginx和goaccess日志格式">校对nginx和goaccess日志格式</h5>
+<ul>
+<li>配置nginx.conf中<code>http{}</code> <code>log_format</code>中的日志格式（改完记得重启nginx服务），如：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">log_format main &#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; &#39;
+
+                &#39;$status $body_bytes_sent &#34;$http_referer&#34; &#39;
+
+                &#39;&#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34; &#39;
+
+                &#39;$connection $upstream_addr &#39;
+
+                &#39;$upstream_response_time $request_time&#39;;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用 <code>nginx2goaccess.sh</code> 脚本将nginx日志格式格式化为goaccess能识别的日志格式，<code>nginx2goaccess.sh</code> 脚本内容在 <code>https://github.com/stockrt/nginx2goaccess.git</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># log_format为你nginx.conf中配置的日志格式
+# sh nginx2goaccess.sh &#39;&lt;log_format&gt;&#39;
+# 示例：
+$ sh nginx2goaccess.sh &#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; $status $body_bytes_sent &#34;$http_referer&#34; &#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34; $connection $upstream_addr $upstream_response_time $request_time&#39;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>得到三个格式 追加到 <code>/usr/local/etc/goaccess.conf</code> 文件末尾中</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">time-format %T
+date-format %d/%b/%Y
+log_format %h - %^ [%d:%t %^] &#34;%r&#34; %s %b &#34;%R&#34; &#34;%u&#34; &#34;%^&#34; %^ %^ %^ %T
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="生成统计页面">生成统计页面</h5>
+<p>上面三行分别是时间、日期、日志格式，将三行输出保存到任意文件，然后就可以开始生成html可视化文件</p>
+<ol>
+<li>每天生成</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">00 00 * * * /usr/local/bin/goaccess /home/wwwlogs/www.stormwan.com.log -o /home/www/goaccess-html/index.html -p /usr/local/etc/goaccess.conf
+</code></pre></td></tr></table>
+</div>
+</div><p>选项说明：</p>
+<ul>
+<li>-f 指定nginx日志文件</li>
+<li>-p 指定日志格式文件</li>
+<li>-o 输出到指定html文件</li>
+<li>&ndash;real-time-html 实时刷新</li>
+<li>&ndash;ws-url 绑定一个域名</li>
+</ul>
+<ol start="2">
+<li>html可视化文件的实时更新方法</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">nohup /usr/local/bin/goaccess -f /home/wwwlogs/www.stormwan.com.log -p /usr/local/etc/goaccess.conf -o /home/www/goaccess-html/index.html --real-time-html --ws-url=xxx.xxx.com &amp;
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>nginx日志切割后，后续再补充统计页面</li>
+</ol>
+<h4 id="awk-日志统计">awk 日志统计</h4>
+<h5 id="nginx-access-log日志统计分析常用命令">Nginx Access Log日志统计分析常用命令</h5>
+<h6 id="ip相关统计">IP相关统计</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 统计IP访问量
+$ awk &#39;{print $1}&#39; www.stormwan.com.log | sort -n | uniq | wc -l
+1024
+
+# 查看某一时间段的IP访问量(4-5点)
+$ grep &#34;30/May/2020:0[4-5]&#34; www.stormwan.com.log | awk &#39;{print $1}&#39; | sort | uniq -c| sort -nr | wc -l
+$ grep &#34;30/May/2020:0[4-5]&#34; www.stormwan.com.log | awk &#39;{print $1}&#39; | sort | wc -l
+4
+
+# 查看访问最频繁的前100个IP
+$ awk &#39;{print $1}&#39; www.stormwan.com.log | sort -n | uniq -c | sort -rn | head -n 100
+396 180.76.170.52
+215 87.233.164.92
+196 91.121.106.106
+140 113.89.238.19
+137 47.107.232.133
+...
+
+# 查询某个IP的详细访问情况,按访问频率排序
+$ grep &#39;180.76.170.52&#39; www.stormwan.com.log |awk &#39;{print $7}&#39;|sort |uniq -c |sort -rn |head -n 100
+ 33 /
+  4 /categories/
+  4 /about/
+  3 /tags/vagrant/
+  3 /tags/seo/
+  3 /tags/redis/
+  3 /tags/php/
+
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="页面访问统计">页面访问统计</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 查看访问最频的页面(TOP100)
+$ awk &#39;{print $7}&#39; www.stormwan.com.log | sort |uniq -c | sort -rn | head -n 100
+
+# 查看访问最频的页面([排除php页面】(TOP100)
+$ grep -v &#34;.php&#34;  www.stormwan.com.log | awk &#39;{print $7}&#39; | sort |uniq -c | sort -rn | head -n 100
+
+# 查看页面访问次数超过100次的页面
+$ cat www.stormwan.com.log | cut -d &#39; &#39; -f 7 | sort |uniq -c | awk &#39;{if ($1 &gt; 100) print$0}&#39; | less
+
+# 查看最近1000条记录，访问量最高的页面
+$ tail -1000 www.stormwan.com.log |awk &#39;{print $7}&#39;|sort|uniq -c|sort -nr|less
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="每秒请求量统计">每秒请求量统计</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 统计每秒的请求数,top100的时间点(精确到秒)
+awk &#39;{print $4}&#39; www.stormwan.com.log |cut -c14-21|sort|uniq -c|sort -nr|head -n 100
+
+# 统计每分钟的请求数,top100的时间点(精确到分钟)
+awk &#39;{print $4}&#39; www.stormwan.com.log |cut -c14-18|sort|uniq -c|sort -nr|head -n 100
+
+# 统计每小时的请求数,top100的时间点(精确到小时)
+awk &#39;{print $4}&#39; www.stormwan.com.log |cut -c14-15|sort|uniq -c|sort -nr|head -n 100
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="性能分析">性能分析</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 在nginx log中最后一个字段加入$request_time 列出传输时间超过 3 秒的页面，显示前20条
+$ cat www.stormwan.com.log|awk &#39;($NF &gt; 3){print$7}&#39;|sort -n|uniq -c|sort -nr|head -20
+
+# 打印时间 非php页面
+$ grep -v &#39;.php&#39; www.stormwan.com.log|awk &#39;($NF &gt; 3){print$NF,$7}&#39;|sort -n|uniq -c|sort -nr|head -20
+$ grep -v &#39;.php&#39; www.stormwan.com.log|awk &#39;($NF &gt; 3){print$7,$NF}&#39;|sort -n|uniq -c|sort -nr|head -20
+
+# 列出php页面请求时间超过3秒的页面，并统计其出现的次数，显示前100条
+$ cat www.stormwan.com.log|awk &#39;($NF &gt; 3 &amp;&amp;  $7~/\.php/){print$7}&#39;|sort -n|uniq -c|sort -nr|head -100
+</code></pre></td></tr></table>
+</div>
+</div><p>接下来就可以针对慢接口进行性能优化</p>
+<h6 id="蜘蛛抓取统计">蜘蛛抓取统计</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 统计蜘蛛抓取次数
+grep &#39;Baiduspider&#39; www.stormwan.com.log |wc -l
+
+# 统计蜘蛛抓取404的次数
+grep &#39;Baiduspider&#39; www.stormwan.com.log |grep &#39;404&#39; | wc -l
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="404统计">404统计</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 统计2020-05-29 404 前后加个空格 日志中文本包含404 影响状态码
+$ grep &#39;29/May/2020&#39; www.stormwan.com.log |grep &#39; 404 &#39; | wc -l
+$ awk &#39;/29\/May\/2020/ {if ($9 == 404) print$9}&#39; www.stormwan.com.log | wc -l
+</code></pre></td></tr></table>
+</div>
+</div><p><a href="https://www.stormwan.com/access-log/">本站访问分析</a></p>
+<h3 id="二nginx架构基础">二、Nginx架构基础</h3>
+<h3 id="三详解http模块">三、详解HTTP模块</h3>
+<h3 id="四反向代理与负载均衡">四、反向代理与负载均衡</h3>
+<h3 id="五nginx的系统层性能优化">五、Nginx的系统层性能优化</h3>
+<h4 id="优化方法论">优化方法论</h4>
+<ul>
+<li>从软件层面提升硬件使用效率
+<ul>
+<li>增大CPU的利用率</li>
+<li>增大内存利用率</li>
+<li>增大磁盘IO利用率</li>
+<li>增大网络带宽的利用率</li>
+</ul>
+</li>
+<li>提升硬件规格
+<ul>
+<li>网卡：万兆网卡，例如10G、25G、40G等</li>
+<li>磁盘：固态硬盘，关注IOPS和BPS指标</li>
+<li>CPU：更快的主频，更多的核心，更大的缓存，更优的架构</li>
+<li>内存：更快的访问速度</li>
+</ul>
+</li>
+<li>超出硬件性能上限后使用DNS</li>
+</ul>
+<h5 id="增大nginx使用cpu的有效时长">增大Nginx使用CPU的有效时长</h5>
+<ul>
+<li>能够使用全部CPU资源</li>
+<li>Nginx进程间不做无用功浪费CPU</li>
+<li>不被其他进程争抢资源</li>
+</ul>
+<h5 id="设置worker进程的数量">设置worker进程的数量</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 可配置为 auto
+Syntax: worker_processes number | auto;
+Default: worker_processes 1;
+Context: main
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="一个cpu同时运行多个进程">一个CPU同时运行多个进程</h5>
+<ul>
+<li>宏观上并行，微观上串行
+<ul>
+<li>进程运行时间分为一段段的时间片</li>
+</ul>
+</li>
+<li>阻塞API引发的时间片主动让出CPU
+<ul>
+<li>速度不一致引发阻塞API
+<ul>
+<li>硬件执行熟读不一致</li>
+</ul>
+</li>
+<li>业务场景产生阻塞API
+<ul>
+<li>例如同步读网络报文</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="让nginx进程在运行状态">让Nginx进程在运行状态</h5>
+<ul>
+<li>R运行：正在运行或在运行队列中等待</li>
+<li>S中断</li>
+<li>D不可中断</li>
+<li>Z僵死</li>
+<li>T停止</li>
+</ul>
+<h5 id="减少进程间切换">减少进程间切换</h5>
+<ul>
+<li>Nginx worker尽可能处于R状态
+<ul>
+<li>R状态的进程数量大于cpu核心时，负载急速增高 <code>uptime</code></li>
+</ul>
+</li>
+<li>尽可能的减少进程间切换
+<ul>
+<li>类别：
+<ul>
+<li>主动切换</li>
+<li>被动切换：时间片耗尽</li>
+</ul>
+</li>
+<li>Cost：&lt;5us 但是百万连接算下来时间就长了</li>
+<li>减少主动切换</li>
+<li>减少被动切换
+<ul>
+<li>增大进程优先级 nice，值越小</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>绑定CPU
+<ul>
+<li>可以利用CPU缓存</li>
+</ul>
+</li>
+</ul>
+<h5 id="延迟处理新连接">延迟处理新连接</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 使用 TCP_DEFER_ACCEPT 延迟处理新连接
+Syntax: listen address[:port] [deferred];
+Default: listen *:80 | *:8000;
+Context: server
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="上下文切换次数">上下文切换次数</h5>
+<ul>
+<li><code>vmstat</code> system 列 cs 值</li>
+<li><code>dstat</code> system 列 csw 值</li>
+<li><code>pidstat -w</code> cswch/s 列值</li>
+</ul>
+<h5 id="调整cpu时间片大小">调整CPU时间片大小</h5>
+<p><code>top</code>命令 <code>PR</code>和<code>NI</code>列值</p>
+<ul>
+<li>nice 静态优先级：<code>-20 ~ 19</code></li>
+<li>priority 动态优先级：<code>0 ~ 139</code></li>
+</ul>
+<h5 id="o1调度算法cfs">O1调度算法(CFS)</h5>
+<ul>
+<li>优先级动态调整
+<ul>
+<li>幅度 <code>+-5</code></li>
+<li>依据
+<ul>
+<li>cpu消耗型进程</li>
+<li>io消耗性进程</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>分时：时间片
+<ul>
+<li><code>5ms ~ 800ms</code> 尽量让Nginx用到800</li>
+</ul>
+</li>
+</ul>
+<h5 id="设置worker进程的静态优先级">设置worker进程的静态优先级</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Syntax: worker_priority number;
+Default: worker_priority 0;
+Context: main
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="worker进程间负载均衡">worker进程间负载均衡</h5>
+<ul>
+<li>使用 reuseport</li>
+</ul>
+<h5 id="多队列网卡对多核cpu的优化">多队列网卡对多核CPU的优化</h5>
+<ul>
+<li>RSS：硬件中断负载均衡</li>
+<li>RPS：软中断负载均衡</li>
+<li>RFS</li>
+</ul>
+<h5 id="提升cpu缓存命中率">提升CPU缓存命中率</h5>
+<ul>
+<li>绑定worker到指定CPU</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Syntax: worker_cpu_affinity cpumask ...;
+worker_cpu_affinity auto [cpumask];
+Default: —
+Context: main
+
+# 示例 
+
+# 2核cpu，开启2个进程
+worker_processes     2;
+worker_cpu_affinity 01 10;
+
+# 2核cpu，开启4个进程
+worker_processes     4;
+worker_cpu_affinity 01 10 01 10;
+
+# 4核cpu，开启4个进程 0001表示启用第一个CPU内核，0010表示启用第二个CPU内核，依此类推
+worker_processes     4;
+worker_cpu_affinity 0001 0010 0100 1000;
+
+# 4核cpu，开启2个进程
+worker_processes     2;
+worker_cpu_affinity 0101 1010;
+
+# 8核cpu，开启8个进程 worker_processes最多开启8个，8个以上性能提升不会再提升了，而且稳定性变得更低，所以8个进程够用了。
+worker_processes     8;
+worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000 01000000 10000000;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="六从源码视角深入使用nginx与openresty">六、从源码视角深入使用Nginx与OpenResty</h3>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-04-05
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/nginx/">nginx</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/mysql-shi-zhan-zhi-shi-yong-ji-qiao/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">MySQL实战之实用技巧</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/mysql-shi-zhan-zhi-suo-yin/">
+            <span class="next-text nav-default">MySQL实战之索引</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

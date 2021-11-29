@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux常用命令 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="基础命令 软件类型 c/s:由个人下载安装软件 升级包 b/s:运行在浏览器上,软件安装 升级包由官方完成 linux常用命令 1 2 3 4 5 6 7 8 9 10 11 12 13" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/linux-chang-yong-ming-ling/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux常用命令" />
+<meta property="og:description" content="基础命令 软件类型 c/s:由个人下载安装软件 升级包 b/s:运行在浏览器上,软件安装 升级包由官方完成 linux常用命令 1 2 3 4 5 6 7 8 9 10 11 12 13" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/linux-chang-yong-ming-ling/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2013-09-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2013-09-25T00:00:00+00:00" />
+
+<meta itemprop="name" content="Linux常用命令">
+<meta itemprop="description" content="基础命令 软件类型 c/s:由个人下载安装软件 升级包 b/s:运行在浏览器上,软件安装 升级包由官方完成 linux常用命令 1 2 3 4 5 6 7 8 9 10 11 12 13"><meta itemprop="datePublished" content="2013-09-25T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2013-09-25T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2271">
+<meta itemprop="keywords" content="linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux常用命令"/>
+<meta name="twitter:description" content="基础命令 软件类型 c/s:由个人下载安装软件 升级包 b/s:运行在浏览器上,软件安装 升级包由官方完成 linux常用命令 1 2 3 4 5 6 7 8 9 10 11 12 13"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux常用命令</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2013-09-25 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> linux </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#软件类型">软件类型</a></li>
+            <li><a href="#linux常用命令">linux常用命令</a></li>
+            <li><a href="#vi操作相关命令">vi操作相关命令</a></li>
+            <li><a href="#常用命令示例">常用命令示例</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>基础命令</p>
+</blockquote>
+<h3 id="软件类型">软件类型</h3>
+<pre><code>c/s:由个人下载安装软件 升级包
+b/s:运行在浏览器上,软件安装 升级包由官方完成
+</code></pre>
+<h3 id="linux常用命令">linux常用命令</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">命令[选项]		描述
+pwd		显示当前的工作目录
+cd		切换目录
+ls		列出目录文件
+    -a		显示所有文件,包括隐藏文件
+    -l		显示文件的详细信息
+    -al		显示所有文件包括隐藏文件的详细信息
+clear		清屏
+mkdir		建立目录
+    -p		建立多级目录
+touch		改变文件和目录时间,同时还可以创建文件
+mv		移动文件或目录,移动时可以重命名
+cp		拷贝文件或目录,拷贝时可以重命名
+unlink		删除文件
+rmdir		删除空目录
+    -p		删除多级空目录
+rm		删除文件或目录
+    -r		递归删除,删除文件夹下的所有文件及子目录
+    -f		强制删除,不提示
+    -i		提示和询问
+chmod		修改文件或目录的权限
+gzip		压缩文件,压缩后文件后缀.gz
+    -r		递归压缩,压缩目录下的文件
+gunzip		解压文件,后缀为.gz的文件
+tar		备份文件,压缩或解压文件/目录
+    -c		创建压缩文件
+    -v		显示压缩文件的执行过程
+    -f		压缩时,可以重命名
+    -x		解压文件,对目录或文件解压
+    -z		具有gzip属性,可以压缩成.gz或解压.gz的文件或目录
+find		查找文件或目录
+    -name		以文件名查找
+    -user		以用户名查找
+    find 路径 -name 文件名
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="vi操作相关命令">vi操作相关命令</h3>
+<p>命令模式进入末行模式用 &ldquo;:&rdquo;
+命令模式进入插入模式用i a o
+末行模式与插入模式不能直接连接,需要转到命令模式操作</p>
+<h4 id="末行模式">末行模式</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">w         保存文件
+q         退出
+w!        强制保存
+q!        强制退出
+set nu    显示出行号
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="插入模式">插入模式</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">-i        光标之前插入
+-a        光标之后插入
+-o        转至下一行插入
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="命令模式">命令模式</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">dw  删除光标所在的单词
+ndw 删除光标所在位置后的n个单词,n为数字
+dd  删除光标所在的行
+ndd 删除光标所在行(包含此行)以下的n行
+d0  从光标的前一位删除至行首
+d$  从光标所在的位置删除至行尾
+x   删除光标位置的字符
+u   撤销前n步的操作命令
+nG  光标移至第n行,n为数字
+gg  快速移至第一行
+G   快速移至最后一行
+ 
+H   左移动光标
+L   右移动光标
+J   下移动光标
+K   上移动光标	
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="常用命令示例">常用命令示例</h3>
+<h4 id="解压缩">解压缩</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">将demo压缩成.tar.gz文件
+解压 .tar	.tar.gz文件
+# mkdir demo
+# tar -cvf demo1.tar    demo
+# tar -zcvf deno2.tar demo
+# tar -xvf demo1.tar
+# tar -zxvf demo2.tar.gz
+</code></pre></td></tr></table>
+</div>
+</div><p>soft01用户名
+@分隔符
+localhost本地主机
+~当前用户家目录
+$等待输入
+drwx&mdash;&mdash; 2 root root 16384 nov 25 2011 lost+found
+d 目录
+r 读   4
+w 写   2
+x 执行 1</p>
+<h4 id="查看内核版本命令">查看内核版本命令</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># cat /proc/version
+Linux version 2.6.18-194.el5 (mockbuild@builder16.centos.org) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)) #1 SMP Fri Apr 2 14:58:35 EDT 2010
+# uname -a
+Linux jerry 2.6.18-194.el5 #1 SMP Fri Apr 2 14:58:35 EDT 2010 i686 i686 i386 GNU/Linux
+# uname -r
+2.6.18-194.el5
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="查看linux版本">查看linux版本</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># lsb_release -a
+LSB Version:    :core-3.1-ia32:core-3.1-noarch:graphics-3.1-ia32:graphics-3.1-noarch
+Distributor ID: CentOS
+Description:    CentOS release 5.5 (Final)
+Release:        5.5
+Codename:       Final
+ 
+# cat /etc/issue
+CentOS release 5.5 (Final)
+Kernel \r on an \m
+ 
+cat /etc/redhat-release
+CentOS release 5.5 (Final)
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="查看linux系统是64位还是32位">查看linux系统是64位还是32位</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># getconf LONG_BIT
+32
+# getconf WORD_BIT
+32
+# file /bin/ls
+/bin/ls: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), for GNU/Linux 2.6.9, dynamically linked (uses shared libs), for GNU/Linux 2.6.9, stripped
+# lsb_release -a
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="文件类型">文件类型</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">-rw-r--r-- 1 root root  2886 Oct  5  2013 install.log.syslog
+文件类型
+d 目录 directory
+- 二进制文件
+l 软链接文件 link
+文件权限
+r(read读), w(write写), x(execute执行)
+文件所有者权限
+rw- 所有者user权限
+r-- 所属组group权限
+r-- 其他人权限
+1 表示硬链接数
+root 所有者
+root 所属组
+2886 文件大小(不是很准确)
+数据块 block 512字节 存储最小单位
+可以调整大小(流媒体文件 调高一点 加快存储速度,文件较小 调低一点 节省空间)
+Oct  5  2013 创建或最后修改的时间
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="查看文件">查看文件</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">tail命令
+tail -f filename 查阅正在改变的日志文件 会把filename最后的内容显示在屏幕上,看到最新的文件内容
+语法
+标准语法
+tail [  -f ] [  -c Number |  -n Number |  -m Number |  -b Number |  -k Number ] [ File ]
+    -c number 从number变量表示的字节位置开始读取指定文件
+    -b number 从number变量表示的512字节位置开始读取这些文件
+    -k number 从number变量表示的1KB块位置开始读取指定的文件
+    -m number 从number变量标识的多字街字符位置开始读取指定文件,使用该标志提供在单字节和双字节字符代码集中环境中的一致结果
+    -n number 从number变量表示的位置开始读取指定文件
+    -r 从文件末尾以逆序方式显示输出,缺省以逆序方式打印整个文件,如果文件大于20480字节,那么-r标志只显示最后的20480字节
+    -r标志与-n标志一起使用时才有效,否则,就会将其忽略.
+要以逆序显示行
+#tail [  -r ] [  -n Number ] [ File ]部分Linux没有此选项
+tail -n 20 /home/wwwlogs/error.log指定从error.log文件末尾开始读取的行数
+要从第200字节开始,每次显示一页,输入
+tail -c +200 /home/wwwlogs/error.log
+要跟踪文件的增长
+tail -f /home/wwwlogs/error.log
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="改变文件所属">改变文件所属</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">chown将指定文件的拥有者改为指定的用户或组,用户可以是用户名或者用户ID
+组可以是组名或者组ID
+文件是以空格分开的要改变权限的文件列表,支持通配符
+chown [选项]...[所有者][:[组]] 文件
+    -h 修复符号链接
+    -R 处理指定目录以及其子目录下的所有文件
+    -v 显示详细的处理信息
+    -dereference 作用于符号链接的指向,而不是链接文件本身
+
+chown mail:mail log2012.log
+将log2012.log的所有者改为mail,所属组改为mail
+
+chown root: log2012.log
+将文件的所有者和所属组改为root
+
+chown :mail log2012.log
+将文件的所属组改为mail
+
+chown -R -v root:mail test6
+改变指定目录以及其子目录下的所有文件的拥有者和群组
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="ln链接">ln链接</h4>
+<p>ln的链接分软链接和硬链接两种：</p>
+<p>1、软链接就是：“ln –s 源文件 目标文件”，只会在选定的位置上生成一个文件的镜像，不会占用磁盘空间，类似与windows的快捷方式。</p>
+<p>2、硬链接ln源文件目标文件，没有参数-s， 会在选定的位置上生成一个和源文件大小相同的文件，无论是软链接还是硬链接，文件都保持同步变化。</p>
+<p><code>ln -s /root/pcstat /usr/local/bin/pcstat</code></p>
+<p>Tips：web开发环境，nginx+php根目录+开发域名只配置一个，其他项目需要时通过<code>ln -s</code>链接到另一个项目进行访问，不需要每次新增配置</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2013-09-25
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux-yong-hu-guan-li/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux用户管理</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/xu-ni-ji-jie-shao/">
+            <span class="next-text nav-default">虚拟机介绍</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

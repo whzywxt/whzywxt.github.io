@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>关键词内链替换 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="内部链接目标 SEO优化，在博客文章中渲染时对关键词进行替换添加链接1，不改变博客原文 关键词链接到电商商品、活动页、分类页等 解决url收录问题" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/guan-jian-ci-nei-lian-ti-huan/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="关键词内链替换" />
+<meta property="og:description" content="内部链接目标 SEO优化，在博客文章中渲染时对关键词进行替换添加链接1，不改变博客原文 关键词链接到电商商品、活动页、分类页等 解决url收录问题" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/guan-jian-ci-nei-lian-ti-huan/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-02-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-02-18T00:00:00+00:00" />
+
+<meta itemprop="name" content="关键词内链替换">
+<meta itemprop="description" content="内部链接目标 SEO优化，在博客文章中渲染时对关键词进行替换添加链接1，不改变博客原文 关键词链接到电商商品、活动页、分类页等 解决url收录问题"><meta itemprop="datePublished" content="2020-02-18T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-02-18T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1301">
+<meta itemprop="keywords" content="seo,php," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="关键词内链替换"/>
+<meta name="twitter:description" content="内部链接目标 SEO优化，在博客文章中渲染时对关键词进行替换添加链接1，不改变博客原文 关键词链接到电商商品、活动页、分类页等 解决url收录问题"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">关键词内链替换</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-18 </span>
+        <div class="post-category">
+            <a href="/categories/seo/"> seo </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#内部链接目标">内部链接目标</a></li>
+        <li><a href="#词库和链接导入">词库和链接导入</a></li>
+        <li><a href="#前端渲染替换处理">前端渲染替换处理</a></li>
+        <li><a href="#思考">思考</a></li>
+        <li><a href="#解决变态空格问题">解决变态空格问题</a></li>
+        <li><a href="#遇到多语言翻译解决方案">遇到多语言翻译解决方案</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="内部链接目标">内部链接目标</h2>
+<ul>
+<li>SEO优化，在博客文章中渲染时对关键词进行替换添加链接<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>，不改变博客原文</li>
+<li>关键词链接到电商商品、活动页、分类页等</li>
+<li>解决url收录问题，提升SEO流量，提升SEO销售额</li>
+</ul>
+<h2 id="词库和链接导入">词库和链接导入</h2>
+<ul>
+<li>读取Excel文件或csv文件</li>
+</ul>
+<h2 id="前端渲染替换处理">前端渲染替换处理</h2>
+<ul>
+<li>一个关键词（完全匹配）只能链接一条URL</li>
+<li>同一个文章页面同一个关键词只链接一次（首次出现的那个词）</li>
+<li>同组长词优先链接</li>
+<li>已经在a标签内的关键词跳过，不进行添加</li>
+<li>每篇博客文章最多只添加10个锚链接</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">class</span> <span class="nc">B</span> <span class="p">{</span>
+ 
+    <span class="sd">/**
+</span><span class="sd">     * 替换博客文章关键词链接
+</span><span class="sd">     * @param string $content
+</span><span class="sd">     * @param int $limitNum 替换上限次数
+</span><span class="sd">     * @return string|string[]|null
+</span><span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">replaceKeywordsInternalLink</span><span class="p">(</span><span class="nv">$content</span><span class="p">,</span> <span class="nv">$limitNum</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$keywordsList</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;keywords&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;关键词内链替换&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;link&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;https://www.stormwan.com/2020/02/%E5%85%B3%E9%94%AE%E8%AF%8D%E5%86%85%E9%93%BE/&#39;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;keywords&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;stormwan&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;link&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;https://www.stormwan.com&#39;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">];</span>
+    
+        <span class="c1">// 将content内a标签全部替换
+</span><span class="c1"></span>        <span class="nv">$pattern</span> <span class="o">=</span> <span class="s1">&#39;|(&lt;a[^&gt;]*&gt;)(.*?)(&lt;/a&gt;)|s&#39;</span><span class="p">;</span>
+        <span class="nv">$replaceMap</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">preg_match_all</span><span class="p">(</span><span class="nv">$pattern</span><span class="p">,</span> <span class="nv">$content</span><span class="p">,</span> <span class="nv">$matches</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$matches</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">{</span>
+                <span class="k">foreach</span> <span class="p">(</span><span class="nv">$matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">as</span> <span class="nv">$item</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$key</span> <span class="o">=</span> <span class="s1">&#39;&amp;&amp;&amp;&#39;</span> <span class="o">.</span> <span class="nx">md5</span><span class="p">(</span><span class="nv">$item</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;&amp;&amp;&amp;&#39;</span><span class="p">;</span>
+                    <span class="nv">$replaceMap</span><span class="p">[</span><span class="nv">$key</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$item</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$replaceMap</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$content</span> <span class="o">=</span> <span class="nx">str_replace</span><span class="p">(</span><span class="nx">array_values</span><span class="p">(</span><span class="nv">$replaceMap</span><span class="p">),</span> <span class="nx">array_keys</span><span class="p">(</span><span class="nv">$replaceMap</span><span class="p">),</span> <span class="nv">$content</span><span class="p">);</span>
+        <span class="p">}</span>
+    
+        <span class="nv">$hasReplace</span> <span class="o">=</span> <span class="p">[];</span>
+    
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$keywordsList</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$readnum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">foreach</span> <span class="p">(</span><span class="nv">$keywordsList</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$val</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// 正则替换区分大小写, 否则替换时改变原文单词大小写
+</span><span class="c1"></span>                <span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nx">strtolower</span><span class="p">(</span><span class="nv">$val</span><span class="p">[</span><span class="s1">&#39;keywords&#39;</span><span class="p">]),</span> <span class="nv">$hasReplace</span><span class="p">))</span> <span class="p">{</span>
+                    <span class="k">continue</span><span class="p">;</span>
+                <span class="p">}</span>
+    
+                <span class="nv">$title</span> <span class="o">=</span> <span class="nv">$val</span><span class="p">[</span><span class="s1">&#39;keywords&#39;</span><span class="p">];</span>
+                <span class="nv">$url</span>   <span class="o">=</span> <span class="nv">$val</span><span class="p">[</span><span class="s1">&#39;link&#39;</span><span class="p">];</span>
+                <span class="nv">$str</span>   <span class="o">=</span> <span class="nx">sprintf</span><span class="p">(</span><span class="s1">&#39;&lt;a href=&#34;%s&#34;&gt;%s&lt;/a&gt;&#39;</span><span class="p">,</span> <span class="nv">$url</span><span class="p">,</span> <span class="nv">$title</span><span class="p">);</span>
+                <span class="nv">$index</span> <span class="o">=</span> <span class="nx">mb_strpos</span><span class="p">(</span><span class="nv">$content</span><span class="p">,</span> <span class="nv">$title</span><span class="p">);</span>
+    
+                <span class="nv">$content</span> <span class="o">=</span> <span class="nx">preg_replace</span><span class="p">(</span><span class="s1">&#39;/(?!&lt;[^&gt;]*)\b&#39;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">escapePregQuote</span><span class="p">(</span><span class="nv">$title</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;\b(?![^&lt;]*&gt;)/&#39;</span><span class="p">,</span> <span class="nv">$str</span><span class="p">,</span> <span class="nv">$content</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">is_numeric</span><span class="p">(</span><span class="nv">$index</span><span class="p">))</span> <span class="p">{</span>
+                    <span class="nv">$readnum</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+                    <span class="nv">$hasReplace</span><span class="p">[]</span> <span class="o">=</span> <span class="nx">strtolower</span><span class="p">(</span><span class="nv">$title</span><span class="p">);</span>
+                <span class="p">}</span>
+    
+                <span class="c1">// 匹配到上限关键词就退出
+</span><span class="c1"></span>                <span class="k">if</span> <span class="p">(</span><span class="nv">$readnum</span> <span class="o">==</span> <span class="nv">$limitNum</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    
+        <span class="c1">// 还原替换掉的a标签
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nv">$replaceMap</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$content</span> <span class="o">=</span> <span class="nx">str_replace</span><span class="p">(</span><span class="nx">array_keys</span><span class="p">(</span><span class="nv">$replaceMap</span><span class="p">),</span> <span class="nx">array_values</span><span class="p">(</span><span class="nv">$replaceMap</span><span class="p">),</span> <span class="nv">$content</span><span class="p">);</span>
+        <span class="p">}</span>
+    
+        <span class="k">return</span> <span class="nv">$content</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="sd">/**
+</span><span class="sd">     * 转义正则表达式字符
+</span><span class="sd">     * @param string $title
+</span><span class="sd">     * @param string $delimiter 默认分割符
+</span><span class="sd">     * @return string
+</span><span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">escapePregQuote</span><span class="p">(</span><span class="nv">$title</span><span class="p">,</span> <span class="nv">$delimiter</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">preg_quote</span><span class="p">(</span><span class="nv">$title</span><span class="p">,</span> <span class="nv">$delimiter</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="思考">思考</h2>
+<ul>
+<li>是否可以添加博客时弹框选择关键词内链</li>
+<li>目前实现的是每篇文章10个词, 优先按长尾关键词处理</li>
+<li>关键词量很大要怎么处理, 关键词量远大于一篇文章的单词, 应该结合业务出发选择一个节省成本的方案</li>
+</ul>
+<h2 id="解决变态空格问题">解决变态空格问题</h2>
+<p>前面excel或csv导入需要过滤掉收尾空格，开发完后发现 <code>trim</code> 后还有空格没过滤掉，首先将字符分隔开，str_split，然后循环每个字节查看他的编码，ord()查看值，然后 <code>trim($str, chr(194).chr(160))</code> 或者使用 <code>preg_replace</code> 替换</p>
+<h2 id="遇到多语言翻译解决方案">遇到多语言翻译解决方案</h2>
+<p>分析文本内容, 里面有HTML标签, 需要将标签处理后, 调用翻译接口, 然后替换回来</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+    <span class="sd">/**
+</span><span class="sd">     * 解析html字符串(断句、不翻译纯数字)
+</span><span class="sd">     * @param string $str 待解析文本
+</span><span class="sd">     * @return array 解析出的字符串(排除html标签,断句等)
+</span><span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">resolveHtml</span><span class="p">(</span><span class="nv">$str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$return</span> <span class="o">=</span> <span class="p">[];</span>
+
+        <span class="c1">//第一个位置的标记
+</span><span class="c1"></span>        <span class="nv">$pos</span> <span class="o">=</span> <span class="nx">strpos</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="s1">&#39;&lt;&#39;</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$pos</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$posText</span> <span class="o">=</span> <span class="nx">substr</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">$pos</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$posText</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">ctype_space</span><span class="p">(</span><span class="nv">$posText</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">preg_match</span><span class="p">(</span><span class="s1">&#39;/[\x7f-\xff_A-Za-z]/&#39;</span><span class="p">,</span> <span class="nv">$posText</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nv">$posText</span> <span class="o">=</span> <span class="nx">explode</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span> <span class="nx">str_replace</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\r</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span> <span class="nv">$posText</span><span class="p">));</span>
+                <span class="nv">$posText</span> <span class="o">=</span> <span class="nx">array_filter</span><span class="p">(</span><span class="nv">$posText</span><span class="p">);</span>
+                <span class="nv">$return</span> <span class="o">=</span> <span class="nx">array_merge</span><span class="p">(</span><span class="nv">$return</span><span class="p">,</span> <span class="nv">$posText</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1">//检测结束标记
+</span><span class="c1"></span>        <span class="nv">$str</span> <span class="o">=</span> <span class="nx">substr</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="nv">$pos</span><span class="p">);</span>
+        <span class="nv">$startPos</span> <span class="o">=</span> <span class="nx">strpos</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$startPos</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$str</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">ctype_space</span><span class="p">(</span><span class="nv">$str</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">preg_match</span><span class="p">(</span><span class="s1">&#39;/[\x7f-\xff_A-Za-z]/&#39;</span><span class="p">,</span> <span class="nv">$str</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nv">$text</span> <span class="o">=</span> <span class="nx">explode</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span> <span class="nx">str_replace</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\r</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span> <span class="nv">$str</span><span class="p">));</span>
+                <span class="nv">$text</span> <span class="o">=</span> <span class="nx">array_filter</span><span class="p">(</span><span class="nv">$text</span><span class="p">);</span>
+                <span class="nv">$return</span> <span class="o">=</span> <span class="nx">array_merge</span><span class="p">(</span><span class="nv">$return</span><span class="p">,</span> <span class="nv">$text</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="nv">$return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">//递归处理文本字符
+</span><span class="c1"></span>        <span class="nv">$str</span> <span class="o">=</span> <span class="nx">substr</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="nv">$startPos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="nv">$endPos</span> <span class="o">=</span> <span class="nx">strpos</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="s1">&#39;&lt;&#39;</span><span class="p">);</span>
+        <span class="nv">$text</span> <span class="o">=</span> <span class="nx">substr</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">$endPos</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$text</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">ctype_space</span><span class="p">(</span><span class="nv">$text</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">preg_match</span><span class="p">(</span><span class="s1">&#39;/[\x7f-\xff_A-Za-z]/&#39;</span><span class="p">,</span> <span class="nv">$text</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nv">$text</span> <span class="o">=</span> <span class="nx">explode</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span> <span class="nx">str_replace</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\r</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span> <span class="nv">$text</span><span class="p">));</span>
+            <span class="nv">$text</span> <span class="o">=</span> <span class="nx">array_filter</span><span class="p">(</span><span class="nv">$text</span><span class="p">);</span>
+            <span class="nv">$return</span> <span class="o">=</span> <span class="nx">array_merge</span><span class="p">(</span><span class="nv">$return</span><span class="p">,</span> <span class="nv">$text</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nv">$resolve</span> <span class="o">=</span> <span class="nx">self</span><span class="o">::</span><span class="na">resolveHtml</span><span class="p">(</span><span class="nx">substr</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="nv">$endPos</span><span class="p">));</span>
+
+        <span class="k">return</span> <span class="nv">$resolve</span> <span class="o">?</span> <span class="nx">array_merge</span><span class="p">(</span><span class="nv">$return</span><span class="p">,</span> <span class="nv">$resolve</span><span class="p">)</span> <span class="o">:</span> <span class="nv">$return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**
+</span><span class="sd">     * 还原回标签
+</span><span class="sd">     * @param string $str  文本
+</span><span class="sd">     * @param array $resolve  解析出的纯字符数组
+</span><span class="sd">     * @param array $translate 纯字符翻译后的数组
+</span><span class="sd">     * @return string 拼装翻译后的文本
+</span><span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">resolveBack</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="nv">$resolve</span><span class="p">,</span> <span class="nv">$translate</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$resolve</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$str</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nv">$result</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$resolve</span> <span class="k">as</span> <span class="nv">$key</span><span class="o">=&gt;</span><span class="nv">$item</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">//$str = str_replace($item, $translate[$key], $str);
+</span><span class="c1"></span>
+            <span class="c1">//非贪婪匹配替换
+</span><span class="c1"></span>            <span class="nv">$pos</span> <span class="o">=</span> <span class="nx">strpos</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="nv">$item</span><span class="p">)</span> <span class="o">+</span> <span class="nx">mb_strlen</span><span class="p">(</span><span class="nv">$item</span><span class="p">);</span>
+            <span class="nv">$prefixStr</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">$pos</span><span class="p">);</span> <span class="c1">//记录需要替换的字符串
+</span><span class="c1"></span>            <span class="nv">$str</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="nv">$pos</span><span class="p">);</span> <span class="c1">//记录剩余字符串
+</span><span class="c1"></span>            <span class="nv">$prefixStr</span> <span class="o">=</span> <span class="nx">str_replace</span><span class="p">(</span><span class="nv">$item</span><span class="p">,</span> <span class="nv">$translate</span><span class="p">[</span><span class="nv">$key</span><span class="p">],</span> <span class="nv">$prefixStr</span><span class="p">);</span>
+            <span class="nv">$result</span> <span class="o">.=</span>  <span class="nv">$prefixStr</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nv">$result</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://baike.baidu.com/item/%E5%86%85%E9%83%A8%E9%93%BE%E6%8E%A5">内部链接作用</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-02-18
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/seo/">seo</a>
+          <a href="/tags/php/">php</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/mysql-ji-chu-jia-gou-jie-shao/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">MySQL基础架构介绍</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/fen-bu-shi-suo/">
+            <span class="next-text nav-default">分布式锁</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

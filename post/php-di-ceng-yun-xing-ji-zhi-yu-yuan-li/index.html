@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>PHP底层运行机制与原理 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="PHP设计理念及特点 多进程模型：不同请求之间，互补干涉，保证一个请求挂掉不会影响整体服务。 弱类型语言：变量类型并不是一开始就确当不变，运行中" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/php-di-ceng-yun-xing-ji-zhi-yu-yuan-li/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="PHP底层运行机制与原理" />
+<meta property="og:description" content="PHP设计理念及特点 多进程模型：不同请求之间，互补干涉，保证一个请求挂掉不会影响整体服务。 弱类型语言：变量类型并不是一开始就确当不变，运行中" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/php-di-ceng-yun-xing-ji-zhi-yu-yuan-li/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-06-04T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-06-04T00:00:00+00:00" />
+
+<meta itemprop="name" content="PHP底层运行机制与原理">
+<meta itemprop="description" content="PHP设计理念及特点 多进程模型：不同请求之间，互补干涉，保证一个请求挂掉不会影响整体服务。 弱类型语言：变量类型并不是一开始就确当不变，运行中"><meta itemprop="datePublished" content="2020-06-04T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-06-04T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1524">
+<meta itemprop="keywords" content="php," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PHP底层运行机制与原理"/>
+<meta name="twitter:description" content="PHP设计理念及特点 多进程模型：不同请求之间，互补干涉，保证一个请求挂掉不会影响整体服务。 弱类型语言：变量类型并不是一开始就确当不变，运行中"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">PHP底层运行机制与原理</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-06-04 </span>
+        <div class="post-category">
+            <a href="/categories/php/"> php </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#php设计理念及特点">PHP设计理念及特点</a></li>
+            <li><a href="#php核心架构">PHP核心架构</a></li>
+            <li><a href="#php执行流程">PHP执行流程</a></li>
+            <li><a href="#zend-引擎介绍">ZEND 引擎介绍</a></li>
+            <li><a href="#参考">参考</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="php设计理念及特点">PHP设计理念及特点</h3>
+<ul>
+<li>多进程模型：不同请求之间，互补干涉，保证一个请求挂掉不会影响整体服务。</li>
+<li>弱类型语言：变量类型并不是一开始就确当不变，运行中才会确定并可能发生隐式或显示的类型转换。web开发方便、高效。</li>
+<li>引擎（Zend）+ 组件（ext）的模式，降低内部耦合。</li>
+<li>中间层（sapi），隔绝web server 和 php。</li>
+</ul>
+<h3 id="php核心架构">PHP核心架构</h3>
+<p>从上到下四层体系
+<figure><img src="/resources/images/php/php_module.png" width="60%"/>
+</figure>
+</p>
+<ul>
+<li>
+<p>Zend引擎：PHP内核部分，将PHP代码翻译（词法、语法解析）为可执行opcode的处理并实现相应的处理方法、实现基本数据接口（hashtable、oo）
+、内存分配及管理、提供了相应的API方法供外部调用，是一切的核心，所有外围功能围绕Zend实现。</p>
+</li>
+<li>
+<p>Extension：围绕Zend引擎，通过组件方式提供各种基础服务，常见的各种内置函数、标准库都是通过extension来实现。</p>
+</li>
+<li>
+<p>SAPI：全称是Server Application Programming Interface服务端应用编程接口，SAPI通过一系列钩子函数，使得PHP可以和外围交互数据。
+SAPI将PHP本身和上层应用解耦隔离，PHP可以不用考虑如何针对不同应用进行兼容，而应用本身也可以针对自己的特点实现不同的处理方式。</p>
+<ul>
+<li>apache2handler：以apache作为webserver，采用mod_PHP模式运行时候的处理方式。</li>
+<li>cgi：webserver和PHP直接的另一种交互方式，fastcgi协议，也是异步webserver所唯一支持的方式。</li>
+<li>cli：命令行调用模式。</li>
+</ul>
+</li>
+<li>
+<p>上层应用：编写的PHP程序，通过不同的SAPI方式得到各种各样的应用模式。</p>
+</li>
+</ul>
+<h3 id="php执行流程">PHP执行流程</h3>
+<p><figure><img src="/resources/images/php/php_exec.png" width="40%"/>
+</figure>
+
+PHP实现了一个典型的动态语言执行过程：拿到一段代码后，经过词法分析、语法解析等阶段后，
+源程序会被翻译成一个个指令（opcodes），然后ZEND虚拟机顺序执行这些指令完成操作。</p>
+<p>执行的核心是opcode指令。opcode是PHP程序执行最基本的单位</p>
+<h3 id="zend-引擎介绍">ZEND 引擎介绍</h3>
+<p>Zend引擎作为PHP内核，经典设计机制介绍：</p>
+<ul>
+<li>实现hashTable数据结构
+<ul>
+<li>数组</li>
+<li>函数符号表、全部变量基于hashTable来实现</li>
+<li>双向链表，提供正向、反向遍历数组的功能</li>
+</ul>
+</li>
+<li>散列结构，典型的hash表模型
+<ul>
+<li>通过链表别的方式来解决冲突</li>
+<li>hash表数目满了，本身以2倍的方式扩容</li>
+</ul>
+</li>
+<li>双向链表
+<ul>
+<li>Zend hash table 通过一个链表结构，实现元素的线性遍历</li>
+<li>不使用单向链表，目的就是快速删除，避免遍历</li>
+</ul>
+</li>
+<li>关联数组
+<ul>
+<li>hashTable应用</li>
+<li>nKeyLength标识key长度来快速判定，空间换时间，<code>key-&gt;value</code>快速查找时</li>
+</ul>
+</li>
+</ul>
+<h4 id="php变量实现原理">PHP变量实现原理</h4>
+<h5 id="php变量管理-引用计数和写时拷贝">PHP变量管理-引用计数和写时拷贝</h5>
+<p>在进行赋值操作时，zend将变量指向相同的zval同时<code>ref_count++</code>，在unset操作时，对应的<code>ref_count-1</code>。只有<code>ref_count</code>减为0时才会真正执行销毁操作。
+如果是引用赋值，则zend会修改<code>is_ref</code>为1。</p>
+<h5 id="php局部变量和全局变量的实现">PHP局部变量和全局变量的实现</h5>
+<p>两个符号表(symbol_table和 active_symbol_table)，其中前者用来维护全局变量。后者是一个指针，指向当前活动的变量符号表，当程序进入到某个函数中时，
+zend 就会为它分配一个符号表x同时将active_symbol_table指向a。通过这样的方式实现全局、局部变量的区分。</p>
+<p>获取变量值：PHP的符号表是通过hash_table实现的，对于每个变量都分配唯一标识，获取的时候根据标识从表中找到相应zval返回。</p>
+<p>函数中使用全局变量：在函数中，我们可以通过显式申明global来使用全局变量。在active_symbol_table中创建symbol_table中同名变量的引用（引用变量的值要更新大家会一起更新），如果symbol_table中没有同名变量则会先创建。</p>
+<h3 id="参考">参考</h3>
+<p><a href="https://www.laruence.com/2018/04/08/3170.html">https://www.laruence.com/2018/04/08/3170.html</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-06-04
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/php/">php</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/php-chang-yong-suan-fa/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">PHP常用算法</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/redis-da-jian-cluster/">
+            <span class="next-text nav-default">Redis搭建cluster</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

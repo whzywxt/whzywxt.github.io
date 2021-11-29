@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java on 小叨笔记</title>
+    <link>https://www.stormwan.com/tags/java/</link>
+    <description>Recent content in java on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 25 Jun 2016 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>安装Java</title>
+      <link>https://www.stormwan.com/post/an-zhuang-java/</link>
+      <pubDate>Sat, 25 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/an-zhuang-java/</guid>
+      <description>安装Java 1、到 Sun 的官网下载 http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html 选择 accept license ，然后选择适合自己机型的JDK下载。 2、解压文件，修改文件名 1 2 3 4 $ sudo mkdir /usr/lib/jvm $ sudo tar zxvf jdk-8u91-linux-x64.tar.gz -C /usr/lib/jvm $ cd /usr/lib/jvm $ sudo</description>
+    </item>
+    
+  </channel>
+</rss>

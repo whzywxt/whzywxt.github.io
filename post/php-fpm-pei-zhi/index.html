@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>php-fpm配置 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="转 php-fpm配置 http://www.cnblogs.com/xiangxiaodong/p/3493039.html php 5.3.6 中 php-fpm 配置 成 服务启动 从php5.3.3开始 源码中开始包含 php-fpm，不用专门再打补丁了，只需要解开源码直接con" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/php-fpm-pei-zhi/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="php-fpm配置" />
+<meta property="og:description" content="转 php-fpm配置 http://www.cnblogs.com/xiangxiaodong/p/3493039.html php 5.3.6 中 php-fpm 配置 成 服务启动 从php5.3.3开始 源码中开始包含 php-fpm，不用专门再打补丁了，只需要解开源码直接con" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/php-fpm-pei-zhi/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2016-01-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-01-11T00:00:00+00:00" />
+
+<meta itemprop="name" content="php-fpm配置">
+<meta itemprop="description" content="转 php-fpm配置 http://www.cnblogs.com/xiangxiaodong/p/3493039.html php 5.3.6 中 php-fpm 配置 成 服务启动 从php5.3.3开始 源码中开始包含 php-fpm，不用专门再打补丁了，只需要解开源码直接con"><meta itemprop="datePublished" content="2016-01-11T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2016-01-11T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3182">
+<meta itemprop="keywords" content="lnmp," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="php-fpm配置"/>
+<meta name="twitter:description" content="转 php-fpm配置 http://www.cnblogs.com/xiangxiaodong/p/3493039.html php 5.3.6 中 php-fpm 配置 成 服务启动 从php5.3.3开始 源码中开始包含 php-fpm，不用专门再打补丁了，只需要解开源码直接con"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">php-fpm配置</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-01-11 </span>
+        <div class="post-category">
+            <a href="/categories/web/"> web </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#php-fpm配置文件参数">php-fpm配置文件参数</a></li>
+            <li><a href="#php低于53版本">PHP低于5.3版本</a></li>
+            <li><a href="#php高于53版本">PHP高于5.3版本</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>转 php-fpm配置
+<a href="http://www.cnblogs.com/xiangxiaodong/p/3493039.html">http://www.cnblogs.com/xiangxiaodong/p/3493039.html</a></p>
+</blockquote>
+<p>php 5.3.6 中 php-fpm 配置 成 服务启动</p>
+<p>从php5.3.3开始 源码中开始包含 php-fpm，不用专门再打补丁了，只需要解开源码直接configure，
+关于php-fpm的编译参数有 –enable-fpm –with-fpm-user=www –with-fpm-group=www –with-libevent-dir=libevent位置。</p>
+<p>这个php-fpm 不再支持 php-fpm 补丁具有的 /usr/local/php/sbin/php-fpm (start|stop|reload)等命令，需要使用信号控制：</p>
+<p>master进程可以理解以下信号</p>
+<p>SIGINT, SIGTERM 立刻终止
+SIGQUIT 平滑终止
+SIGUSR1 重新打开日志文件
+SIGUSR2 平滑重载所有worker进程并重新载入配置和二进制模块</p>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># php-fpm 关闭：</span>
+<span class="nb">kill</span> -SIGINT <span class="sb">`</span>cat /Data/apps/php/var/run/php-fpm.pid<span class="sb">`</span>
+
+<span class="c1"># php-fpm 重启：</span>
+<span class="nb">kill</span> -SIGUSR2 <span class="sb">`</span>cat /Data/apps/php/var/run/php-fpm.pid<span class="sb">`</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>其次配置文件不再使用的xml 格式，改为了INI，但是配置参数几乎和以前一样，可参照xml格式的格式配置。</p>
+<hr>
+<p>补充内容php 5.3.6 中 php-fpm 配置 成 服务启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cp -f /tools/php-5.3.6/sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
+php-fpm的启动：
+##vim /usr/local/webserver/php/etc/php-fpm.conf
+php-fpm.pid 目录必须是：/usr/local/webserver/php/var/run/php-fpm.pid
+ 
+chmod 755 /etc/init.d/php-fpm
+/etc/init.d/php-fpm start
+/sbin/chkconfig --add php-fpm (添加到开机服务列表)
+/sbin/chkconfig php-fpm on
+ 
+php-fpm的启动、停止和重启：
+/etc/init.d/php-fpm start
+/etc/init.d/php-fpm stop
+ 
+/etc/init.d/php-fpm reload
+ 
+启动效果如下：
+ 
+Hai_ISD_7_9_Cent56_64:/usr/local/webserver/php/etc#service php-fpm start
+Starting php-fpm  done
+Hai_ISD_7_9_Cent56_64:/usr/local/webserver/php/etc#service php-fpm stop
+Gracefully shutting down php-fpm . done
+Hai_ISD_7_9_Cent56_64:/usr/local/webserver/php/etc#service php-fpm start
+Starting php-fpm  done
+Hai_ISD_7_9_Cent56_64:/usr/local/webserver/php/etc#service php-fpm reload
+Reload service php-fpm  done
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="php-fpm配置文件参数">php-fpm配置文件参数</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="na">/usr/local/php/etc/php-fpm.conf</span>
+ 
+<span class="na">pid</span> <span class="o">=</span> <span class="s">run/php-fpm.pid</span>
+<span class="na">pid设置，默认在安装目录中的var/run/php-fpm.pid，建议开启</span>
+ 
+<span class="na">error_log</span> <span class="o">=</span> <span class="s">log/php-fpm.log</span>
+<span class="na">错误日志，默认在安装目录中的var/log/php-fpm.log</span>
+ 
+<span class="na">log_level</span> <span class="o">=</span> <span class="s">notice</span>
+<span class="na">错误级别. 可用级别为: alert（必须立即处理）, error（错误情况）, warning（警告情况）, notice（一般重要信息）, debug（调试信息）. 默认: notice.</span>
+ 
+<span class="na">emergency_restart_threshold</span> <span class="o">=</span> <span class="s">60</span>
+<span class="na">emergency_restart_interval</span> <span class="o">=</span> <span class="s">60s</span>
+<span class="na">表示在emergency_restart_interval所设值内出现SIGSEGV或者SIGBUS错误的php-cgi进程数如果超过emergency_restart_threshold个，php-fpm就会优雅重启。这两个选项一般保持默认值。</span>
+ 
+<span class="na">process_control_timeout</span> <span class="o">=</span> <span class="s">0</span>
+<span class="na">设置子进程接受主进程复用信号的超时时间. 可用单位: s(秒), m(分), h(小时), 或者 d(天) 默认单位: s(秒). 默认值: 0.</span>
+ 
+<span class="na">daemonize</span> <span class="o">=</span> <span class="s">yes</span>
+<span class="na">后台执行fpm,默认值为yes，如果为了调试可以改为no。</span>
+ 
+<span class="na">在FPM中，可以使用不同的设置来运行多个进程池。 这些设置可以针对每个进程池单独设置。</span>
+ 
+<span class="na">listen</span> <span class="o">=</span> <span class="s">127.0.0.1:9000</span>
+<span class="na">fpm监听端口，即nginx中php处理的地址，一般默认值即可。</span>
+<span class="na">可用格式为: ‘ip:port’, ‘port’, ‘/path/to/unix/socket’. 每个进程池都需要设置.</span>
+ 
+<span class="na">listen.backlog</span> <span class="o">=</span> <span class="s">-1</span>
+<span class="na">backlog数，-1表示无限制，由操作系统决定，此行注释掉就行。backlog含义参考：</span>
+ 
+<span class="na">listen.allowed_clients</span> <span class="o">=</span> <span class="s">127.0.0.1</span>
+<span class="na">允许访问FastCGI进程的IP，设置any为不限制IP，如果要设置其他主机的nginx也能访问这台FPM进程，listen处要设置成本地可被访问的IP。默认值是any。</span>
+<span class="na">每个地址是用逗号分隔. 如果没有设置或者为空，则允许任何服务器请求连接</span>
+ 
+<span class="na">listen.owner</span> <span class="o">=</span> <span class="s">www</span>
+<span class="na">listen.group</span> <span class="o">=</span> <span class="s">www</span>
+<span class="na">listen.mode</span> <span class="o">=</span> <span class="s">0666</span>
+<span class="na">unix socket设置选项，如果使用tcp方式访问，这里注释即可。</span>
+ 
+<span class="na">user</span> <span class="o">=</span> <span class="s">www</span>
+<span class="na">group</span> <span class="o">=</span> <span class="s">www</span>
+<span class="na">启动进程的帐户和组</span>
+ 
+<span class="na">pm</span> <span class="o">=</span> <span class="s">dynamic</span>
+<span class="na">如何控制子进程，选项有static和dynamic。</span>
+<span class="na">如果选择static，则由pm.max_children指定固定的子进程数。</span>
+<span class="na">如果选择dynamic，则由下开参数决定：</span>
+<span class="na">pm.max_children，子进程最大数</span>
+<span class="na">pm.start_servers，启动时的进程数</span>
+<span class="na">pm.min_spare_servers，保证空闲进程数最小值，如果空闲进程小于此值，则创建新的子进程</span>
+<span class="na">pm.max_spare_servers，保证空闲进程数最大值，如果空闲进程大于此值，此进行清理</span>
+<span class="na">对于专用服务器，pm可以设置为static。</span>
+ 
+<span class="na">pm.max_requests</span> <span class="o">=</span> <span class="s">1000</span>
+<span class="na">设置每个子进程重生之前服务的请求数. 对于可能存在内存泄漏的第三方模块来说是非常有用的. 如果设置为 ’0′ 则一直接受请求. 等同于 PHP_FCGI_MAX_REQUESTS 环境变量. 默认值: 0.</span>
+ 
+<span class="na">pm.status_path</span> <span class="o">=</span> <span class="s">/status</span>
+<span class="na">FPM状态页面的网址. 如果没有设置, 则无法访问状态页面. 默认值: none.</span>
+ 
+<span class="na">ping.path</span> <span class="o">=</span> <span class="s">/ping</span>
+<span class="na">FPM监控页面的ping网址. 如果没有设置, 则无法访问ping页面. 该页面用于外部检测FPM是否存活并且可以响应请求. 请注意必须以斜线开头 (/)。</span>
+ 
+<span class="na">ping.response</span> <span class="o">=</span> <span class="s">pong</span>
+<span class="na">用于定义ping请求的返回相应. 返回为 HTTP 200 的 text/plain 格式文本. 默认值: pong.</span>
+ 
+<span class="na">request_terminate_timeout</span> <span class="o">=</span> <span class="s">0</span>
+<span class="na">设置单个请求的超时中止时间. 该选项可能会对php.ini设置中的’max_execution_time’因为某些特殊原因没有中止运行的脚本有用. 设置为 ’0′ 表示 ‘Off’.</span>
+<span class="na">当经常出现502错误时可以尝试更改此选项。</span>
+ 
+<span class="na">request_slowlog_timeout</span> <span class="o">=</span> <span class="s">10s</span>
+<span class="na">当一个请求该设置的超时时间后，就会将对应的PHP调用堆栈信息完整写入到慢日志中. 设置为 ’0′ 表示 ‘Off’</span>
+ 
+<span class="na">slowlog</span> <span class="o">=</span> <span class="s">log/$pool.log.slow</span>
+<span class="na">慢请求的记录日志,配合request_slowlog_timeout使用</span>
+ 
+<span class="na">rlimit_files</span> <span class="o">=</span> <span class="s">1024</span>
+<span class="na">设置文件打开描述符的rlimit限制. 默认值: 系统定义值</span>
+<span class="na">系统默认可打开句柄是1024，可使用 ulimit -n查看，ulimit -n 2048修改。</span>
+ 
+<span class="na">rlimit_core</span> <span class="o">=</span> <span class="s">0</span>
+<span class="na">设置核心rlimit最大限制值. 可用值: ‘unlimited’ 、0或者正整数. 默认值: 系统定义值.</span>
+ 
+<span class="na">chroot</span> <span class="o">=</span>
+<span class="na">启动时的Chroot目录. 所定义的目录需要是绝对路径. 如果没有设置, 则chroot不被使用.</span>
+ 
+<span class="na">chdir</span> <span class="o">=</span>
+<span class="na">设置启动目录，启动时会自动Chdir到该目录. 所定义的目录需要是绝对路径. 默认值: 当前目录，或者/目录（chroot时）</span>
+ 
+<span class="na">catch_workers_output</span> <span class="o">=</span> <span class="s">yes</span>
+<span class="na">重定向运行过程中的stdout和stderr到主要的错误日志文件中. 如果没有设置, stdout 和 stderr 将会根据FastCGI的规则被重定向到 /dev/null . 默认值: 空.</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="php低于53版本">PHP低于5.3版本</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; ?&gt;</span>
+<span class="nt">&lt;configuration&gt;</span>
+
+  All relative paths in this config are relative to php&#39;s install prefix
+
+  <span class="nt">&lt;section</span> <span class="na">name=</span><span class="s">&#34;global_options&#34;</span><span class="nt">&gt;</span>
+
+    Pid file
+    <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;pid_file&#34;</span><span class="nt">&gt;</span>/usr/local/webserver/php/logs/php-fpm.pid<span class="nt">&lt;/value&gt;</span>
+
+    Error log file
+    <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;error_log&#34;</span><span class="nt">&gt;</span>/usr/local/webserver/php/logs/php-fpm.log<span class="nt">&lt;/value&gt;</span>
+
+    Log level
+    <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;log_level&#34;</span><span class="nt">&gt;</span>notice<span class="nt">&lt;/value&gt;</span>
+
+    When this amount of php processes exited with SIGSEGV or SIGBUS ...
+    <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;emergency_restart_threshold&#34;</span><span class="nt">&gt;</span>10<span class="nt">&lt;/value&gt;</span>
+
+    ... in a less than this interval of time, a graceful restart will be initiated.
+    Useful to work around accidental curruptions in accelerator&#39;s shared memory.
+    <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;emergency_restart_interval&#34;</span><span class="nt">&gt;</span>1m<span class="nt">&lt;/value&gt;</span>
+
+    Time limit on waiting child&#39;s reaction on signals from master
+    <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;process_control_timeout&#34;</span><span class="nt">&gt;</span>5s<span class="nt">&lt;/value&gt;</span>
+
+    Set to &#39;no&#39; to debug fpm
+    <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;daemonize&#34;</span><span class="nt">&gt;</span>yes<span class="nt">&lt;/value&gt;</span>
+
+  <span class="nt">&lt;/section&gt;</span>
+
+  <span class="nt">&lt;workers&gt;</span>
+
+    <span class="nt">&lt;section</span> <span class="na">name=</span><span class="s">&#34;pool&#34;</span><span class="nt">&gt;</span>
+
+      Name of pool. Used in logs and stats.
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;name&#34;</span><span class="nt">&gt;</span>default<span class="nt">&lt;/value&gt;</span>
+
+      Address to accept fastcgi requests on.
+      Valid syntax is &#39;ip.ad.re.ss:port&#39; or just &#39;port&#39; or &#39;/path/to/unix/socket&#39;
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;listen_address&#34;</span><span class="nt">&gt;</span>127.0.0.1:9000<span class="nt">&lt;/value&gt;</span>
+
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;listen_options&#34;</span><span class="nt">&gt;</span>
+
+        Set listen(2) backlog
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;backlog&#34;</span><span class="nt">&gt;</span>-1<span class="nt">&lt;/value&gt;</span>
+
+        Set permissions for unix socket, if one used.
+        In Linux read/write permissions must be set in order to allow connections from web server.
+        Many BSD-derrived systems allow connections regardless of permissions.
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;owner&#34;</span><span class="nt">&gt;&lt;/value&gt;</span>
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;group&#34;</span><span class="nt">&gt;&lt;/value&gt;</span>
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;mode&#34;</span><span class="nt">&gt;</span>0666<span class="nt">&lt;/value&gt;</span>
+      <span class="nt">&lt;/value&gt;</span>
+
+      Additional php.ini defines, specific to this pool of workers.
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;php_defines&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;sendmail_path&#34;</span><span class="nt">&gt;</span>/usr/sbin/sendmail -t -i<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;display_errors&#34;</span><span class="nt">&gt;</span>0<span class="nt">&lt;/value&gt;</span>
+      <span class="nt">&lt;/value&gt;</span>
+
+      Unix user of processes
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;user&#34;</span><span class="nt">&gt;</span>www<span class="nt">&lt;/value&gt;</span>
+
+      Unix group of processes
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;group&#34;</span><span class="nt">&gt;</span>www<span class="nt">&lt;/value&gt;</span>
+
+      Process manager settings
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;pm&#34;</span><span class="nt">&gt;</span>
+
+        Sets style of controling worker process count.
+        Valid values are &#39;static&#39; and &#39;apache-like&#39;
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;style&#34;</span><span class="nt">&gt;</span>static<span class="nt">&lt;/value&gt;</span>
+
+        Sets the limit on the number of simultaneous requests that will be served.
+        Equivalent to Apache MaxClients directive.
+        Equivalent to PHP_FCGI_CHILDREN environment in original php.fcgi
+        Used with any pm_style.
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;max_children&#34;</span><span class="nt">&gt;</span>128<span class="nt">&lt;/value&gt;</span>
+
+        Settings group for &#39;apache-like&#39; pm style
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;apache_like&#34;</span><span class="nt">&gt;</span>
+
+          Sets the number of server processes created on startup.
+          Used only when &#39;apache-like&#39; pm_style is selected
+          <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;StartServers&#34;</span><span class="nt">&gt;</span>20<span class="nt">&lt;/value&gt;</span>
+
+          Sets the desired minimum number of idle server processes.
+          Used only when &#39;apache-like&#39; pm_style is selected
+          <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;MinSpareServers&#34;</span><span class="nt">&gt;</span>5<span class="nt">&lt;/value&gt;</span>
+
+          Sets the desired maximum number of idle server processes.
+          Used only when &#39;apache-like&#39; pm_style is selected
+          <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;MaxSpareServers&#34;</span><span class="nt">&gt;</span>35<span class="nt">&lt;/value&gt;</span>
+
+        <span class="nt">&lt;/value&gt;</span>
+
+      <span class="nt">&lt;/value&gt;</span>
+
+      The timeout (in seconds) for serving a single request after which the worker process will be terminated
+      Should be used when &#39;max_execution_time&#39; ini option does not stop script execution for some reason
+      &#39;0s&#39; means &#39;off&#39;
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;request_terminate_timeout&#34;</span><span class="nt">&gt;</span>0s<span class="nt">&lt;/value&gt;</span>
+
+      The timeout (in seconds) for serving of single request after which a php backtrace will be dumped to slow.log file
+      &#39;0s&#39; means &#39;off&#39;
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;request_slowlog_timeout&#34;</span><span class="nt">&gt;</span>0s<span class="nt">&lt;/value&gt;</span>
+
+      The log file for slow requests
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;slowlog&#34;</span><span class="nt">&gt;</span>logs/slow.log<span class="nt">&lt;/value&gt;</span>
+
+      Set open file desc rlimit
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;rlimit_files&#34;</span><span class="nt">&gt;</span>65535<span class="nt">&lt;/value&gt;</span>
+
+      Set max core size rlimit
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;rlimit_core&#34;</span><span class="nt">&gt;</span>0<span class="nt">&lt;/value&gt;</span>
+
+      Chroot to this directory at the start, absolute path
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;chroot&#34;</span><span class="nt">&gt;&lt;/value&gt;</span>
+
+      Chdir to this directory at the start, absolute path
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;chdir&#34;</span><span class="nt">&gt;&lt;/value&gt;</span>
+
+      Redirect workers&#39; stdout and stderr into main error log.
+      If not set, they will be redirected to /dev/null, according to FastCGI specs
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;catch_workers_output&#34;</span><span class="nt">&gt;</span>yes<span class="nt">&lt;/value&gt;</span>
+
+      How much requests each process should execute before respawn.
+      Useful to work around memory leaks in 3rd party libraries.
+      For endless request processing please specify 0
+      Equivalent to PHP_FCGI_MAX_REQUESTS
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;max_requests&#34;</span><span class="nt">&gt;</span>1024<span class="nt">&lt;/value&gt;</span>
+
+      Comma separated list of ipv4 addresses of FastCGI clients that allowed to connect.
+      Equivalent to FCGI_WEB_SERVER_ADDRS environment in original php.fcgi (5.2.2+)
+      Makes sense only with AF_INET listening socket.
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;allowed_clients&#34;</span><span class="nt">&gt;</span>127.0.0.1<span class="nt">&lt;/value&gt;</span>
+
+      Pass environment variables like LD_LIBRARY_PATH
+      All $VARIABLEs are taken from current environment
+      <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;environment&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;HOSTNAME&#34;</span><span class="nt">&gt;</span>$HOSTNAME<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;PATH&#34;</span><span class="nt">&gt;</span>/usr/local/bin:/usr/bin:/bin<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;TMP&#34;</span><span class="nt">&gt;</span>/tmp<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;TMPDIR&#34;</span><span class="nt">&gt;</span>/tmp<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;TEMP&#34;</span><span class="nt">&gt;</span>/tmp<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;OSTYPE&#34;</span><span class="nt">&gt;</span>$OSTYPE<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;MACHTYPE&#34;</span><span class="nt">&gt;</span>$MACHTYPE<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;value</span> <span class="na">name=</span><span class="s">&#34;MALLOC_CHECK_&#34;</span><span class="nt">&gt;</span>2<span class="nt">&lt;/value&gt;</span>
+      <span class="nt">&lt;/value&gt;</span>
+
+    <span class="nt">&lt;/section&gt;</span>
+
+  <span class="nt">&lt;/workers&gt;</span>
+
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="php高于53版本">PHP高于5.3版本</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="k">[global]</span>
+<span class="na">pid</span> <span class="o">=</span> <span class="s">/Data/apps/php/var/run/php-fpm.pid</span>
+<span class="na">error_log</span> <span class="o">=</span> <span class="s">/Data/apps/php/var/log/php-fpm.log</span>
+<span class="na">log_level</span> <span class="o">=</span> <span class="s">notice</span>
+<span class="k">[www]</span>
+<span class="na">listen</span> <span class="o">=</span> <span class="s">127.0.0.1:9000</span>
+<span class="c1">;listen.allowed_clients = 192.168.1.17,127.0.0.1,192.168.1.75</span>
+<span class="na">user</span> <span class="o">=</span> <span class="s">www</span>
+<span class="na">group</span> <span class="o">=</span> <span class="s">www</span>
+<span class="na">pm</span> <span class="o">=</span> <span class="s">static</span>
+<span class="na">pm.max_children</span> <span class="o">=</span> <span class="s">128</span>
+<span class="na">pm.start_servers</span> <span class="o">=</span> <span class="s">20</span>
+<span class="na">pm.min_spare_servers</span> <span class="o">=</span> <span class="s">5</span>
+<span class="na">pm.max_spare_servers</span> <span class="o">=</span> <span class="s">35</span>
+<span class="na">pm.max_requests</span> <span class="o">=</span> <span class="s">1024</span>
+<span class="na">pm.process_idle_timeout</span> <span class="o">=</span> <span class="s">10s</span>
+<span class="na">request_terminate_timeout</span> <span class="o">=</span> <span class="s">30</span>
+<span class="na">request_slowlog_timeout</span> <span class="o">=</span> <span class="s">30s</span>
+<span class="na">slowlog</span> <span class="o">=</span> <span class="s">/Data/apps/php/var/log/php-fpm.log.slow</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-01-11
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/lnmp/">lnmp</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/lnmp-yun-xing-huan-jing-qi-ta-an-zhuang-chu-li/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">LNMP运行环境其它安装处理</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/centos-minimal-chu-shi-hua-she-zhi/">
+            <span class="next-text nav-default">CentOS minimal 初始化设置</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

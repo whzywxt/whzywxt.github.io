@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>虚拟机介绍 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="Local Machine CentOS_6_x64_Origin DEVICE=eth0 HWADDR=&amp;quot;00:0c:29:29:e0:45&amp;quot; 192.168.233.128 CentOS_6_x64_A DEVICE=eth0 HWADDR=&amp;quot;00:0c:29:db:6d:ba&amp;quot; 192.168.233.131 CentOS_6_x64_B DEVICE=eth1 HWADDR=&amp;quot;00:0c:29:1a:ef:b0&amp;quot; 192.168.233.132 CentOS_6_x64_C DEVICE=eth1 HWADDR=&amp;quot;00:0c:29:20:ab:4d&amp;quot; 192.168.233.133 CentOS_6_x64_Origin_Clone DEVICE=eth1 HWADDR=&amp;quot;00:0c:29:79:5a:6b&amp;quot; 192.168.233.134 配置基于IP的虚拟主机 1 2 3 4 5 6 7 8 /sbin/ifconfig eth1:1 192.168.233.137 broadcast 192.168.233.255 netmask 255.255.255.0 up /sbin/route add -host 192.168.233.137 dev eth1:1 /sbin/ifconfig eth1:2 192.168.233.138 broadcast 192.168.233.255 netmask 255.255.255.0 up /sbin/route add -host 192.168.233.138 dev eth1:2 /sbin/ifconfig" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/xu-ni-ji-jie-shao/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="虚拟机介绍" />
+<meta property="og:description" content="Local Machine CentOS_6_x64_Origin DEVICE=eth0 HWADDR=&quot;00:0c:29:29:e0:45&quot; 192.168.233.128 CentOS_6_x64_A DEVICE=eth0 HWADDR=&quot;00:0c:29:db:6d:ba&quot; 192.168.233.131 CentOS_6_x64_B DEVICE=eth1 HWADDR=&quot;00:0c:29:1a:ef:b0&quot; 192.168.233.132 CentOS_6_x64_C DEVICE=eth1 HWADDR=&quot;00:0c:29:20:ab:4d&quot; 192.168.233.133 CentOS_6_x64_Origin_Clone DEVICE=eth1 HWADDR=&quot;00:0c:29:79:5a:6b&quot; 192.168.233.134 配置基于IP的虚拟主机 1 2 3 4 5 6 7 8 /sbin/ifconfig eth1:1 192.168.233.137 broadcast 192.168.233.255 netmask 255.255.255.0 up /sbin/route add -host 192.168.233.137 dev eth1:1 /sbin/ifconfig eth1:2 192.168.233.138 broadcast 192.168.233.255 netmask 255.255.255.0 up /sbin/route add -host 192.168.233.138 dev eth1:2 /sbin/ifconfig" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/xu-ni-ji-jie-shao/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2013-08-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2013-08-29T00:00:00+00:00" />
+
+<meta itemprop="name" content="虚拟机介绍">
+<meta itemprop="description" content="Local Machine CentOS_6_x64_Origin DEVICE=eth0 HWADDR=&quot;00:0c:29:29:e0:45&quot; 192.168.233.128 CentOS_6_x64_A DEVICE=eth0 HWADDR=&quot;00:0c:29:db:6d:ba&quot; 192.168.233.131 CentOS_6_x64_B DEVICE=eth1 HWADDR=&quot;00:0c:29:1a:ef:b0&quot; 192.168.233.132 CentOS_6_x64_C DEVICE=eth1 HWADDR=&quot;00:0c:29:20:ab:4d&quot; 192.168.233.133 CentOS_6_x64_Origin_Clone DEVICE=eth1 HWADDR=&quot;00:0c:29:79:5a:6b&quot; 192.168.233.134 配置基于IP的虚拟主机 1 2 3 4 5 6 7 8 /sbin/ifconfig eth1:1 192.168.233.137 broadcast 192.168.233.255 netmask 255.255.255.0 up /sbin/route add -host 192.168.233.137 dev eth1:1 /sbin/ifconfig eth1:2 192.168.233.138 broadcast 192.168.233.255 netmask 255.255.255.0 up /sbin/route add -host 192.168.233.138 dev eth1:2 /sbin/ifconfig"><meta itemprop="datePublished" content="2013-08-29T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2013-08-29T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1680">
+<meta itemprop="keywords" content="虚拟机," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="虚拟机介绍"/>
+<meta name="twitter:description" content="Local Machine CentOS_6_x64_Origin DEVICE=eth0 HWADDR=&quot;00:0c:29:29:e0:45&quot; 192.168.233.128 CentOS_6_x64_A DEVICE=eth0 HWADDR=&quot;00:0c:29:db:6d:ba&quot; 192.168.233.131 CentOS_6_x64_B DEVICE=eth1 HWADDR=&quot;00:0c:29:1a:ef:b0&quot; 192.168.233.132 CentOS_6_x64_C DEVICE=eth1 HWADDR=&quot;00:0c:29:20:ab:4d&quot; 192.168.233.133 CentOS_6_x64_Origin_Clone DEVICE=eth1 HWADDR=&quot;00:0c:29:79:5a:6b&quot; 192.168.233.134 配置基于IP的虚拟主机 1 2 3 4 5 6 7 8 /sbin/ifconfig eth1:1 192.168.233.137 broadcast 192.168.233.255 netmask 255.255.255.0 up /sbin/route add -host 192.168.233.137 dev eth1:1 /sbin/ifconfig eth1:2 192.168.233.138 broadcast 192.168.233.255 netmask 255.255.255.0 up /sbin/route add -host 192.168.233.138 dev eth1:2 /sbin/ifconfig"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">虚拟机介绍</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2013-08-29 </span>
+        <div class="post-category">
+            <a href="/categories/vmware/"> vmware </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h4 id="local-machine">Local Machine</h4>
+<h6 id="centos_6_x64_origin">CentOS_6_x64_Origin</h6>
+<p><code>DEVICE=eth0</code>
+<code>HWADDR=&quot;00:0c:29:29:e0:45&quot;</code>
+<code>192.168.233.128</code></p>
+<h6 id="centos_6_x64_a">CentOS_6_x64_A</h6>
+<p><code>DEVICE=eth0</code>
+<code>HWADDR=&quot;00:0c:29:db:6d:ba&quot;</code>
+<code>192.168.233.131</code></p>
+<h6 id="centos_6_x64_b">CentOS_6_x64_B</h6>
+<p><code>DEVICE=eth1</code>
+<code>HWADDR=&quot;00:0c:29:1a:ef:b0&quot;</code>
+<code>192.168.233.132</code></p>
+<h6 id="centos_6_x64_c">CentOS_6_x64_C</h6>
+<p><code>DEVICE=eth1</code>
+<code>HWADDR=&quot;00:0c:29:20:ab:4d&quot;</code>
+<code>192.168.233.133</code></p>
+<h6 id="centos_6_x64_origin_clone">CentOS_6_x64_Origin_Clone</h6>
+<p><code>DEVICE=eth1</code>
+<code>HWADDR=&quot;00:0c:29:79:5a:6b&quot;</code>
+<code>192.168.233.134</code></p>
+<h4 id="配置基于ip的虚拟主机">配置基于IP的虚拟主机</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/sbin/ifconfig eth1:1 192.168.233.137 broadcast 192.168.233.255 netmask 255.255.255.0 up
+/sbin/route add -host 192.168.233.137 dev eth1:1
+
+/sbin/ifconfig eth1:2 192.168.233.138 broadcast 192.168.233.255 netmask 255.255.255.0 up
+/sbin/route add -host 192.168.233.138 dev eth1:2
+
+/sbin/ifconfig eth1:3 192.168.233.139 broadcast 192.168.233.255 netmask 255.255.255.0 up
+/sbin/route add -host 192.168.233.139 dev eth1:3
+</code></pre></td></tr></table>
+</div>
+</div><p>查看网站系统 <a href="http://www.netcraft.com">www.netcraft.com</a>
+查看运行最快系统 <a href="http://www.top500.org">www.top500.org</a></p>
+<p>Linux硬盘分区
+sd sda sdb sdc
+hd hda hdb &hellip;</p>
+<p>必须划分的分区
+1.根分区 /
+2.swap分区</p>
+<p>/dev 设备文件device</p>
+<p>root 根目录
+/home/alex</p>
+<p>vware workstation 9 虚拟机 安装centos5.5
+root password[centos5.5]</p>
+<p>电影特效 &ndash; 阿凡达 科学计算
+嵌入式应用 &ndash; 生物识别 智能卡系统 掌上电脑 信息家电 路由器 机顶盒 数码相机 MP4</p>
+<p>在Windows下用虚拟机搭建Linux系统,学习Linux</p>
+<p>Linux提示信息英文,最新资料都是英文的
+解决问题的智慧
+留意系统的提示信息
+尝试自己检查或试验以找到答案</p>
+<p>系统帮助 文档 示例 查找</p>
+<p>Linux安装
+VMware是一个虚拟PC的软件,可以在现有的操作系统上模拟出一个新的硬件环境,相当于模拟一台新的PC,以此实现一台机器上真正同时运行两个以上的操作系统.
+VMware特点:
+不需要分区或重新开机就能在同一台PC上使用两种以上的操作系统
+本机系统可以与虚拟机系统网络通信
+可以设定并且随时修改虚拟机操作系统的硬件环境</p>
+<p>使用VMware Workstation安装Linux虚拟机大概步骤
+准备:创建一个新的虚拟机 &hellip;
+修改一些硬件设置:设置网络连接模式 内存大小 &hellip;
+也可以增加一些硬件配置
+1.分区(创建自定义的分区结构)
+sd sda sdb sdc &hellip; 硬盘
+hd hda hdb hdc &hellip;
+空闲空间(20GB)来分区
+管理员 root
+根分区 /
+必须划分的分区:
+1)根分区
+挂载点 /
+文件系统类型 ext3
+分区大小 5000MB
+2)swap分区(虚拟内存)
+swap分区不需要挂载点(图形界面安装选择后,挂载点不可选)
+文件系统类型 swap
+分区大小 512MB (物理内存2倍)
+划分以上两个就可以用了
+3)暂时不把/user分区单独划分出来
+可以把 /user 单独划分出来(也可以不分)
+4)web分区 用来存放网站的
+挂载点 /web
+文件系统类型 /ext3
+分区大小 5000MB
+5)test分区 用来做练习
+挂载点 /test
+文件系统 /ext3
+分区大小 1000MB
+2.网络设置 Bridge NAT Host-Only
+linux主机
+IP:192.168.0.10
+MASK:255.255.255.0
+windows主机找到虚拟网卡
+VMware Network adapter VMnet1(host-only)
+IP:192.168.0.11
+子掩网码:255.255.255.0
+重启linux就可以通信了,用SSH远程连接,输入linux的IP地址:192.168.0.10,用户名:root,密码:***;</p>
+<p>Vware Workstation 虚拟网卡(来源互联网)
+小编刚接触系统集成的时候，因为身边资源有限，所以只能在 VMware 虚拟环境上做一些测试。现在最新 VMware Workstation V8 已经发布了，此次更新不仅在原版安装文件上进行精简，保持了原有的品质，而且完美支持 32 位和 64 位系统，在功能和易用性方面有了很大提升。
+　　虚拟机安装完成之后，VMware 会在主机上虚拟出两块网卡来，在 windows2003 的网络属性中可以看到多了 VMware Network adapter VMnet1(host-only)和 VMware Network adapter VMnet8(NAT)，这两块网卡就是虚拟机与主机通讯的桥梁，我们可以想象为主机上的一块网卡，是与虚拟机相连的。
+　　host-only：模式相当于网卡直连
+　　bridged：模式相当于通过 hub
+　　NAT：相当于通过路由。
+　　VMware Workstation 里有以下几种网卡模式：
+　　1. birdged：桥接模式
+　　VMware Workstation 上的虚拟机就像是网络上的一台独立主机，可以访问网络上任何一台机器，有自己独立的 IP，甚至可以通过 gateway，route 访问其他网络上的机器。
+　　2. NAT：地址转换模式
+　　VMware Workstation 上的虚拟机可以与主机共享一个 IP
+　　3. host-only：主机模式
+　　VMware Workstation 上的只能与主机通讯(就相当于两台机器通过双绞线互联)
+　　4. custom：自定义模式
+　　小编试着使用了 host-only 和 bridged 两种方式，以下分别说明：
+　　一、在 VMware Workstation 中将网络设置为 host-only
+　　1. 在虚拟机 linux 系统上设置网卡的IP为 192.168.0.10
+　　2. 在宿主机 windows2003 中设置 VMware Network adapter VMnet1(host-only)的 IP 为 192.168.0.11
+　　3. 将 windows2003 和 linux 重启，便可以通信了
+　　二、在 VMware Workstation 中将网络设置成 bridged
+　　1. 在虚拟机 linux 系统上设置网卡的IP为 192.168.0.10
+　　2. 在宿主机 windows2003 中设置物理网卡 IP 为192.168.0.11
+　　3. 将 windows2003 和 linux 重启，便可以通信了
+　　在 bridged 模式北街还测试了同一网段中的其它服务器也可以访问 VMware Workstation 的 linux 系统，同样 linux 也可以访问局域网的其它服务器。
+　　看到这里，我相信各位可以把 VMware Workstation 的网络搞定了。
+注：更多请关注电脑教程栏目，三联电脑办公群:189034526欢迎你的加入
+来源： <a href="http://www.3lian.com/edu/2013/05-13/69611.html">http://www.3lian.com/edu/2013/05-13/69611.html</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2013-08-29
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">虚拟机</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux-chang-yong-ming-ling/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux常用命令</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Go语言环境搭建 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="Go语言环境搭建 1. 安装Git 因为golang是通过git来管理远程包的，所以我们首先要安装git，下载地址：http://www.git-s" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/go-yu-yan-huan-jing-da-jian/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Go语言环境搭建" />
+<meta property="og:description" content="Go语言环境搭建 1. 安装Git 因为golang是通过git来管理远程包的，所以我们首先要安装git，下载地址：http://www.git-s" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/go-yu-yan-huan-jing-da-jian/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2016-04-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-04-25T00:00:00+00:00" />
+
+<meta itemprop="name" content="Go语言环境搭建">
+<meta itemprop="description" content="Go语言环境搭建 1. 安装Git 因为golang是通过git来管理远程包的，所以我们首先要安装git，下载地址：http://www.git-s"><meta itemprop="datePublished" content="2016-04-25T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2016-04-25T00:00:00+00:00" />
+<meta itemprop="wordCount" content="951">
+<meta itemprop="keywords" content="golang," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go语言环境搭建"/>
+<meta name="twitter:description" content="Go语言环境搭建 1. 安装Git 因为golang是通过git来管理远程包的，所以我们首先要安装git，下载地址：http://www.git-s"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Go语言环境搭建</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-04-25 </span>
+        <div class="post-category">
+            <a href="/categories/go/"> go </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#go语言环境搭建">Go语言环境搭建</a>
+          <ul>
+            <li><a href="#1-安装git">1. 安装Git</a></li>
+            <li><a href="#2-安装golang">2. 安装Golang</a></li>
+            <li><a href="#3-安装sublime-text3">3. 安装Sublime Text3</a></li>
+            <li><a href="#4-安装gosublime插件">4. 安装GoSublime插件</a></li>
+            <li><a href="#5-离线使用指南">5. 离线使用指南</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="go语言环境搭建">Go语言环境搭建</h2>
+<h3 id="1-安装git">1. 安装Git</h3>
+<p>因为golang是通过git来管理远程包的，所以我们首先要安装git，下载地址：http://www.git-scm.com/download/。
+git安装比较简单，直接下一步即可(在Windows Explorer integration选项中将“Git Bash here”和“Git GUI here”打对勾)，需要了解具体安装的可以看这里。</p>
+<h3 id="2-安装golang">2. 安装Golang</h3>
+<ul>
+<li>
+<p>首先到https://golang.org/dl/选择适合你系统的安装包，（墙内：http://golangtc.com/download）。</p>
+</li>
+<li>
+<p>我这里选择的是：go1.6.2.windows-386.msi，下载完成安装到指定目录即可。我这里是(E:\Go)。</p>
+</li>
+<li>
+<p>安装完成后环境变量已经自动设置好了，可以呼出cmd命令行输入命令查看</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="p">&gt;</span> go env
+<span class="k">set</span> <span class="nv">GOARCH</span><span class="p">=</span>386
+<span class="k">set</span> <span class="nv">GOBIN</span><span class="p">=</span>E:\Go\bin
+<span class="k">set</span> <span class="nv">GOEXE</span><span class="p">=</span>.exe
+<span class="k">set</span> <span class="nv">GOHOSTARCH</span><span class="p">=</span>386
+<span class="k">set</span> <span class="nv">GOHOSTOS</span><span class="p">=</span>windows
+<span class="k">set</span> <span class="nv">GOOS</span><span class="p">=</span>windows
+<span class="k">set</span> <span class="nv">GOPATH</span><span class="p">=</span>E:\MyGo\
+<span class="k">set</span> <span class="nv">GORACE</span><span class="p">=</span>
+<span class="k">set</span> <span class="nv">GOROOT</span><span class="p">=</span>E:\Go
+<span class="k">set</span> <span class="nv">GOTOOLDIR</span><span class="p">=</span>E:\Go\pkg\tool\windows_386
+<span class="k">set</span> <span class="nv">GO15VENDOREXPERIMENT</span><span class="p">=</span>1
+<span class="k">set</span> <span class="nv">CC</span><span class="p">=</span>gcc
+<span class="k">set</span> <span class="nv">GOGCCFLAGS</span><span class="p">=</span>-m32 -mthreads -fmessage-length=0
+<span class="k">set</span> <span class="nv">CXX</span><span class="p">=</span>g++
+<span class="k">set</span> <span class="nv">CGO_ENABLED</span><span class="p">=</span>1
+</code></pre></td></tr></table>
+</div>
+</div><p><em>可以看到，已经出现go命令了。如果你的不能出现，那可能是环境变量设置的问题。
+进入我的电脑 -&gt; 高级设置 -&gt; 环境变量查看下，GOROOT变量是否存在，以及Path变量中是否也设置了GOROOT。没有的话，新增一个GOROOT变量，路径则输入你刚刚安装完成后Go的根目录，如我的是：E:\Go\。然后编辑Path变量，在最后面新增&quot;;%GOROOT%bin&quot;。</em></p>
+<ul>
+<li>go命令依赖一个环境变量：GOPATH，这不是Go的安装目录，而是你的工作（工程）目录（你的代码都会在该目录下）。GOPATH可以有多个，windows以分号(;)进行区分，Linux系统是冒号(:)，当有多个GOPATH时，默认会将go get的内容放在第一个目录下。这里我们新建一个GOPATH变量，以我的为例：E:\MyGo。</li>
+</ul>
+<h3 id="3-安装sublime-text3">3. 安装Sublime Text3</h3>
+<p>具体参见Sublime Text基础配置</p>
+<h3 id="4-安装gosublime插件">4. 安装GoSublime插件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">GoSublime安装完成后</span><span class="err">，</span><span class="nx">Preferences</span> <span class="o">-</span><span class="p">&gt;</span> <span class="kn">package</span> <span class="nx">settings</span> <span class="o">-</span><span class="p">&gt;</span> <span class="nx">GoSublime</span> <span class="o">-</span><span class="p">&gt;</span> <span class="nx">Settings</span> <span class="o">-</span> <span class="nx">Uesrs需要配置下GOPATH</span><span class="err">，</span><span class="nx">GOROOT</span>
+
+<span class="p">{</span>
+    <span class="s">&#34;env&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#34;GOPATH&#34;</span><span class="p">:</span> <span class="s">&#34;E:/MyGo&#34;</span><span class="p">,</span>
+        <span class="s">&#34;GOROOT&#34;</span><span class="p">:</span> <span class="s">&#34;E:/Go&#34;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="5-离线使用指南">5. 离线使用指南</h3>
+<p>离线使用时所有代码样例均在你的机器上编译和运行，所以速度会更快。</p>
+<p>要离线使用 Go 指南，请先在本地安装 Go 然后使用 go get 命令安装 gotour-zh:</p>
+<p><code>go get github.com/Go-zh/tour/gotour</code></p>
+<p>然后运行得到的 gotour 程序就可以了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cd $GOPATH/bin
+./gotour
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-04-25
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/design-patterns/guan-cha-zhe-mo-shi/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">观察者模式</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/nginx-1.5.2-php-5.5.1-mysql-5.6.10-zai-centos-xia-de-bian-yi-an-zhuang/">
+            <span class="next-text nav-default">Nginx 1.5.2 &#43; PHP 5.5.1 &#43; MySQL 5.6.10 在 CentOS 下的编译安装</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

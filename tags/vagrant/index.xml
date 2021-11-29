@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vagrant on 小叨笔记</title>
+    <link>https://www.stormwan.com/tags/vagrant/</link>
+    <description>Recent content in vagrant on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 23 Jul 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/tags/vagrant/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vagrant的基本简单使用</title>
+      <link>https://www.stormwan.com/post/vagrant-de-ji-ben-jian-dan-shi-yong/</link>
+      <pubDate>Sun, 23 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/vagrant-de-ji-ben-jian-dan-shi-yong/</guid>
+      <description>一、前言 Vagrant 可以让你使用单一的配置信息来部署一套虚拟环境, 最后打包为一个所谓的 box (就是已经部署好环境的虚拟机器). 你可以手动来安装和配置 box, 也可</description>
+    </item>
+    
+  </channel>
+</rss>

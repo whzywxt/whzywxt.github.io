@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>分布式 on 小叨笔记</title>
+    <link>https://www.stormwan.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F/</link>
+    <description>Recent content in 分布式 on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 13 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>分布式理论、协议及算法相关</title>
+      <link>https://www.stormwan.com/post/fen-bu-shi-li-lun-xie-yi-ji-suan-fa-xiang-guan/</link>
+      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/fen-bu-shi-li-lun-xie-yi-ji-suan-fa-xiang-guan/</guid>
+      <description>CAP定理的含义 分布式系统（distributed system）正变得越来越重要，大型网站几乎都是分布式的。 分布式系统的最大难点，就是各个节</description>
+    </item>
+    
+  </channel>
+</rss>

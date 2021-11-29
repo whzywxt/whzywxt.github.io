@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux系统安装配置 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="解决方案 在Windows7 32位操作系统通过虚拟机来运行Linux 本机已搭建虚拟环境 系统相关准备 Linux系统 CentOS-5.5-i386-bin-DVD.iso 远程登录管理工具 SSHSecureShellClient-3.2.9.exe 虚拟机运行" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/linux-xi-tong-an-zhuang-pei-zhi/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux系统安装配置" />
+<meta property="og:description" content="解决方案 在Windows7 32位操作系统通过虚拟机来运行Linux 本机已搭建虚拟环境 系统相关准备 Linux系统 CentOS-5.5-i386-bin-DVD.iso 远程登录管理工具 SSHSecureShellClient-3.2.9.exe 虚拟机运行" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/linux-xi-tong-an-zhuang-pei-zhi/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2014-02-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2014-02-19T00:00:00+00:00" />
+
+<meta itemprop="name" content="Linux系统安装配置">
+<meta itemprop="description" content="解决方案 在Windows7 32位操作系统通过虚拟机来运行Linux 本机已搭建虚拟环境 系统相关准备 Linux系统 CentOS-5.5-i386-bin-DVD.iso 远程登录管理工具 SSHSecureShellClient-3.2.9.exe 虚拟机运行"><meta itemprop="datePublished" content="2014-02-19T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2014-02-19T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1109">
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux系统安装配置"/>
+<meta name="twitter:description" content="解决方案 在Windows7 32位操作系统通过虚拟机来运行Linux 本机已搭建虚拟环境 系统相关准备 Linux系统 CentOS-5.5-i386-bin-DVD.iso 远程登录管理工具 SSHSecureShellClient-3.2.9.exe 虚拟机运行"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux系统安装配置</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2014-02-19 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#系统相关准备">系统相关准备</a></li>
+            <li><a href="#安装完成后">安装完成后</a></li>
+            <li><a href="#修改系统环境变量">修改系统环境变量</a></li>
+            <li><a href="#解压缩文件">解压缩文件</a></li>
+            <li><a href="#ubuntu1604升级-ubuntu1804">Ubuntu16.04升级 Ubuntu18.04</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>解决方案 在Windows7 32位操作系统通过虚拟机来运行Linux
+本机已搭建虚拟环境</p>
+</blockquote>
+<h3 id="系统相关准备">系统相关准备</h3>
+<p>Linux系统
+CentOS-5.5-i386-bin-DVD.iso</p>
+<p>远程登录管理工具
+SSHSecureShellClient-3.2.9.exe</p>
+<p>虚拟机运行工具
+VirtualBox-4.0.2-69518-Win.exe</p>
+<p>Linux系统网络配置
+inet addr:192.168.10.1
+Bcast:192.168.10.255
+Mask:255.255.255.0</p>
+<p>Windows系统对应网络配置
+IP地址:192.168.10.2
+子网掩码:255.255.255.0
+默认网关:192.168.10.1</p>
+<h3 id="安装完成后">安装完成后</h3>
+<p>Linux系统登录配置
+login:root
+password:centos5.5</p>
+<p>Centos系统登录
+192.168.233.128
+192.168.233.129
+login:root
+password:admin123</p>
+<h3 id="修改系统环境变量">修改系统环境变量</h3>
+<p>1.在/etc/profile文件中添加变量【对所有用户生效（永久的）】
+用VI在文件/etc/profile文件中增加变量，该变量将会对Linux下所有用户有效，并且是“永久的”。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># vi /etc/profile
+在文件末尾加上如下两行代码
+export PATH=$PATH:/usr/local/erlang/bin
+export PATH=$PATH:/usr/local/rabbitmq/sbin
+
+# source /etc/profile
+</code></pre></td></tr></table>
+</div>
+</div><p>2.用户目录下的.bash_profile文件中增加变量【对单一用户生效（永久的）】
+用VI在用户目录下的.bash_profile文件中增加变量，改变量仅会对当前用户有效，并且是“永久的”。具体操作和方法1一样，这里就不在列举代码了</p>
+<p>3.直接运行export命令定义变量【只对当前shell（BASH）有效（临时的）】
+在shell的命令行下直接使用[export变量名=变量值]定义变量，该变量只在当前的shell（BASH）或其子shell（BASH）下是有效的，shell关闭了，变量也就失效了，再打开新shell时就没有这个变量，需要使用的话还需要重新定义。例如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">export PATH=/usr/local/webserver/php/bin:$PATH
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="解压缩文件">解压缩文件</h3>
+<p>从网络上下载到的源码包， 最常见的是 .tar.gz .tar.bz2包， 还有一部分是 .tar.xz .tar.lz的包。</p>
+<p>有人说 .tar.xz 是压缩率之王，但从下图看.tar.lz的压缩率更高一些：
+这里写图片描述</p>
+<p>.tar.gz .tar.bz2要解压很简单 ：
+.tar.gz 格式解压为 tar -zxvf xx.tar.gz
+.tar.bz2 格式解压为 tar -jxvf xx.tar.bz2</p>
+<p>.tar.xz .tar.lz复杂一点：
+.tar.xz的解压方法：
+xz -d mpfr-3.1.2.tar.xz
+会产生一个mpfr-3.1.2.tar 文件，再执行
+tar -xvf mpfr-3.1.2.tar</p>
+<p>.tar.lz的解压方法：
+该格式需要使用Lzip或Lunzip解压，CentOS 6.5默认不安装此程序。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost opt]# lzip
+-bash: lzip: command not found
+[root@localhost opt]# lunzip
+-bash: lunzip: command not found
+</code></pre></td></tr></table>
+</div>
+</div><p>语法：lzip -d file.lz
+更多请参考：http://www.nongnu.org/lzip/manual/lzip_manual.html#Examples</p>
+<p>下载：
+<a href="http://www.nongnu.org/lzip/">http://www.nongnu.org/lzip/</a>
+<a href="http://download.savannah.gnu.org/releases/lzip/">http://download.savannah.gnu.org/releases/lzip/</a></p>
+<h3 id="ubuntu1604升级-ubuntu1804">Ubuntu16.04升级 Ubuntu18.04</h3>
+<p>1.准备工作，配置国内源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 首先将原配置文件备份
+$ sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+
+# 然后 VIM 打开，替换
+:%s/us.security.ubuntu/mirrors.aliyun/g
+:%s/us.archive.ubuntu/mirrors.aliyun/g
+
+:%s/security.ubuntu/mirrors.aliyun/g
+:%s/archive.ubuntu/mirrors.aliyun/g
+</code></pre></td></tr></table>
+</div>
+</div><p>2.更新资源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ sudo apt-get update
+
+$ sudo apt-get upgrade
+
+$ sudo apt dist-upgrade
+</code></pre></td></tr></table>
+</div>
+</div><p>3.安装update-manager-core</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ sudo apt-get install update-manager-core
+</code></pre></td></tr></table>
+</div>
+</div><p>4.更新16.04到18.04</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 先执行 reboot
+$ sudo reboot
+
+$ sudo do-release-upgrade
+</code></pre></td></tr></table>
+</div>
+</div><p>执行上一步命令后，会自动升级系统。</p>
+<p>5.清理无用的安装包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ sudo apt-get remove
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2014-02-19
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/xu-ni-ji-an-zhuang-centos/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">虚拟机安装CentOS</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/linux-yong-hu-guan-li/">
+            <span class="next-text nav-default">Linux用户管理</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

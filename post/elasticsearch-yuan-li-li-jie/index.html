@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Elasticsearch原理理解 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="理解ES搜索引擎的原理 倒排索引 普通索引 拿唐诗“静夜思”举例： 窗前明月光，疑似地上霜。 举头望明月，低头思故乡。 普通的索引，以诗名作为key，诗" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/elasticsearch-yuan-li-li-jie/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Elasticsearch原理理解" />
+<meta property="og:description" content="理解ES搜索引擎的原理 倒排索引 普通索引 拿唐诗“静夜思”举例： 窗前明月光，疑似地上霜。 举头望明月，低头思故乡。 普通的索引，以诗名作为key，诗" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/elasticsearch-yuan-li-li-jie/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-05-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-16T00:00:00+00:00" />
+
+<meta itemprop="name" content="Elasticsearch原理理解">
+<meta itemprop="description" content="理解ES搜索引擎的原理 倒排索引 普通索引 拿唐诗“静夜思”举例： 窗前明月光，疑似地上霜。 举头望明月，低头思故乡。 普通的索引，以诗名作为key，诗"><meta itemprop="datePublished" content="2020-05-16T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-05-16T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3169">
+<meta itemprop="keywords" content="搜索索引,Elasticsearch," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Elasticsearch原理理解"/>
+<meta name="twitter:description" content="理解ES搜索引擎的原理 倒排索引 普通索引 拿唐诗“静夜思”举例： 窗前明月光，疑似地上霜。 举头望明月，低头思故乡。 普通的索引，以诗名作为key，诗"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Elasticsearch原理理解</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-05-16 </span>
+        <div class="post-category">
+            <a href="/categories/es/"> ES </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#倒排索引">倒排索引</a></li>
+            <li><a href="#索引量爆炸">索引量爆炸</a></li>
+            <li><a href="#搜索引擎原理">搜索引擎原理</a></li>
+            <li><a href="#elasticsearch-简介">Elasticsearch 简介</a></li>
+            <li><a href="#elasticsearch-基本概念">Elasticsearch 基本概念</a></li>
+            <li><a href="#elasticsearch-分布式原理">Elasticsearch 分布式原理</a></li>
+            <li><a href="#实时搜索引擎系统架构要点">实时搜索引擎系统架构要点</a></li>
+            <li><a href="#日志分析系统-elk">日志分析系统 ELK</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>理解ES搜索引擎的原理</p>
+</blockquote>
+<h3 id="倒排索引">倒排索引</h3>
+<h4 id="普通索引">普通索引</h4>
+<p>拿唐诗“静夜思”举例：
+窗前明月光，疑似地上霜。
+举头望明月，低头思故乡。</p>
+<p>普通的索引，以诗名作为key，诗的内容作为value。这样去查找的。</p>
+<p>输入“静夜思”，直接找到“诗的内容”。</p>
+<p>但是现在让你说出带“前”字的诗句，由于没有索引，只能遍历所有诗词了，短时间内很难得到结果。</p>
+<h4 id="反向索引倒排索引">反向索引（倒排索引）</h4>
+<p>倒排索引，以“前”作为索引，诗句内容作为value。再搜索带“前”字的诗句，可以很快找到结果。
+这就是倒排索引，以诗句内容中的一些关键字作为索引，来找到诗句。</p>
+<h3 id="索引量爆炸">索引量爆炸</h3>
+<p>“床”，“明”，“月” 是不是都可以建立索引，那一句诗就是 10 个索引，包砸性增长
+内容越长，索引可能越多，索引的数据量也越大。</p>
+<p>换个思路：“前”索引key，value改存诗名，不再存诗内容，数据量确实减少一些了。</p>
+<p>再比如“望庐山瀑布”诗句中，也有“前”字，那“前”可以指向“静夜思”+“望庐山瀑布”</p>
+<h3 id="搜索引擎原理">搜索引擎原理</h3>
+<p>百度输入“带前的诗句”，就可以出来结果了，响应很快。</p>
+<p>但是百度、谷歌流程复杂一点，包括网页爬取，停顿词过滤等等。</p>
+<p>停顿词就是没有意义的词，这些词没有必要建立索引，比如“的”，“而”等等，这些词本身没有意义。</p>
+<p>分词，搜索引擎是对内容分词后，再根据关键词建立倒排索引。</p>
+<p>搜索引擎三步：网页爬取，进行内容、建立反向索引。</p>
+<h3 id="elasticsearch-简介">Elasticsearch 简介</h3>
+<p>业界有一个叫 lucene 的库，用它可以方便的建立倒排索引。
+但是需要懂搜素引擎原理的，才能用好 lecene，所以又有人基于该库进行封装。</p>
+<p>Elasticsearch 将对搜索引擎的操作都封装成了 restful 的 api，通过 http 请求就能对其进行操作。
+同时它还考虑了海量数据，实现了分布式，是一个可以存储海量数据的分布式搜索引擎。
+与Hadoop分布式文件系统(HDFS)不一样。</p>
+<h3 id="elasticsearch-基本概念">Elasticsearch 基本概念</h3>
+<h4 id="基本概念">基本概念</h4>
+<ul>
+<li>索引，这里索引不是“倒排索引”，而是存放数据的地方，可以理解为mysql中的一个数据库；</li>
+<li>类型，用来定义数据结构的，可以认为mysql中的一张表；</li>
+<li>文档，就是最终的数据，一个文档相当于一条记录。</li>
+</ul>
+<p>还是以前面提到的唐诗为例：一首诗，有诗题、作者、朝代、字数，诗内容等字段，
+那可以先建一个名叫 poems 的索引。</p>
+<h5 id="类型-poem">类型 poem</h5>
+<ul>
+<li>properties
+<ul>
+<li>title
+<ul>
+<li>&ldquo;type&rdquo;:&ldquo;keyword&rdquo;</li>
+</ul>
+</li>
+<li>author
+<ul>
+<li>&ldquo;type&rdquo;:&ldquo;keyword&rdquo;</li>
+</ul>
+</li>
+<li>words
+<ul>
+<li>&ldquo;type&rdquo;:&ldquo;integer&rdquo;</li>
+</ul>
+</li>
+<li>content
+<ul>
+<li>&ldquo;type&rdquo;:&ldquo;text&rdquo;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>注意：keyword 是不分词的，直接建立反向索引； text是先分词，后建立反向索引。</p>
+<h5 id="文档-以-json串-形式描述一行数据">文档 以 JSON串 形式描述一行数据</h5>
+<ul>
+<li>&ldquo;title&rdquo;:&ldquo;静夜思&rdquo;</li>
+<li>&ldquo;poems&rdquo;:&ldquo;李白&rdquo;</li>
+<li>&ldquo;words&rdquo;:&ldquo;20&rdquo;</li>
+<li>&ldquo;content&rdquo;:&ldquo;窗前明月光，疑似地上霜。举头望明月，低头思故乡。&rdquo;</li>
+</ul>
+<h5 id="用户检索过程">用户检索过程</h5>
+<p>先分词，再找到每个item对应的list，最后进行集合求交集的过程。</p>
+<h5 id="有序集合求交集方法">有序集合求交集方法</h5>
+<ul>
+<li>二重for循环，时间复杂度 O(n*n)</li>
+<li>拉链法，时间复杂度 O(n)</li>
+<li>水平分桶，多线程并行</li>
+<li>bitmap，大大提高运算并行度，时间复杂度 O(n)</li>
+<li>跳表，时间复杂度为 O(log(n))</li>
+</ul>
+<h3 id="elasticsearch-分布式原理">Elasticsearch 分布式原理</h3>
+<p>在 Elasticsearch 中，节点是对等的，节点间会通过自己的一些规则选举集群的 master，master会负责集群状态信息的改变，并同步给其他节点。
+也会对数据进行切分，同时每一个分片会保存多个副本，其原理和 HDFS 是一样的，都是为了保证分布式环境下的高可用。</p>
+<p>注意：只有建立索引和类型需要经过master，数据的写入有一个简单的 Routing 规则，可以 Route 到集群中的任意节点，所以数据写入压力是分散在整个集群的。</p>
+<p>选举是ZenDiscovery模块负责，要设置过半机制，防止脑裂。</p>
+<h4 id="保证数据一致性">保证数据一致性</h4>
+<p>需要满足的特性</p>
+<ul>
+<li>持久性：数据写入成功后，数据持久化存在，不会发生回滚或丢失。</li>
+<li>一致性：数据写入成功后，查询时要保证读取到最新版本的数据，不能读取到旧数据。</li>
+<li>原子性：一个写入或更新操作，要么成功，要么失败，不允许出现中间状态。</li>
+<li>隔离性：多个写入并发操作而互不影响。</li>
+</ul>
+<h4 id="集群数据同步机制">集群数据同步机制</h4>
+<p><strong>数据并发冲突时乐观锁和版本号控制的。</strong></p>
+<p>ES 采用一组多副复制方式，没有采用节点级别的主从复制，而是基于分片。
+Index 又多个 Shard 组成，每个 Shard 又一个主节点和多个副本节点。数据写入时，首先根据
+路由规则对路由参数进行 Hash 确定要写入的 Shard，最后从集群的 Meta 中找出该 Shard 的 Primary
+节点写入数据，Primary Shard 成功写入数据后，Primary Shard 成功写入数据后，将请求同时发给多个 Replacation Shard，
+请求再全部的 副本分片 上执行成功并响应 Primary Shard 后，Primary Shard 返回结果给客户端。</p>
+<p>该模式，Primary要等所有 Replication 返回才能返回给客户端，那么延迟就会收到最慢的 Replication 影响，写入操作延迟等于<code>Primary Write 延迟+ Max(Replication Write)</code> 延迟。副本的存在，降低了写入效率，但可以避免单机或磁盘故障导致数据丢失。</p>
+<p>Replication写入失败，Primary会执行一些重试，尽可能保障Replication中写入成功，如果一个Replication最终写入失败，Primary会将Replication节点报告给Master,
+然后Master更新Meta中Index的InSyncAllocations配置，将Replication从中移除，移除后它就不再承担读请求。
+在Meta更新到各个Node之前，用户可能还会读到Replication的数据，但是更新Meta后就不会了。</p>
+<p>通过设置TransLog每隔一端事件Flush一次，一般每5秒或1分钟Flush一次，间隔时间越长，可靠性越低。</p>
+<h4 id="一致性保障">一致性保障</h4>
+<ul>
+<li>持久性：通过Replication和TransLog两种机制来共同保障。</li>
+<li>一致性：数据写入成功后，需完成Refresh操作之后才可读，由于无法保证Primary和Replica可同时refresh，所以会出现查询不稳定的情况，这里只能实现最终一致性。</li>
+<li>原子性：Add和Delete直接调用Lucene的接口，进行原子操作。
+update操作通过Delete-Then-Add完成，在Delete操作之前会加Refresh Lock，禁止Refresh操作，
+等Add操作完成后释放Refresh Lock后才能被Refresh，这样就保证了Delete-Then-Add的原子性。</li>
+<li>隔离性：采用Version和局部锁来保证更新的是特定版本的数据。</li>
+</ul>
+<p>要保证数据写入到ElasticSerach是安全的，高可靠的，需要如下的配置：（可靠性和可用性之间进行折中）</p>
+<ul>
+<li>设置wait_for_active_shards参数大于等于2。</li>
+<li>设置TransLog的Flush策略为每个请求都要Flush。</li>
+</ul>
+<h3 id="实时搜索引擎系统架构要点">实时搜索引擎系统架构要点</h3>
+<p>大数据量、高并发量情况下的搜索引擎为了保证实时性，架构设计上的两个要点：</p>
+<ul>
+<li>索引分级</li>
+<li>dump &amp; merge</li>
+</ul>
+<p>在数据量非常大的情况下，为了保证倒排索引的高效检索效率，任何对数据的更新，并不会实时修改索引。
+否则一旦产生碎片，会大大降低检索效率。</p>
+<h4 id="索引分级">索引分级</h4>
+<ul>
+<li>全量库 300亿数据</li>
+<li>日增量库 1000万数据</li>
+<li>小时增量库 50万数据
+当有修改请求发生时，指挥操作最低级别的索引，如 小时库。
+当有查询请求发生时，会同时查询各个级别的索引，将结果合并，得到最新数据。</li>
+</ul>
+<ol>
+<li>全量库是紧密存储的索引，无碎片，速度快；</li>
+<li>天库是紧密存储，速度快；</li>
+<li>小时库数据量小，速度也快。</li>
+</ol>
+<h4 id="索引到处与合并">索引到处与合并</h4>
+<p>小时库数据如何反应到天库中，天库中的数据何时反映到全量库中呢？</p>
+<ul>
+<li>dumper：将在线的数据导出。</li>
+<li>merger：将离线的数据合并到高一级别的索引中去。
+小时库，一小时一次，合并到天库中去；
+天库，一天一次，合并到全量库中去；
+这样可保证小时库和天库的数据量都不会特别大；
+如果数据量和并发量更大，还能增加星期库，月库来缓冲。</li>
+</ul>
+<p>在业务、流量、并发量逐步递增的各个阶段，应该如何实现检索需求？</p>
+<ul>
+<li>原始阶段 like 模糊匹配</li>
+<li>初级阶段：全文索引</li>
+<li>中级阶段：开源外置索引 ES</li>
+<li>高级阶段：自研搜索引擎</li>
+</ul>
+<h3 id="日志分析系统-elk">日志分析系统 ELK</h3>
+<p>系统运行过程中出现了异常，在日志中就能及时反馈，日志进入 ELK 系统中，通过 Kibana 就能看到日志情况。
+如果再接入一些实时计算模块，还能做实时报警功能。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-05-16
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%90%9C%E7%B4%A2%E7%B4%A2%E5%BC%95/">搜索索引</a>
+          <a href="/tags/elasticsearch/">Elasticsearch</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/redis-da-jian-cluster/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Redis搭建cluster</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/fen-bu-shi-li-lun-xie-yi-ji-suan-fa-xiang-guan/">
+            <span class="next-text nav-default">分布式理论、协议及算法相关</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

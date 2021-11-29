@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>redis on 小叨笔记</title>
+    <link>https://www.stormwan.com/categories/redis/</link>
+    <description>Recent content in redis on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 01 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/categories/redis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Redis搭建cluster</title>
+      <link>https://www.stormwan.com/post/redis-da-jian-cluster/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/redis-da-jian-cluster/</guid>
+      <description>redis cluster在设计的时候，就考虑到了去中心化，去中间件，也就是说，集群中的每个节点都是平等的关系，都是对等的，每个节点都保存各自的数据和</description>
+    </item>
+    
+    <item>
+      <title>Redis知识</title>
+      <link>https://www.stormwan.com/post/redis-zhi-shi/</link>
+      <pubDate>Sat, 11 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/redis-zhi-shi/</guid>
+      <description>redis分析，基于内存，速度快，kv数据，worker单线程，epoll多路复用解决i/o并发 拓扑模型 redis并发模型 redis（wor</description>
+    </item>
+    
+    <item>
+      <title>分布式锁</title>
+      <link>https://www.stormwan.com/post/fen-bu-shi-suo/</link>
+      <pubDate>Tue, 11 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/fen-bu-shi-suo/</guid>
+      <description>有用到 php laravel 框架 redisLock, 发现还是有一些可以改进的地方, 在网络查找了一些资料, 有文章用 java 开发, 比如对锁的过期时间开启线程, 定时不断的去增加过期时间, 每</description>
+    </item>
+    
+    <item>
+      <title>docker应用学习-搭建redis哨兵集群</title>
+      <link>https://www.stormwan.com/post/docker-ying-yong-xue-xi-da-jian-redis-shao-bing-ji-qun/</link>
+      <pubDate>Thu, 29 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/docker-ying-yong-xue-xi-da-jian-redis-shao-bing-ji-qun/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;基于阿里云 centos7，单机启动多个redis实例&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;安装docker略&#34;&gt;安装docker（略）&lt;/h3&gt;
+&lt;h3 id=&#34;安装redis&#34;&gt;安装redis&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;查找redis镜像:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;docker search redis
+docker pull docker.io/redis
+docker images
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;挂载目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;mkdir -p /data/redis_data
+cd /data/redis_data
+touch redis_6379.conf
+vi redis_6379.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;端口配置 redis_6379.conf redis_6380.conf redis_6381.conf&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;配置说明&#34;&gt;配置说明：&lt;/h5&gt;
+&lt;p&gt;dir：工作目录
+logfile：日志文件在工作目录下
+slaveof：指明为主机一的从机
+requirepass：redis客户端连接的认证密码，若不需要可不配置
+masterauth：主从redis同步的认证密码，与连接密码同，若不需要可不用配置
+appendonly：是否需要持久化，yes为需要&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;logfile &amp;#34;redis_6379.log&amp;#34;
+port 6379
+dir /data
+appendonly yes
+appendfilename appendonly.aof
+requirepass 1234
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;logfile &amp;#34;redis_6380.log&amp;#34;
+port 6380
+dir /data
+appendonly yes
+appendfilename appendonly.aof
+slaveof 0.0.0.0 6379
+masterauth 1234
+requirepass 1234
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;logfile &amp;#34;redis_6381.log&amp;#34;
+port 6381
+dir /data
+appendonly yes
+appendfilename appendonly.aof
+slaveof 0.0.0.0 6379
+masterauth 1234
+requirepass 1234
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>安装redis</title>
+      <link>https://www.stormwan.com/post/an-zhuang-redis/</link>
+      <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/an-zhuang-redis/</guid>
+      <description>安装 1 2 3 4 5 6 7 8 9 10 11 # 获取安装文件 wget http://download.redis.io/releases/redis-3.2.8.tar.gz # 解压文件 tar -xvzf redis-3.2.8.tar.gz mv redis-3.2.8 /usr/local/redis # 编译安装 cd /usr/local/redis make make install 启动或关闭 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22</description>
+    </item>
+    
+  </channel>
+</rss>

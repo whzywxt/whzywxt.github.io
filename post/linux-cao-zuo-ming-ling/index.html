@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux操作命令 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="Linux操作命令，初始学习记录Linux常用命令 多通过 man 查看，SEE ALSO 是最好的 安装 源代码形式 绝大多数开源软件都是直接以原码形式发布的 源代码" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/linux-cao-zuo-ming-ling/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux操作命令" />
+<meta property="og:description" content="Linux操作命令，初始学习记录Linux常用命令 多通过 man 查看，SEE ALSO 是最好的 安装 源代码形式 绝大多数开源软件都是直接以原码形式发布的 源代码" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/linux-cao-zuo-ming-ling/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-04-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-04-26T00:00:00+00:00" />
+
+<meta itemprop="name" content="Linux操作命令">
+<meta itemprop="description" content="Linux操作命令，初始学习记录Linux常用命令 多通过 man 查看，SEE ALSO 是最好的 安装 源代码形式 绝大多数开源软件都是直接以原码形式发布的 源代码"><meta itemprop="datePublished" content="2020-04-26T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-04-26T00:00:00+00:00" />
+<meta itemprop="wordCount" content="5168">
+<meta itemprop="keywords" content="linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux操作命令"/>
+<meta name="twitter:description" content="Linux操作命令，初始学习记录Linux常用命令 多通过 man 查看，SEE ALSO 是最好的 安装 源代码形式 绝大多数开源软件都是直接以原码形式发布的 源代码"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux操作命令</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-26 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> linux </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#安装">安装</a></li>
+            <li><a href="#文本处理">文本处理</a></li>
+            <li><a href="#性能检测">性能检测</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>Linux操作命令，初始学习记录<a href="https://www.stormwan.com/2013/09/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Linux常用命令</a></p>
+<p>多通过 man 查看，SEE ALSO 是最好的</p>
+</blockquote>
+<h3 id="安装">安装</h3>
+<p>源代码形式</p>
+<ol>
+<li>绝大多数开源软件都是直接以原码形式发布的</li>
+<li>源代码一般会被打成.tar.gz的归档压缩文件</li>
+<li>源代码需要编译成为二进制形式之后才能够运行使用</li>
+<li>源代码基本编译流程：
+<ol>
+<li>.configure 检查编译环境；</li>
+<li>make对源代码进行编译；</li>
+<li>make insall 将生成的可执行文件安装到当前计算机中</li>
+</ol>
+</li>
+</ol>
+<h4 id="rpm">rpm</h4>
+<p>RPM 是 LINUX 下的一种软件的可执行程序，你只要安装它就可以了。这种软件安装包通常是一个RPM包（Redhat Linux Packet Manager，就是Redhat的包管理器），后缀是.rpm。</p>
+<p>RPM是Red Hat公司随Redhat Linux推出了一个软件包管理器，通过它能够更加轻松容易地实现软件的安装。</p>
+<ol>
+<li>安装软件：执行 <code>rpm -ivh rpm包名</code>，如：<code>rpm -ivh apache-1.3.6.i386.rpm</code></li>
+<li>升级软件：执行 <code>rpm -Uvh rpm包名</code>。</li>
+<li>反安装：执行 <code>rpm -e rpm包名</code>。</li>
+<li>查询软件包的详细信息：执行 <code>rpm -qpi rpm包名</code></li>
+<li>查询某个文件是属于那个rpm包的：执行 <code>rpm -qf rpm包名</code></li>
+<li>查该软件包会向系统里面写入哪些文件：执行 <code>rpm -qpl rpm包名</code> <code>rpm -ql jenkins</code></li>
+</ol>
+<p>RPM特点</p>
+<ol>
+<li>源代码形式的特点：操作复杂、编译时间长、极易出现问题、依赖关系复杂</li>
+<li>为了方便，RPM（redhat package manager）</li>
+<li>RPM通过将代码基于特定平台系统编译为可执行文件，并保存依赖关系，来简化开源软件的安装管理。针对不同的系统设定不同的包</li>
+<li>常用命令规范：linuxcast-1.2.0-30.el6.1686.rpm 包名-版本号-适用平台-32/64-rpm</li>
+<li>使用</li>
+</ol>
+<ul>
+<li><code>rpm –i software.rpm</code>(安装)；</li>
+<li><code>rpm -e software.rpm</code>(卸载)；</li>
+<li><code>rpm –U software.rpm</code>(升级形式安装)；</li>
+<li><code>rpm –ivh http://www.linuxcast.net/software.rpm</code>(支持通过http\ftp协议形式安装)</li>
+<li><code>-v</code> 显示详细信息；</li>
+<li><code>-h</code> 显示进度条</li>
+</ul>
+<p>查询功能：<code>rpm –qa</code> 列出全部已经安装的.rpm软件  <code>rpm –qa |grep ***</code> <code>rpm -qa | grep docker</code></p>
+<h4 id="yum">yum</h4>
+<ol>
+<li>
+<p>rpm软件包形式的管理虽然方便，但是需要手工解决软件包的依赖关系。很多时候安装一个软件安装一个软件需要安装1个或者多个其他软件，手动解决时，很复杂，yum解决这些问题。Yum是rpm的前端程序，主要目的是设计用来自动解决rpm的依赖关系，其特点：</p>
+<ol>
+<li>
+<p>自动解决依赖关系</p>
+</li>
+<li>
+<p>可以对rpm进行分组，基于组进行安装操作</p>
+</li>
+<li>
+<p>引入仓库概念，支持多个仓库</p>
+</li>
+<li>
+<p>配置简单</p>
+</li>
+</ol>
+</li>
+<li>
+<p>yum仓库用来存放所有的现有的.rpm包，当使用yum安装一个rpm包时，需要依赖关系，会自动在仓库中查找依赖软件并安装。仓库可以是本地的，也可以是HTTP、FTP、nfs形式使用的集中地、统一的网络仓库。</p>
+</li>
+<li>
+<p>仓库的配置文件<code>/etc/yum.repos.d</code>目录下</p>
+</li>
+<li>
+<p>使用：</p>
+<ol>
+<li>
+<p><code>yum install</code> 安装；</p>
+</li>
+<li>
+<p><code>yum remove</code> 卸载；</p>
+</li>
+<li>
+<p><code>yum update</code> 升级制定软件</p>
+</li>
+</ol>
+</li>
+<li>
+<p>安装的时候，会下载软件包.Rpm在安装，所以用国内仓库改变镜像源</p>
+<ol>
+<li>
+<p>访问地址http://mirrors.163.com/</p>
+</li>
+<li>
+<p>点centos使用帮助</p>
+</li>
+<li>
+<p>按步骤来</p>
+</li>
+</ol>
+</li>
+<li>
+<p>查询软件：可以使用 <code>yum search **</code></p>
+</li>
+</ol>
+<p><code>yum list installed | grep docker</code></p>
+<p><code>yum makecache fast</code> 在更新yum源或者出现配置yum源之后，通常都会使用yum makecache 生成缓存  将软件包信息提前在本地缓存一份，用来提高搜索安装软件的速度</p>
+<p><code>yum clean all</code> yum 会把下载的软件包和header存储在cache中而不自动删除。如果觉得占用磁盘空间，可以使用yum clean指令清除缓存</p>
+<h5 id="安装man中文手册">安装man中文手册</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">// 1. 查找man中文安装包
+# yum list |grep man.*zh
+man-pages-zh-CN.noarch                   1.5.2-4.el7                   @base
+
+// 2. 执行安装命令
+# sudo yum install man-pages-zh-CN.noarch
+
+// 3. 编辑配置文件使中文包生效 追加一行alias
+# vi .bashrc
+alias cman=&#39;man -M /usr/share/man/zh_CN&#39;
+
+// 4. 使上一步alias生效
+# source .bashrc
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="wget">wget</h4>
+<h4 id="tar">tar</h4>
+<h4 id="ps">ps</h4>
+<ul>
+<li>统计php-fpm平均内存占用 rss 进程使用的总物理内存数, Kbytes字节 cmd(args) 执行命令的简单格式
+<code>ps --no-headers -o &quot;rss,cmd&quot; -C php-fpm | awk '{ sum+=$1 } END { printf (&quot;%d%s\n&quot;, sum/NR/1024,&quot;M&quot;) }</code></li>
+</ul>
+<h4 id="netstat">netstat</h4>
+<ul>
+<li>
+<p>查看nginx监听了哪些端口
+<code>netstat -anp | grep nginx</code></p>
+</li>
+<li>
+<p>查看php-fpm进程数是否够用</p>
+</li>
+</ul>
+<p>当前fastcgi进程个数
+<code>netstat -napo |grep &quot;php-fpm&quot; | wc -l</code></p>
+<p>查看服务器上一共开了多少的 php-cgi 进程
+<code>ps -ef |grep &quot;php-fpm&quot;|grep &quot;pool&quot;|wc -l</code></p>
+<ul>
+<li>查看已经有多少个php-cgi进程用来处理tcp请求
+<code>netstat -anp|grep &quot;php-fpm&quot;|grep &quot;tcp&quot;|grep &quot;pool&quot;|wc -l</code></li>
+</ul>
+<h3 id="文本处理">文本处理</h3>
+<h4 id="grep">grep</h4>
+<h4 id="sed">sed</h4>
+<h4 id="awk">awk</h4>
+<h5 id="基本用法">基本用法</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># awk &#39;{[pattern] action}&#39; {filenames}   # 行匹配语句 awk &#39;&#39; 只能用单引号`
+$ awk &#39;{print $1,$4}&#39; access.log # 默认空格分隔为字段， $1 对应第一个字段
+
+# awk -F  #-F相当于内置变量FS, 指定分割字符
+$ awk -F, &#39;{print $1,$2}&#39;   access.log
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="运算符">运算符</h5>
+<ul>
+<li><code>= += -= *= /= %= ^= **=</code> 赋值</li>
+<li><code>||</code> 逻辑或</li>
+<li><code>&amp;&amp;</code> 逻辑与</li>
+<li><code>~ 和 !~</code> 匹配正则表达式和不匹配正则表达式</li>
+<li><code>&lt; &lt;= &gt; &gt;= != ==</code> 关系运算符</li>
+</ul>
+<h5 id="内建变量">内建变量</h5>
+<ul>
+<li>$n 当前记录的第n个字段，字段间由FS分隔</li>
+<li>$0 完整的输入记录</li>
+<li>FNR 各文件分别计数的行号</li>
+<li>FS 字段分隔符(默认是任何空格)</li>
+<li>NF 一条记录的字段的数目</li>
+<li>NR 已经读出的记录数，就是行号，从1开始</li>
+</ul>
+<p>更多使用 <code>man awk</code></p>
+<ul>
+<li>查看哪些进程使用了 swap
+<code>for file in /proc/*/status ; do awk '/VmSwap|Name|^Pid/{printf $2 &quot; &quot; $3}END{ print &quot;&quot;}' $file; done | sort -k 3 -n -r | head</code></li>
+</ul>
+<h3 id="性能检测">性能检测</h3>
+<h4 id="strace">strace</h4>
+<h5 id="开启多个客户端窗口分析redis">开启多个客户端窗口，分析redis</h5>
+<h6 id="窗口1">窗口1</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ strace -ff -o ~/xxx/out ~/redis-5.0.4/bin/redis-server # 前台启动 记下 pid:22636
+
+# 窗口3 执行BGSAVE后 可以看到 copy-on-write
+22636:M 05 May 2020 22:56:33.535 * Background saving started by pid 22747
+22747:C 05 May 2020 22:56:33.540 * DB saved on disk
+22747:C 05 May 2020 22:56:33.541 * RDB: 4 MB of memory used by copy-on-write
+22636:M 05 May 2020 22:56:33.591 * Background saving terminated with success
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="窗口2">窗口2</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ cd ~/xxx/ # 有4个文件 名称 out.线程编号
+out.22636  out.22637  out.22638  out.22639
+
+$ vim out.22636 # 可以看到有 socket 调用(listen、bind等) epoll 调用(epoll_create、epoll_ctl、epoll_wait)
+
+# 窗口3 执行BGSAVE后 可以看到多出 out.22747 文件
+$ vim out.22747 # 可以看到 clone 调用
+
+$ tail -f out.22636 # 发现 epoll_wait 一直有
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="窗口3">窗口3</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ ~/redis-5.0.4/bin/redis-cli
+&gt; BGSAVE
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="uptime">uptime</h4>
+<p>该命令可以大致的看出计算机的整体负载情况，load average后的数字分别表示计算机在1min、5min、15min内的平均负载。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ uptime
+01:57:26 up 10 days,  3:43,  1 user,  load average: 0.00, 0.01, 0.05
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="dmesg">dmesg</h4>
+<p>打印内核环形缓存区中的内容，可以用来查看一些错误</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ dmesg  | tail
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="vmstat">vmstat</h4>
+<p>查看系统的整体性能</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ vmstat 1
+
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 2  0      0 451556 132632 939880    0    0     1     2   29    5  0  0 100  0  0
+ 0  0      0 451540 132632 939880    0    0     0     0   38   59  0  0 100  0  0
+ 0  0      0 451540 132632 939880    0    0     0     0   34   51  0  0 100  0  0
+ 0  0      0 451540 132632 939880    0    0     0    12   42   65  0  0 100  0  0
+ 0  0      0 451540 132632 939880    0    0     0     0   37   55  0  0 100  0  0
+ 0  0      0 451540 132632 939880    0    0     0     0   32   52  0  0 100  0  0
+ 0  0      0 451540 132632 939880    0    0     0     0   32   51  0  0 100  0  0
+ 0  0      0 451540 132632 939880    0    0     0     0   32   51  0  0 100  0  0
+ 0  0      0 451540 132632 939880    0    0     0     0   39   55  0  0 100  0  0
+ 0  0      0 451540 132632 939880    0    0     0     0   46   62  0  1 99  0  0
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="mpstat">mpstat</h4>
+<p>用于查看cpu的性能</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ mpstat -P ALL 1
+
+02时39分40秒  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+02时39分41秒  all    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00
+02时39分41秒    0    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00
+
+02时39分41秒  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+02时39分42秒  all    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00
+02时39分42秒    0    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00
+
+02时39分42秒  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+02时39分43秒  all    0.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00    0.00   99.00
+02时39分43秒    0    0.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00    0.00   99.00
+
+</code></pre></td></tr></table>
+</div>
+</div><p>该命令用于每秒打印一次每个CPU的统计信息，可用于查看CPU的调度是否均匀。</p>
+<h4 id="pidstat">pidstat</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 间隔1s 打印5组数据
+$ pidstat 1 5
+</code></pre></td></tr></table>
+</div>
+</div><p>该命令用于打印各个进程对CPU的占用情况，类似top命令中显示的内容。pidstat的优势在于，可以滚动的打印进程运行情况。</p>
+<h4 id="iostat">iostat</h4>
+<p>用于查看io的状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ iostat 1
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           0.00    0.00    0.00    4.95    0.00   95.05
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+vda               0.00     0.00    0.99    0.00     7.92     0.00    16.00     0.04   45.00   45.00    0.00  45.00   4.46
+
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>r/s, w/s, rkB/s, wkB/s，表示每秒向I/O设备发出的reads、writes、read Kbytes、write Kbytes的数量。</li>
+<li>await，表示应用程序排队等待和被服务的平均I/O时间，该值若大于预期的时间，这表示I/O设备处于饱和状态或者异常。</li>
+<li>avgqu-sz，表示请求被发送给I/O设备的平均时间，若该值大于1，则表示I/O设备可能已经饱和；</li>
+<li>%util，每秒设备的利用率；若该利用率超过60%，则表示设备出现性能异常；</li>
+</ul>
+<h4 id="free">free</h4>
+<p>用于产看内存的状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ free -m
+              total        used        free      shared  buff/cache   available
+Mem:           1839         361         400          16        1077        1265
+Swap:          1999           0        1999
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>buffers: For the buffer cache, used for block device I/O.</li>
+<li>cached: For the page cache, used by file systems.</li>
+<li>若buffers和cached接近0，说明I/O的使用率过高，系统存在性能问题。</li>
+<li>Linux中会用free内存作为cache，若应用程序需要分配内存，系统能够快速的将cache占用的内存回收，因此free的内存包含cache占用的部分。</li>
+</ul>
+<h4 id="sar">sar</h4>
+<p>系统活动状态报告简称</p>
+<p>用于查看网络的状态</p>
+<p>-n DEV 1, 每秒统计一次网络的使用情况；
+-n EDEV 1，每秒统计一次错误的网络信息；</p>
+<p><code>sar -n DEV 1</code></p>
+<ul>
+<li>IFACE ，网络接口名称；</li>
+<li>rxpck/s ，每秒接收到包数；</li>
+<li>txpck/s ，每秒传输的报数；(transmit packages)</li>
+<li>rxkB/s ，每秒接收的千字节数；</li>
+<li>txkB/s ，每秒发送的千字节数；</li>
+<li>rxcmp/s ，每秒接收的压缩包的数量；</li>
+<li>txcmp/s ，每秒发送的压缩包的数量；</li>
+<li>rxmcst/s，每秒接收的组数据包数量；</li>
+</ul>
+<p><code>sar -n TCP,ETCP 1</code></p>
+<p>可以用于粗略的判断网络的吞吐量，如发起的网络连接数量和接收的网络连接数量；</p>
+<ul>
+<li>
+<p>TCP, 报告关于TCPv4网络流量的统计信息;</p>
+</li>
+<li>
+<p>ETCP, 报告有关TCPv4网络错误的统计信息;</p>
+</li>
+<li>
+<p>active/s: Number of locally-initiated TCP connections per second (e.g., via connect())，发起的网络连接数量；</p>
+</li>
+<li>
+<p>passive/s: Number of remotely-initiated TCP connections per second (e.g., via accept())，接收的网络连接数量；</p>
+</li>
+<li>
+<p>retrans/s: Number of TCP retransmits per second，重传的数量；</p>
+</li>
+</ul>
+<h4 id="top">top</h4>
+<p>包含更多的指标统计，相当于一个综合命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">top - 01:08:21 up 28 days,  2:54,  1 user,  load average: 0.04, 0.03, 0.05
+Tasks:  79 total,   1 running,  78 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem :  1883496 total,    93264 free,   386640 used,  1403592 buff/cache
+KiB Swap:  2047996 total,  2047996 free,        0 used.  1263592 avail Mem 
+
+  PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND                                                          
+    1 root      20   0   43260   3692   2496 S  0.0  0.2   1:08.82 systemd                                                          
+    2 root      20   0       0      0      0 S  0.0  0.0   0:00.05 kthreadd                                                         
+    3 root      20   0       0      0      0 S  0.0  0.0   0:01.46 ksoftirqd/0                                                      
+    5 root       0 -20       0      0      0 S  0.0  0.0   0:00.00 kworker/0:0H                                                     
+    7 root      rt   0       0      0      0 S  0.0  0.0   0:00.00 migration/0    
+</code></pre></td></tr></table>
+</div>
+</div><p>top命令的顶部显示与uptime命令相似的输出，当前时间，系统已运行时间，当前已登录用户的数量，相应最近5、10、15分钟内的平均负载。</p>
+<p>任务 Tasks：
+系统闲杂共有进程，运行running，休眠sleeping，stoped状态0个，zombie状态（僵尸）的有0个。</p>
+<p>CPU状态：</p>
+<ul>
+<li>us，user：运行（未调整优先级的）用户进程的CPU时间</li>
+<li>sy，system：运行内核进程的CPU时间</li>
+<li>ni，运行已调整优先级的用户进程的CPU时间</li>
+<li>wa：用户等待IO完成的CPU时间</li>
+<li>hi：处理硬件中断的CPU时间</li>
+<li>si：处理软件中断的CPU时间</li>
+<li>st：这个虚拟机被hypervisor偷去的CPU时间（译注：如果当前处于一个hypervisor下的vm，实际上hypervisor也是要消耗一部分CPU处理时间的）。</li>
+</ul>
+<p>内存使用：Mem 物理内存 和 Swap 虚拟内存使用（交换空间）</p>
+<p>各进程（任务）的状态监控：</p>
+<ul>
+<li>PID：进程id，进程唯一标识符</li>
+<li>USER：进程所有者的实际用户名</li>
+<li>PR：进程调度优先级，有些值是<code>RT</code>，就是这些进程运行在实时态</li>
+<li>NI：进程的nice值（优先级）。越小的值意味着越高的优先级。负责表示高优先级，正值表示低优先级。</li>
+<li>VIRT：进程使用的虚拟内存。</li>
+<li>RES：驻留内存大小。是任务使用的非交换物理内存大小。进程使用的，未被换出的物流内存大小。</li>
+<li>SHR：SHR是进程使用的共享内存。</li>
+<li>S：进程状态。
+<ul>
+<li>D 不可中断的睡眠态</li>
+<li>R 运行态</li>
+<li>S 睡眠态</li>
+<li>T 被跟踪或已停止</li>
+<li>D 僵尸态</li>
+</ul>
+</li>
+<li>%CPU：自从上一次更新时到现在任务所使用的CPU时间百分比。</li>
+<li>%MEM：进程使用的可用物理内存百分比。</li>
+<li>TIME+：任务启动后到现在所使用的全部CPU时间，精确到百分之一秒。</li>
+<li>COMMAND：运行进程所使用的命令。进程名称（命令名/命令行）</li>
+</ul>
+<p>多核监控按键盘数字 <code>1</code>，可监控每个CPU，其他可 <code>man top</code></p>
+<h4 id="压力测试工具">压力测试工具</h4>
+<h5 id="stress"><code>stress</code></h5>
+<ul>
+<li>CPU密集型进程 <code>$ stress --cpu 1 --timeout 600</code></li>
+<li>I/O密集型进程 <code>$ stress -i 1 --timeout 600</code></li>
+<li>大量进程的场景 <code>$ stress -c 8 --timeout 600</code></li>
+</ul>
+<h5 id="stress-ng"><code>stress-ng</code></h5>
+<ul>
+<li>
+<p>I/O密集型进程 比如 <code>$ stress-ng -i 1 --hdd 1 --timeout 600</code>（&ndash;hdd表示读写临时文件）</p>
+</li>
+<li>
+<p><code>chattr</code> 配置文件隐藏属性</p>
+<ul>
+<li><code>+i</code> 可以让一个档案无法被更改</li>
+<li><code>+a</code> 不能修改和删除旧有的数据，只能追加</li>
+</ul>
+</li>
+<li>
+<p><code>lsattr</code> 查阅隐藏的属性</p>
+</li>
+</ul>
+<p>档案的特殊权限</p>
+<ul>
+<li>SUID，SGID，SBIT 特殊权限 s 和 t</li>
+<li>4为SUID</li>
+<li>2为SGID</li>
+<li>1为SBIT</li>
+</ul>
+<p>SUID 的限制与功能</p>
+<ul>
+<li>权限仅对二进制程序有效；</li>
+<li>执行者对于该程序需要具有x的可执行权限；</li>
+<li>本权限仅在执行该程序的过程中有效（runtime）；</li>
+<li>执行者将具有该程序拥有者（owner）的权限。</li>
+</ul>
+<p>SGID 对档案的功能</p>
+<ul>
+<li>SGID对二进制程序有用；</li>
+<li>程序执行者对于该程序来说，需具备x的权限；</li>
+<li>执行者在执行过程中将会获得该程序组的支持。</li>
+</ul>
+<p>SGID 对目录的功能</p>
+<ul>
+<li>用于若对于此目录具有r与x的权限时，该用户能够进入此目录；</li>
+<li>用户在此目录下的有效群组将会变成该目录的群组；</li>
+<li>用途：若用户在此目录下具有w的权限（可以新建档案），则使用者所建立的新档案，该新档案的群组与此目录的群组相同。</li>
+</ul>
+<p>SBIT 对目录的作用</p>
+<ul>
+<li>当用户对此目录具有w,x权限，亦即具有写入的权限时；</li>
+<li>用户在该目录下建立档案或目录时，仅有自己与root才有权力删除该档案。</li>
+</ul>
+<p>权限与指令</p>
+<ul>
+<li>进入某目录成为 可工作目录 的基本权限
+<ul>
+<li>可使用指令 <code>cd</code></li>
+<li>目录权限 x</li>
+<li>查阅文件名，对目录还要有 r</li>
+</ul>
+</li>
+<li>目录内读取一个档案
+<ul>
+<li>可使用指令 <code>cat</code>、 <code>more</code>、 <code>less</code></li>
+<li>目录权限 x</li>
+<li>档案权限 r</li>
+</ul>
+</li>
+<li>修改一个档案的基本权限
+<ul>
+<li>可使用指令 <code>nano</code>、 <code>vi</code></li>
+<li>目录权限 x</li>
+<li>档案权限 r w</li>
+</ul>
+</li>
+<li>建立一个档案的基本权限
+<ul>
+<li>目录权限 w x</li>
+</ul>
+</li>
+<li>进入某目录并执行该目录下的指令的基本权限
+<ul>
+<li>目录权限 x</li>
+<li>档案权限 x</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-04-26
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux-wu-shan-shu-ju-hui-fu/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux误删数据恢复</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/redis-zhi-shi/">
+            <span class="next-text nav-default">Redis知识</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

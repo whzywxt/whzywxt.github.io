@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PHP on 小叨笔记</title>
+    <link>https://www.stormwan.com/categories/php/</link>
+    <description>Recent content in PHP on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 04 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/categories/php/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PHP常用算法</title>
+      <link>https://www.stormwan.com/post/php-chang-yong-suan-fa/</link>
+      <pubDate>Thu, 04 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/php-chang-yong-suan-fa/</guid>
+      <description>二分查找 二分查找法需要数组是一个有序的数组 假设我们的数组是一个递增的数组，首先我们需要找到数组的中间位置。 要知道中间位置就需要知道起始位置和</description>
+    </item>
+    
+    <item>
+      <title>PHP底层运行机制与原理</title>
+      <link>https://www.stormwan.com/post/php-di-ceng-yun-xing-ji-zhi-yu-yuan-li/</link>
+      <pubDate>Thu, 04 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/php-di-ceng-yun-xing-ji-zhi-yu-yuan-li/</guid>
+      <description>PHP设计理念及特点 多进程模型：不同请求之间，互补干涉，保证一个请求挂掉不会影响整体服务。 弱类型语言：变量类型并不是一开始就确当不变，运行中</description>
+    </item>
+    
+    <item>
+      <title>PHP7扩展开发之hello word</title>
+      <link>https://www.stormwan.com/post/php7-kuo-zhan-kai-fa-zhi-hello-word/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/php7-kuo-zhan-kai-fa-zhi-hello-word/</guid>
+      <description>实验环境Aliyun PHP 7.2.6 (cli) (built: May 23 2019 00:47:11) ( NTS ) Copyright (c) 1997-2018 The PHP Group Zend Engine v3.2.0, Copyright (c) 1998-2018 Zend Technologies with Zend OPcache v7.2.6, Copyright (c) 1999-2018, by Zend Technologies 生成代码 PHP为我们提供了生成基本代码的工具 ext</description>
+    </item>
+    
+    <item>
+      <title>2017~2018回顾商城重构收获</title>
+      <link>https://www.stormwan.com/post/2017-2018-hui-gu-shang-cheng-zhong-gou-shou-huo/</link>
+      <pubDate>Thu, 19 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/2017-2018-hui-gu-shang-cheng-zhong-gou-shou-huo/</guid>
+      <description>17年Q4年商城重构接入SOA，18年5月上线流量切换完成，旺季PC端Q4日均pv3000万；双11当天，销售额一千万美金，峰值日pv统计1</description>
+    </item>
+    
+    <item>
+      <title>工厂模式</title>
+      <link>https://www.stormwan.com/post/design-patterns/gong-chang-mo-shi/</link>
+      <pubDate>Sun, 05 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/design-patterns/gong-chang-mo-shi/</guid>
+      <description>工厂模式 提供获取某个对象实例的一个接口，同时使调用代码避免确定实例化基类的步骤。 工厂模式 实际上就是建立一个统一的类实例化的函数接口。统一调用</description>
+    </item>
+    
+    <item>
+      <title>迭代器</title>
+      <link>https://www.stormwan.com/post/design-patterns/die-dai-qi/</link>
+      <pubDate>Sun, 05 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/design-patterns/die-dai-qi/</guid>
+      <description>迭代器 可帮助构造特定的对象，那些对象能够提供单一标准接口循环或迭代任何类型的可计数数据。（不是特别常用，在PHP中） 使用场景 访问一个聚合对象</description>
+    </item>
+    
+    <item>
+      <title>适配器模式</title>
+      <link>https://www.stormwan.com/post/design-patterns/shi-pei-qi-mo-shi/</link>
+      <pubDate>Sun, 05 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/design-patterns/shi-pei-qi-mo-shi/</guid>
+      <description>什么是适配器 适配器设计模式只是将某个对象的接口适配为另一个对象所期望的接口。 设计情景 假如我们原始的有一个UserInfo的类，提供用户信息的</description>
+    </item>
+    
+    <item>
+      <title>外观模式</title>
+      <link>https://www.stormwan.com/post/design-patterns/wai-guan-mo-shi/</link>
+      <pubDate>Sat, 04 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/design-patterns/wai-guan-mo-shi/</guid>
+      <description>外观模式 通过在必需的逻辑和方法的集合前创建简单的外观接口，外观设计模式隐藏了调用对象的复杂性。 外观设计模式和建造者模式非常相似，建造者模式一</description>
+    </item>
+    
+    <item>
+      <title>中介者模式</title>
+      <link>https://www.stormwan.com/post/design-patterns/zhong-jie-zhe-mo-shi/</link>
+      <pubDate>Wed, 01 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/design-patterns/zhong-jie-zhe-mo-shi/</guid>
+      <description>中介者模式 中介者模式用于开发一个对象，这个对象能够在类似对象相互之间不直接相互的情况下传送或者调解对这些对象的集合的修改。一般处理具有类似属</description>
+    </item>
+    
+    <item>
+      <title>解释器模式</title>
+      <link>https://www.stormwan.com/post/design-patterns/jie-shi-qi-mo-shi/</link>
+      <pubDate>Wed, 01 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/design-patterns/jie-shi-qi-mo-shi/</guid>
+      <description>解释器模式 用于分析一个实体的关键元素，并且针对每个元素提供自己的解释或相应动作。解释器模式非常常用，比如PHP的模板引擎 就是非常常见的一种解</description>
+    </item>
+    
+    <item>
+      <title>策略模式</title>
+      <link>https://www.stormwan.com/post/design-patterns/ce-lve-mo-shi/</link>
+      <pubDate>Tue, 31 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/design-patterns/ce-lve-mo-shi/</guid>
+      <description>策略模式 策略模式设计帮助构建的对象不必自身包含逻辑，而是能够根据需要利用其他对象中的算法。 使用场景 例如有一个CD类，我们类存储了CD的信息。</description>
+    </item>
+    
+    <item>
+      <title>装饰器模式</title>
+      <link>https://www.stormwan.com/post/design-patterns/zhuang-shi-qi-mo-shi/</link>
+      <pubDate>Tue, 31 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/design-patterns/zhuang-shi-qi-mo-shi/</guid>
+      <description>装饰器 装饰器模式，对已有对象的部分内容或者功能进行调整，但是不需要修改原始对象结构，可以使用装饰器设 应用场景 设计一个UserInfo类，里面</description>
+    </item>
+    
+    <item>
+      <title>观察者模式</title>
+      <link>https://www.stormwan.com/post/design-patterns/guan-cha-zhe-mo-shi/</link>
+      <pubDate>Mon, 30 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/design-patterns/guan-cha-zhe-mo-shi/</guid>
+      <description>观察者模式 观察者设计模式能够更便利创建和查看目标对象状态的对象，并且提供和核心对象非耦合的置顶功能性。观察者设计模式非常常用，在一般复杂的W</description>
+    </item>
+    
+  </channel>
+</rss>

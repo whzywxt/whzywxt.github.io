@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>docker应用学习-搭建redis哨兵集群 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content=" 基于阿里云 centos7，单机启动多个redis实例
+ 安装docker（略） 安装redis  查找redis镜像:  1 2 3  docker search redis docker pull docker.io/redis docker images    挂载目录  1 2 3 4  mkdir -p /data/redis_data cd /data/redis_data touch redis_6379.conf vi redis_6379.conf    端口配置 redis_6379.conf redis_6380.conf redis_6381.conf  配置说明： dir：工作目录 logfile：日志文件在工作目录下 slaveof：指明为主机一的从机 requirepass：redis客户端连接的认证密码，若不需要可不配置 masterauth：主从redis同步的认证密码，与连接密码同，若不需要可不用配置 appendonly：是否需要持久化，yes为需要
+1 2 3 4 5 6  logfile &amp;#34;redis_6379.log&amp;#34; port 6379 dir /data appendonly yes appendfilename appendonly.aof requirepass 1234   1 2 3 4 5 6 7 8  logfile &amp;#34;redis_6380.log&amp;#34; port 6380 dir /data appendonly yes appendfilename appendonly.aof slaveof 0.0.0.0 6379 masterauth 1234 requirepass 1234   1 2 3 4 5 6 7 8  logfile &amp;#34;redis_6381.log&amp;#34; port 6381 dir /data appendonly yes appendfilename appendonly.aof slaveof 0.0.0.0 6379 masterauth 1234 requirepass 1234   " /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/docker-ying-yong-xue-xi-da-jian-redis-shao-bing-ji-qun/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="docker应用学习-搭建redis哨兵集群" />
+<meta property="og:description" content="
+基于阿里云 centos7，单机启动多个redis实例
+
+安装docker（略）
+安装redis
+
+查找redis镜像:
+
+
+
+1
+2
+3
+
+
+docker search redis
+docker pull docker.io/redis
+docker images
+
+
+
+挂载目录
+
+
+
+1
+2
+3
+4
+
+
+mkdir -p /data/redis_data
+cd /data/redis_data
+touch redis_6379.conf
+vi redis_6379.conf
+
+
+
+端口配置 redis_6379.conf redis_6380.conf redis_6381.conf
+
+配置说明：
+dir：工作目录
+logfile：日志文件在工作目录下
+slaveof：指明为主机一的从机
+requirepass：redis客户端连接的认证密码，若不需要可不配置
+masterauth：主从redis同步的认证密码，与连接密码同，若不需要可不用配置
+appendonly：是否需要持久化，yes为需要
+
+
+1
+2
+3
+4
+5
+6
+
+
+logfile &#34;redis_6379.log&#34;
+port 6379
+dir /data
+appendonly yes
+appendfilename appendonly.aof
+requirepass 1234
+
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+
+
+logfile &#34;redis_6380.log&#34;
+port 6380
+dir /data
+appendonly yes
+appendfilename appendonly.aof
+slaveof 0.0.0.0 6379
+masterauth 1234
+requirepass 1234
+
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+
+
+logfile &#34;redis_6381.log&#34;
+port 6381
+dir /data
+appendonly yes
+appendfilename appendonly.aof
+slaveof 0.0.0.0 6379
+masterauth 1234
+requirepass 1234
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/docker-ying-yong-xue-xi-da-jian-redis-shao-bing-ji-qun/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-08-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-08-29T00:00:00+00:00" />
+
+<meta itemprop="name" content="docker应用学习-搭建redis哨兵集群">
+<meta itemprop="description" content="
+基于阿里云 centos7，单机启动多个redis实例
+
+安装docker（略）
+安装redis
+
+查找redis镜像:
+
+
+
+1
+2
+3
+
+
+docker search redis
+docker pull docker.io/redis
+docker images
+
+
+
+挂载目录
+
+
+
+1
+2
+3
+4
+
+
+mkdir -p /data/redis_data
+cd /data/redis_data
+touch redis_6379.conf
+vi redis_6379.conf
+
+
+
+端口配置 redis_6379.conf redis_6380.conf redis_6381.conf
+
+配置说明：
+dir：工作目录
+logfile：日志文件在工作目录下
+slaveof：指明为主机一的从机
+requirepass：redis客户端连接的认证密码，若不需要可不配置
+masterauth：主从redis同步的认证密码，与连接密码同，若不需要可不用配置
+appendonly：是否需要持久化，yes为需要
+
+
+1
+2
+3
+4
+5
+6
+
+
+logfile &#34;redis_6379.log&#34;
+port 6379
+dir /data
+appendonly yes
+appendfilename appendonly.aof
+requirepass 1234
+
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+
+
+logfile &#34;redis_6380.log&#34;
+port 6380
+dir /data
+appendonly yes
+appendfilename appendonly.aof
+slaveof 0.0.0.0 6379
+masterauth 1234
+requirepass 1234
+
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+
+
+logfile &#34;redis_6381.log&#34;
+port 6381
+dir /data
+appendonly yes
+appendfilename appendonly.aof
+slaveof 0.0.0.0 6379
+masterauth 1234
+requirepass 1234
+
+
+"><meta itemprop="datePublished" content="2019-08-29T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2019-08-29T00:00:00+00:00" />
+<meta itemprop="wordCount" content="655">
+<meta itemprop="keywords" content="docker,redis," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="docker应用学习-搭建redis哨兵集群"/>
+<meta name="twitter:description" content="
+基于阿里云 centos7，单机启动多个redis实例
+
+安装docker（略）
+安装redis
+
+查找redis镜像:
+
+
+
+1
+2
+3
+
+
+docker search redis
+docker pull docker.io/redis
+docker images
+
+
+
+挂载目录
+
+
+
+1
+2
+3
+4
+
+
+mkdir -p /data/redis_data
+cd /data/redis_data
+touch redis_6379.conf
+vi redis_6379.conf
+
+
+
+端口配置 redis_6379.conf redis_6380.conf redis_6381.conf
+
+配置说明：
+dir：工作目录
+logfile：日志文件在工作目录下
+slaveof：指明为主机一的从机
+requirepass：redis客户端连接的认证密码，若不需要可不配置
+masterauth：主从redis同步的认证密码，与连接密码同，若不需要可不用配置
+appendonly：是否需要持久化，yes为需要
+
+
+1
+2
+3
+4
+5
+6
+
+
+logfile &#34;redis_6379.log&#34;
+port 6379
+dir /data
+appendonly yes
+appendfilename appendonly.aof
+requirepass 1234
+
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+
+
+logfile &#34;redis_6380.log&#34;
+port 6380
+dir /data
+appendonly yes
+appendfilename appendonly.aof
+slaveof 0.0.0.0 6379
+masterauth 1234
+requirepass 1234
+
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+
+
+logfile &#34;redis_6381.log&#34;
+port 6381
+dir /data
+appendonly yes
+appendfilename appendonly.aof
+slaveof 0.0.0.0 6379
+masterauth 1234
+requirepass 1234
+
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">docker应用学习-搭建redis哨兵集群</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-08-29 </span>
+        <div class="post-category">
+            <a href="/categories/redis/"> redis </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#安装docker略">安装docker（略）</a></li>
+            <li><a href="#安装redis">安装redis</a></li>
+            <li><a href="#启动容器">启动容器</a></li>
+            <li><a href="#建立哨兵目录和其配置文件">建立哨兵目录和其配置文件</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>基于阿里云 centos7，单机启动多个redis实例</p>
+</blockquote>
+<h3 id="安装docker略">安装docker（略）</h3>
+<h3 id="安装redis">安装redis</h3>
+<ul>
+<li>查找redis镜像:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">docker search redis
+docker pull docker.io/redis
+docker images
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>挂载目录</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /data/redis_data
+cd /data/redis_data
+touch redis_6379.conf
+vi redis_6379.conf
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>端口配置 redis_6379.conf redis_6380.conf redis_6381.conf</li>
+</ul>
+<h5 id="配置说明">配置说明：</h5>
+<p>dir：工作目录
+logfile：日志文件在工作目录下
+slaveof：指明为主机一的从机
+requirepass：redis客户端连接的认证密码，若不需要可不配置
+masterauth：主从redis同步的认证密码，与连接密码同，若不需要可不用配置
+appendonly：是否需要持久化，yes为需要</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">logfile &#34;redis_6379.log&#34;
+port 6379
+dir /data
+appendonly yes
+appendfilename appendonly.aof
+requirepass 1234
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">logfile &#34;redis_6380.log&#34;
+port 6380
+dir /data
+appendonly yes
+appendfilename appendonly.aof
+slaveof 0.0.0.0 6379
+masterauth 1234
+requirepass 1234
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">logfile &#34;redis_6381.log&#34;
+port 6381
+dir /data
+appendonly yes
+appendfilename appendonly.aof
+slaveof 0.0.0.0 6379
+masterauth 1234
+requirepass 1234
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="启动容器">启动容器</h3>
+<h5 id="命令说明">命令说明：</h5>
+<p>-p 6379:6379 : 将容器的6379端口映射到主机的6379端口
+-v /data/redis_data:/data : 将主机中目录/data/redis_data挂载到容器的/data
+&ndash;name redis-6379: 给出容器名称
+-d: 后台运行
+docker.io/redis: 镜像名称
+redis-server redis_6379.conf: redis的启动命令，指定配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">docker run -p 6379:6379 -v /data/redis_data/:/data --name redis-6379 -d docker.io/redis redis-server redis_6379.conf
+
+docker run -p 6380:6380 -v /data/redis_data/:/data --name redis-6380 -d docker.io/redis redis-server redis_6380.conf
+
+docker run -p 6381:6381 -v /data/redis_data/:/data --name redis-6381 -d docker.io/redis redis-server redis_6381.conf
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="建立哨兵目录和其配置文件">建立哨兵目录和其配置文件</h3>
+<h5 id="配置说明-1">配置说明</h5>
+<ul>
+<li>logfile &ldquo;sentinel.log&rdquo;：输出日志目录</li>
+<li>sentinel monitor mymaster 192.168.0.1 6379 1：哨兵监控的主服务器名称为mymaster，ip为192.168.0.1，端口为6379，将这个主服务器标记为失效至少需要1个哨兵进程的同意</li>
+<li>sentinel auth-pass mymaster 1234 ： 哨兵的认证密码</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cd /data/redis_data
+touch sentinel.conf
+vi sentinel.conf
+
+logfile &#34;sentinel.log&#34;
+sentinel monitor mymaster 0.0.0.0 6379 1
+sentinel auth-pass mymaster 1234
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="启动哨兵模式">启动哨兵模式</h5>
+<p><code>docker run -p 26379:26379 -v /data/redis_data/:/data --name redis-26379 -d docker.io/redis redis-sentinel sentinel.conf</code></p>
+<h5 id="观察容器内哨兵情况">观察容器内哨兵情况：</h5>
+<p><code>docker exec -it 容器id /bin/bash</code></p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-08-29
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/docker/">docker</a>
+          <a href="/tags/redis/">redis</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/fen-bu-shi-suo/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">分布式锁</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/an-zhuang-nsq/">
+            <span class="next-text nav-default">安装NSQ</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

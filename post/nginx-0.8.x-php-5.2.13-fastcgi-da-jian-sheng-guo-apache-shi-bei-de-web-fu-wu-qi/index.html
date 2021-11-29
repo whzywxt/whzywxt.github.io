@@ -1,0 +1,2159 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Nginx 0.8.x &#43; PHP 5.2.13（FastCGI）搭建胜过Apache十倍的Web服务器 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="前言：本文是我撰写的关于搭建“Nginx &#43; PHP（FastCGI）”Web服务器的第6篇文章。本系列文章作为国内最早详细介绍 Nginx &#43; PHP 安装、配置" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/nginx-0.8.x-php-5.2.13-fastcgi-da-jian-sheng-guo-apache-shi-bei-de-web-fu-wu-qi/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Nginx 0.8.x &#43; PHP 5.2.13（FastCGI）搭建胜过Apache十倍的Web服务器" />
+<meta property="og:description" content="前言：本文是我撰写的关于搭建“Nginx &#43; PHP（FastCGI）”Web服务器的第6篇文章。本系列文章作为国内最早详细介绍 Nginx &#43; PHP 安装、配置" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/nginx-0.8.x-php-5.2.13-fastcgi-da-jian-sheng-guo-apache-shi-bei-de-web-fu-wu-qi/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2016-01-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-01-16T00:00:00+00:00" />
+
+<meta itemprop="name" content="Nginx 0.8.x &#43; PHP 5.2.13（FastCGI）搭建胜过Apache十倍的Web服务器">
+<meta itemprop="description" content="前言：本文是我撰写的关于搭建“Nginx &#43; PHP（FastCGI）”Web服务器的第6篇文章。本系列文章作为国内最早详细介绍 Nginx &#43; PHP 安装、配置"><meta itemprop="datePublished" content="2016-01-16T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2016-01-16T00:00:00+00:00" />
+<meta itemprop="wordCount" content="7750">
+<meta itemprop="keywords" content="lnmp," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Nginx 0.8.x &#43; PHP 5.2.13（FastCGI）搭建胜过Apache十倍的Web服务器"/>
+<meta name="twitter:description" content="前言：本文是我撰写的关于搭建“Nginx &#43; PHP（FastCGI）”Web服务器的第6篇文章。本系列文章作为国内最早详细介绍 Nginx &#43; PHP 安装、配置"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Nginx 0.8.x &#43; PHP 5.2.13（FastCGI）搭建胜过Apache十倍的Web服务器</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-01-16 </span>
+        <div class="post-category">
+            <a href="/categories/web/"> web </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一获取相关开源程序">一、获取相关开源程序：</a></li>
+        <li><a href="#二安装php-5214fastcgi模式">二、安装PHP 5.2.14（FastCGI模式）</a></li>
+        <li><a href="#三安装nginx-0846">三、安装Nginx 0.8.46</a></li>
+        <li><a href="#四配置开机自动启动nginx--php">四、配置开机自动启动Nginx + PHP</a></li>
+        <li><a href="#五优化linux内核参数">五、优化Linux内核参数</a></li>
+        <li><a href="#六在不停止nginx服务的情况下平滑变更nginx配置">六、在不停止Nginx服务的情况下平滑变更Nginx配置</a></li>
+        <li><a href="#七编写每天定时切割nginx日志的脚本">七、编写每天定时切割Nginx日志的脚本</a></li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>　　前言：本文是我撰写的关于搭建“Nginx + PHP（FastCGI）”Web服务器的第6篇文章。本系列文章作为国内最早详细介绍 Nginx + PHP 安装、配置、使用的资料之一，为推动 Nginx 在国内的发展产生了积极的作用。本文可能不断更新小版本，请记住原文链接“http://blog.zyan.cc/nginx_php_v6/”，获取最新内容。第6篇文章主要介绍了Nginx 0.8.x新的平滑重启方式，将PHP升级到了5.2.14，修正了PEAR问题。另将MySQL 5.1.x升级到了5.5.x系列，配置文件变更较大。</p>
+<p>　　链接：《2007年9月的第1版》、《2007年12月的第2版》、《2008年6月的第3版》、《2008年8月的第4版》、《2009年5月的第5版》</p>
+<p>　　点击在新窗口中浏览此图片</p>
+<p>　　Nginx (&ldquo;engine x&rdquo;) 是一个高性能的 HTTP 和反向代理服务器，也是一个 IMAP/POP3/SMTP 代理服务器。 Nginx 是由 Igor Sysoev 为俄罗斯访问量第二的 Rambler.ru 站点开发的，它已经在该站点运行超过三年了。Igor 将源代码以类BSD许可证的形式发布。</p>
+<p>　　Nginx 超越 Apache 的高性能和稳定性，使得国内使用 Nginx 作为 Web 服务器的网站也越来越多，其中包括新浪博客、新浪播客、网易新闻、腾讯网、搜狐博客等门户网站频道，六间房、56.com等视频分享网站，Discuz!官方论坛、水木社区等知名论坛，盛大在线、金山逍遥网等网络游戏网站，豆瓣、人人网、YUPOO相册、金山爱词霸、迅雷在线等新兴Web 2.0网站。</p>
+<p>　　Nginx 的官方中文维基：http://wiki.nginx.org/NginxChs</p>
+<p>　　在高并发连接的情况下，Nginx是Apache服务器不错的替代品。Nginx同时也可以作为7层负载均衡服务器来使用。根据我的测试结果，Nginx 0.8.46 + PHP 5.2.14 (FastCGI) 可以承受3万以上的并发连接数，相当于同等环境下Apache的10倍。</p>
+<p>　　根据我的经验，4GB内存的服务器+Apache（prefork模式）一般只能处理3000个并发连接，因为它们将占用3GB以上的内存，还得为系统预留1GB的内存。我曾经就有两台Apache服务器，因为在配置文件中设置的MaxClients为4000，当Apache并发连接数达到3800时，导致服务器内存和Swap空间用满而崩溃。</p>
+<p>　　而这台 Nginx 0.8.46 + PHP 5.2.14 (FastCGI) 服务器在3万并发连接下，开启的10个Nginx进程消耗150M内存（15M<em>10=150M），开启的64个php-cgi进程消耗1280M内存（20M</em>64=1280M），加上系统自身消耗的内存，总共消耗不到2GB内存。如果服务器内存较小，完全可以只开启25个php-cgi进程，这样php-cgi消耗的总内存数才500M。</p>
+<p>　　在3万并发连接下，访问Nginx 0.8.46 + PHP 5.2.14 (FastCGI) 服务器的PHP程序，仍然速度飞快。下图为Nginx的状态监控页面，显示的活动连接数为28457（关于Nginx的监控页配置，会在本文接下来所给出的Nginx配置文件中写明）：</p>
+<p>　　点击在新窗口中浏览此图片</p>
+<p>　　我生产环境下的两台Nginx + PHP5（FastCGI）服务器，跑多个一般复杂的纯PHP动态程序，单台Nginx + PHP5（FastCGI）服务器跑PHP动态程序的处理能力已经超过“700次请求/秒”，相当于每天可以承受6000万（700<em>60</em>60*24=60480000）的访问量（更多信息见此），而服务器的系统负载也不高：</p>
+<p>　　点击在新窗口中浏览此图片</p>
+<p>　　2009年9月3日下午2：30，金山游戏《剑侠情缘网络版叁》临时维护1小时（http://kefu.xoyo.com/gonggao/jx3/2009-09-03/750438.shtml），大量玩家上官网，论坛、评论、客服等动态应用Nginx服务器集群，每台服务器的Nginx活动连接数达到2.8万，这是笔者遇到的Nginx生产环境最高并发值。</p>
+<p>　　点击在新窗口中浏览此图片</p>
+<p>　　下面是用100个并发连接分别去压生产环境中同一负载均衡器VIP下、提供相同服务的两台服务器，一台为Nginx，另一台为Apache，Nginx每秒处理的请求数是Apache的两倍多，Nginx服务器的系统负载、CPU使用率远低于Apache：</p>
+<p>　　你可以将连接数开到10000～30000，去压Nginx和Apache上的phpinfo.php，这是用浏览器访问Nginx上的phpinfo.php一切正常，而访问Apache服务器的phpinfo.php，则是该页无法显示。4G内存的服务器，即使再优化，Apache也很难在“webbench -c 30000 -t 60 <a href="http://xxx.xxx.xxx.xxx/phpinfo.php">http://xxx.xxx.xxx.xxx/phpinfo.php</a>”的压力情况下正常访问，而调整参数优化后的Nginx可以。</p>
+<p>　　webbench 下载地址：http://blog.zyan.cc/post/288/</p>
+<p>　　注意：webbench 做压力测试时，该软件自身也会消耗CPU和内存资源，为了测试准确，请将 webbench 安装在别的服务器上。</p>
+<p>　　测试结果：#### Nginx + PHP ####</p>
+<blockquote>
+<p>引用</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost webbench-1.5]# webbench -c 100 -t 30 http://192.168.1.21/phpinfo.php
+Webbench - Simple Web Benchmark 1.5
+Copyright (c) Radim Kolar 1997-2004, GPL Open Source Software.
+ 
+Benchmarking: GET http://192.168.1.21/phpinfo.php
+100 clients, running 30 sec.
+ 
+Speed=102450 pages/min, 16490596 bytes/sec.
+Requests: 51225 susceed, 0 failed.
+ 
+top - 14:06:13 up 27 days,  2:25,  2 users,  load average: 14.57, 9.89, 6.51
+Tasks: 287 total,   4 running, 283 sleeping,   0 stopped,   0 zombie
+Cpu(s): 49.9% us,  6.7% sy,  0.0% ni, 41.4% id,  1.1% wa,  0.1% hi,  0.8% si
+Mem:   6230016k total,  2959468k used,  3270548k free,   635992k buffers
+Swap:  2031608k total,     3696k used,  2027912k free,  1231444k cached
+</code></pre></td></tr></table>
+</div>
+</div><p>　　测试结果：####  Apache + PHP ####</p>
+<blockquote>
+<p>引用</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost webbench-1.5]# webbench -c 100 -t 30 http://192.168.1.27/phpinfo.php
+Webbench - Simple Web Benchmark 1.5
+Copyright (c) Radim Kolar 1997-2004, GPL Open Source Software.
+ 
+Benchmarking: GET http://192.168.1.27/phpinfo.php
+100 clients, running 30 sec.
+ 
+Speed=42184 pages/min, 31512914 bytes/sec.
+Requests: 21092 susceed, 0 failed.
+ 
+top - 14:06:20 up 27 days,  2:13,  2 users,  load average: 62.15, 26.36, 13.42
+Tasks: 318 total,   7 running, 310 sleeping,   0 stopped,   1 zombie
+Cpu(s): 80.4% us, 10.6% sy,  0.0% ni,  7.9% id,  0.1% wa,  0.1% hi,  0.9% si
+Mem:   6230016k total,  3075948k used,  3154068k free,   379896k buffers
+Swap:  2031608k total,    12592k used,  2019016k free,  1117868k cached
+</code></pre></td></tr></table>
+</div>
+</div><p>　　为什么Nginx的性能要比Apache高得多？这得益于Nginx使用了最新的epoll（Linux 2.6内核）和kqueue（freebsd）网络I/O模型，而Apache则使用的是传统的select模型。目前Linux下能够承受高并发访问的Squid、Memcached都采用的是epoll网络I/O模型。</p>
+<p>　　处理大量的连接的读写，Apache所采用的select网络I/O模型非常低效。下面用一个比喻来解析Apache采用的select模型和Nginx采用的epoll模型进行之间的区别：</p>
+<p>　　假设你在大学读书，住的宿舍楼有很多间房间，你的朋友要来找你。select版宿管大妈就会带着你的朋友挨个房间去找，直到找到你为止。而epoll版宿管大妈会先记下每位同学的房间号，你的朋友来时，只需告诉你的朋友你住在哪个房间即可，不用亲自带着你的朋友满大楼找人。如果来了10000个人，都要找自己住这栋楼的同学时，select版和epoll版宿管大妈，谁的效率更高，不言自明。同理，在高并发服务器中，轮询I/O是最耗时间的操作之一，select和epoll的性能谁的性能更高，同样十分明了。</p>
+<p>　　安装步骤：
+　　（系统要求：Linux 2.6+ 内核，本文中的Linux操作系统为CentOS 5.3，另在RedHat AS4上也安装成功）</p>
+<h2 id="一获取相关开源程序">一、获取相关开源程序：</h2>
+<p>　　1、【适用CentOS操作系统】利用CentOS Linux系统自带的yum命令安装、升级所需的程序库（RedHat等其他Linux发行版可从安装光盘中找到这些程序库的RPM包，进行安装）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo -s
+LANG=C
+yum -y install gcc gcc-c++ autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5 krb5-devel libidn libidn-devel openssl openssl-devel openldap openldap-devel nss_ldap openldap-clients openldap-servers
+</code></pre></td></tr></table>
+</div>
+</div><p>　　2、【适用RedHat操作系统】RedHat等其他Linux发行版可从安装光盘中找到这些程序库的RPM包（事先可通过类似“rpm -qa | grep libjpeg”的命令查看所需的RPM包是否存在，通常是“xxx-devel”不存在，需要安装）。RedHat可以直接利用CentOS的RPM包安装，以下是RPM包下载网址：
+　　①、RedHat AS4 &amp; CentOS 4
+　　http://mirrors.163.com/centos/4/os/i386/CentOS/RPMS/
+　　http://mirrors.163.com/centos/4/os/x86_64/CentOS/RPMS/</p>
+<p>　　②、RedHat AS5 &amp; CentOS 5
+　　http://mirrors.163.com/centos/5/os/i386/CentOS/
+　　http://mirrors.163.com/centos/5/os/x86_64/CentOS/</p>
+<p>　　③、RPM包搜索网站
+　　http://rpm.pbone.net/
+　　http://www.rpmfind.net/</p>
+<p>　　④、RedHat AS4 系统环境，通常情况下缺少的支持包安装：
+　　Ⅰ、i386 系统</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">wget http://blog.zyan.cc/soft/linux/nginx_php/rpm/i386/libjpeg-devel-6b-33.i386.rpm
+rpm -ivh libjpeg-devel-6b-33.i386.rpm
+wget http://blog.zyan.cc/soft/linux/nginx_php/rpm/i386/freetype-devel-2.1.9-1.i386.rpm
+rpm -ivh freetype-devel-2.1.9-1.i386.rpm
+wget http://blog.zyan.cc/soft/linux/nginx_php/rpm/i386/libpng-devel-1.2.7-1.i386.rpm
+rpm -ivh libpng-devel-1.2.7-1.i386.rpm
+</code></pre></td></tr></table>
+</div>
+</div><p>　　Ⅱ、x86_64 系统</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">wget http://blog.zyan.cc/soft/linux/nginx_php/rpm/x86_64/libjpeg-devel-6b-33.x86_64.rpm
+rpm -ivh libjpeg-devel-6b-33.x86_64.rpm
+wget http://blog.zyan.cc/soft/linux/nginx_php/rpm/x86_64/freetype-devel-2.1.9-1.x86_64.rpm
+rpm -ivh freetype-devel-2.1.9-1.x86_64.rpm
+wget http://blog.zyan.cc/soft/linux/nginx_php/rpm/x86_64/libpng-devel-1.2.7-1.x86_64.rpm
+rpm -ivh libpng-devel-1.2.7-1.x86_64.rpm
+</code></pre></td></tr></table>
+</div>
+</div><p>　　3、【适用CentOS、RedHat及其它Linux操作系统】下载程序源码包：
+　　本文中提到的所有开源软件为截止到2010年07月26日的最新稳定版。
+　　①、从软件的官方网站下载：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /data0/software
+cd /data0/software
+wget http://sysoev.ru/nginx/nginx-0.8.46.tar.gz
+wget http://www.php.net/get/php-5.2.14.tar.gz/from/this/mirror
+wget http://php-fpm.org/downloads/php-5.2.14-fpm-0.5.14.diff.gz
+wget http://dev.mysql.com/get/Downloads/MySQL-5.5/mysql-5.5.3-m3.tar.gz/from/http://mysql.he.net/
+wget http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.13.1.tar.gz
+wget &#34;http://downloads.sourceforge.net/mcrypt/libmcrypt-2.5.8.tar.gz?modtime=1171868460&amp;big_mirror=0&#34;
+wget &#34;http://downloads.sourceforge.net/mcrypt/mcrypt-2.6.8.tar.gz?modtime=1194463373&amp;big_mirror=0&#34;
+wget http://pecl.php.net/get/memcache-2.2.5.tgz
+wget &#34;http://downloads.sourceforge.net/mhash/mhash-0.9.9.9.tar.gz?modtime=1175740843&amp;big_mirror=0&#34;
+wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.10.tar.gz
+wget http://bart.eaccelerator.net/source/0.9.6.1/eaccelerator-0.9.6.1.tar.bz2
+wget http://pecl.php.net/get/PDO_MYSQL-1.0.2.tgz
+wget http://blog.zyan.cc/soft/linux/nginx_php/imagick/ImageMagick.tar.gz
+wget http://pecl.php.net/get/imagick-2.3.0.tgz
+</code></pre></td></tr></table>
+</div>
+</div><p>　　②、从blog.zyan.cc下载（比较稳定，只允许在本站，或者在Linux/Unix下通过Wget、Curl等命令下载以下软件）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /data0/software
+cd /data0/software
+wget http://blog.zyan.cc/soft/linux/nginx_php/nginx/nginx-0.8.46.tar.gz
+wget http://blog.zyan.cc/soft/linux/nginx_php/php/php-5.2.14.tar.gz
+wget http://blog.zyan.cc/soft/linux/nginx_php/phpfpm/php-5.2.14-fpm-0.5.14.diff.gz
+wget http://blog.zyan.cc/soft/linux/nginx_php/mysql/mysql-5.5.3-m3.tar.gz
+wget http://blog.zyan.cc/soft/linux/nginx_php/libiconv/libiconv-1.13.1.tar.gz
+wget http://blog.zyan.cc/soft/linux/nginx_php/mcrypt/libmcrypt-2.5.8.tar.gz
+wget http://blog.zyan.cc/soft/linux/nginx_php/mcrypt/mcrypt-2.6.8.tar.gz
+wget http://blog.zyan.cc/soft/linux/nginx_php/memcache/memcache-2.2.5.tgz
+wget http://blog.zyan.cc/soft/linux/nginx_php/mhash/mhash-0.9.9.9.tar.gz
+wget http://blog.zyan.cc/soft/linux/nginx_php/pcre/pcre-8.10.tar.gz
+wget http://blog.zyan.cc/soft/linux/nginx_php/eaccelerator/eaccelerator-0.9.6.1.tar.bz2
+wget http://blog.zyan.cc/soft/linux/nginx_php/pdo/PDO_MYSQL-1.0.2.tgz
+wget http://blog.zyan.cc/soft/linux/nginx_php/imagick/ImageMagick.tar.gz
+wget http://blog.zyan.cc/soft/linux/nginx_php/imagick/imagick-2.3.0.tgz
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="二安装php-5214fastcgi模式">二、安装PHP 5.2.14（FastCGI模式）</h2>
+<p>　　1、编译安装PHP 5.2.14所需的支持库：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">tar zxvf libiconv-1.13.1.tar.gz
+cd libiconv-1.13.1/
+./configure --prefix=/usr/local
+make
+make install
+cd ../
+ 
+tar zxvf libmcrypt-2.5.8.tar.gz
+cd libmcrypt-2.5.8/
+./configure
+make
+make install
+/sbin/ldconfig
+cd libltdl/
+./configure --enable-ltdl-install
+make
+make install
+cd ../../
+ 
+tar zxvf mhash-0.9.9.9.tar.gz
+cd mhash-0.9.9.9/
+./configure
+make
+make install
+cd ../
+ 
+ln -s /usr/local/lib/libmcrypt.la /usr/lib/libmcrypt.la
+ln -s /usr/local/lib/libmcrypt.so /usr/lib/libmcrypt.so
+ln -s /usr/local/lib/libmcrypt.so.4 /usr/lib/libmcrypt.so.4
+ln -s /usr/local/lib/libmcrypt.so.4.4.8 /usr/lib/libmcrypt.so.4.4.8
+ln -s /usr/local/lib/libmhash.a /usr/lib/libmhash.a
+ln -s /usr/local/lib/libmhash.la /usr/lib/libmhash.la
+ln -s /usr/local/lib/libmhash.so /usr/lib/libmhash.so
+ln -s /usr/local/lib/libmhash.so.2 /usr/lib/libmhash.so.2
+ln -s /usr/local/lib/libmhash.so.2.0.1 /usr/lib/libmhash.so.2.0.1
+ln -s /usr/local/bin/libmcrypt-config /usr/bin/libmcrypt-config
+ 
+tar zxvf mcrypt-2.6.8.tar.gz
+cd mcrypt-2.6.8/
+/sbin/ldconfig
+./configure
+make
+make install
+cd ../
+</code></pre></td></tr></table>
+</div>
+</div><p>　　2、编译安装MySQL 5.5.3-m3</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/usr/sbin/groupadd mysql
+/usr/sbin/useradd -g mysql mysql
+tar zxvf mysql-5.5.3-m3.tar.gz
+cd mysql-5.5.3-m3/
+./configure --prefix=/usr/local/webserver/mysql/ --enable-assembler --with-extra-charsets=complex --enable-thread-safe-client --with-big-tables --with-readline --with-ssl --with-embedded-server --enable-local-infile --with-plugins=partition,innobase,myisammrg
+make &amp;&amp; make install
+chmod +w /usr/local/webserver/mysql
+chown -R mysql:mysql /usr/local/webserver/mysql
+cd ../
+</code></pre></td></tr></table>
+</div>
+</div><p>　　附：以下为附加步骤，如果你想在这台服务器上运行MySQL数据库，则执行以下几步。如果你只是希望让PHP支持MySQL扩展库，能够连接其他服务器上的MySQL数据库，那么，以下两步无需执行。</p>
+<p>　　①、创建MySQL数据库存放目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /data0/mysql/3306/data/
+mkdir -p /data0/mysql/3306/binlog/
+mkdir -p /data0/mysql/3306/relaylog/
+chown -R mysql:mysql /data0/mysql/
+</code></pre></td></tr></table>
+</div>
+</div><p>　　②、以mysql用户帐号的身份建立数据表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/usr/local/webserver/mysql/bin/mysql_install_db --basedir=/usr/local/webserver/mysql --datadir=/data0/mysql/3306/data --user=mysql
+</code></pre></td></tr></table>
+</div>
+</div><p>　　③、创建my.cnf配置文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">vi /data0/mysql/3306/my.cnf
+</code></pre></td></tr></table>
+</div>
+</div><p>输入以下内容：</p>
+<blockquote>
+<p>引用</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[client]
+character-set-server = utf8
+port    = 3306
+socket  = /tmp/mysql.sock
+ 
+[mysqld]
+character-set-server = utf8
+replicate-ignore-db = mysql
+replicate-ignore-db = test
+replicate-ignore-db = information_schema
+user    = mysql
+port    = 3306
+socket  = /tmp/mysql.sock
+basedir = /usr/local/webserver/mysql
+datadir = /data0/mysql/3306/data
+log-error = /data0/mysql/3306/mysql_error.log
+pid-file = /data0/mysql/3306/mysql.pid
+open_files_limit    = 10240
+back_log = 600
+max_connections = 5000
+max_connect_errors = 6000
+table_cache = 614
+external-locking = FALSE
+max_allowed_packet = 32M
+sort_buffer_size = 1M
+join_buffer_size = 1M
+thread_cache_size = 300
+#thread_concurrency = 8
+query_cache_size = 512M
+query_cache_limit = 2M
+query_cache_min_res_unit = 2k
+default-storage-engine = MyISAM
+thread_stack = 192K
+transaction_isolation = READ-COMMITTED
+tmp_table_size = 246M
+max_heap_table_size = 246M
+long_query_time = 3
+log-slave-updates
+log-bin = /data0/mysql/3306/binlog/binlog
+binlog_cache_size = 4M
+binlog_format = MIXED
+max_binlog_cache_size = 8M
+max_binlog_size = 1G
+relay-log-index = /data0/mysql/3306/relaylog/relaylog
+relay-log-info-file = /data0/mysql/3306/relaylog/relaylog
+relay-log = /data0/mysql/3306/relaylog/relaylog
+expire_logs_days = 30
+key_buffer_size = 256M
+read_buffer_size = 1M
+read_rnd_buffer_size = 16M
+bulk_insert_buffer_size = 64M
+myisam_sort_buffer_size = 128M
+myisam_max_sort_file_size = 10G
+myisam_repair_threads = 1
+myisam_recover
+ 
+interactive_timeout = 120
+wait_timeout = 120
+ 
+skip-name-resolve
+#master-connect-retry = 10
+slave-skip-errors = 1032,1062,126,1114,1146,1048,1396
+ 
+#master-host     =   192.168.1.2
+#master-user     =   username
+#master-password =   password
+#master-port     =  3306
+ 
+server-id = 1
+ 
+innodb_additional_mem_pool_size = 16M
+innodb_buffer_pool_size = 512M
+innodb_data_file_path = ibdata1:256M:autoextend
+innodb_file_io_threads = 4
+innodb_thread_concurrency = 8
+innodb_flush_log_at_trx_commit = 2
+innodb_log_buffer_size = 16M
+innodb_log_file_size = 128M
+innodb_log_files_in_group = 3
+innodb_max_dirty_pages_pct = 90
+innodb_lock_wait_timeout = 120
+innodb_file_per_table = 0
+ 
+#log-slow-queries = /data0/mysql/3306/slow.log
+#long_query_time = 10
+ 
+[mysqldump]
+quick
+max_allowed_packet = 32M
+</code></pre></td></tr></table>
+</div>
+</div><p>　　④、创建管理MySQL数据库的shell脚本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">vi /data0/mysql/3306/mysql
+</code></pre></td></tr></table>
+</div>
+</div><p>　　输入以下内容（这里的用户名admin和密码12345678接下来的步骤会创建）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+</span><span class="cp"></span> 
+<span class="nv">mysql_port</span><span class="o">=</span><span class="m">3306</span>
+<span class="nv">mysql_username</span><span class="o">=</span><span class="s2">&#34;admin&#34;</span>
+<span class="nv">mysql_password</span><span class="o">=</span><span class="s2">&#34;12345678&#34;</span>
+ 
+function_start_mysql<span class="o">()</span>
+<span class="o">{</span>
+    <span class="nb">printf</span> <span class="s2">&#34;Starting MySQL...\n&#34;</span>
+    /bin/sh /usr/local/webserver/mysql/bin/mysqld_safe --defaults-file<span class="o">=</span>/data0/mysql/<span class="si">${</span><span class="nv">mysql_port</span><span class="si">}</span>/my.cnf 2&gt;<span class="p">&amp;</span><span class="m">1</span> &gt; /dev/null <span class="p">&amp;</span>
+<span class="o">}</span>
+ 
+function_stop_mysql<span class="o">()</span>
+<span class="o">{</span>
+    <span class="nb">printf</span> <span class="s2">&#34;Stoping MySQL...\n&#34;</span>
+    /usr/local/webserver/mysql/bin/mysqladmin -u <span class="si">${</span><span class="nv">mysql_username</span><span class="si">}</span> -p<span class="si">${</span><span class="nv">mysql_password</span><span class="si">}</span> -S /tmp/mysql.sock shutdown
+<span class="o">}</span>
+ 
+function_restart_mysql<span class="o">()</span>
+<span class="o">{</span>
+    <span class="nb">printf</span> <span class="s2">&#34;Restarting MySQL...\n&#34;</span>
+    function_stop_mysql
+    sleep <span class="m">5</span>
+    function_start_mysql
+<span class="o">}</span>
+ 
+function_kill_mysql<span class="o">()</span>
+<span class="o">{</span>
+    <span class="nb">kill</span> -9 <span class="k">$(</span>ps -ef <span class="p">|</span> grep <span class="s1">&#39;bin/mysqld_safe&#39;</span> <span class="p">|</span> grep <span class="si">${</span><span class="nv">mysql_port</span><span class="si">}</span> <span class="p">|</span> awk <span class="s1">&#39;{printf $2}&#39;</span><span class="k">)</span>
+    <span class="nb">kill</span> -9 <span class="k">$(</span>ps -ef <span class="p">|</span> grep <span class="s1">&#39;libexec/mysqld&#39;</span> <span class="p">|</span> grep <span class="si">${</span><span class="nv">mysql_port</span><span class="si">}</span> <span class="p">|</span> awk <span class="s1">&#39;{printf $2}&#39;</span><span class="k">)</span>
+<span class="o">}</span>
+ 
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;start&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    function_start_mysql
+<span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;stop&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    function_stop_mysql
+<span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;restart&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+function_restart_mysql
+<span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;kill&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+function_kill_mysql
+<span class="k">else</span>
+    <span class="nb">printf</span> <span class="s2">&#34;Usage: /data0/mysql/</span><span class="si">${</span><span class="nv">mysql_port</span><span class="si">}</span><span class="s2">/mysql {start|stop|restart|kill}\n&#34;</span>
+<span class="k">fi</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>　　⑤、赋予shell脚本可执行权限：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">chmod +x /data0/mysql/3306/mysql
+</code></pre></td></tr></table>
+</div>
+</div><p>　　⑥、启动MySQL：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/data0/mysql/3306/mysql start
+</code></pre></td></tr></table>
+</div>
+</div><p>　　⑦、通过命令行登录管理MySQL服务器（提示输入密码时直接回车）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/usr/local/webserver/mysql/bin/mysql -u root -p -S /tmp/mysql.sock
+</code></pre></td></tr></table>
+</div>
+</div><p>　　⑧、输入以下SQL语句，创建一个具有root权限的用户（admin）和密码（12345678）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">GRANT ALL PRIVILEGES ON *.* TO &#39;admin&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;12345678&#39;;
+GRANT ALL PRIVILEGES ON *.* TO &#39;admin&#39;@&#39;127.0.0.1&#39; IDENTIFIED BY &#39;12345678&#39;;
+GRANT ALL PRIVILEGES ON *.* TO &#39;admin&#39;@&#39;%&#39; IDENTIFIED BY &#39;admin123&#39;;
+</code></pre></td></tr></table>
+</div>
+</div><p>　　⑨、（可选）停止MySQL：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/data0/mysql/3306/mysql stop
+</code></pre></td></tr></table>
+</div>
+</div><p>　　3、编译安装PHP（FastCGI模式）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">tar zxvf php-5.2.14.tar.gz
+gzip -cd php-5.2.14-fpm-0.5.14.diff.gz | patch -d php-5.2.14 -p1
+cd php-5.2.14/
+./configure --prefix=/usr/local/webserver/php --with-config-file-path=/usr/local/webserver/php/etc --with-mysql=/usr/local/webserver/mysql --with-mysqli=/usr/local/webserver/mysql/bin/mysql_config --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-discard-path --enable-safe-mode --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fastcgi --enable-fpm --enable-force-cgi-redirect --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-ldap --with-ldap-sasl --with-xmlrpc --enable-zip --enable-soap
+make ZEND_EXTRA_LIBS=&#39;-liconv&#39;
+make install
+cp php.ini-dist /usr/local/webserver/php/etc/php.ini
+cd ../
+</code></pre></td></tr></table>
+</div>
+</div><p>　　4、编译安装PHP5扩展模块</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">tar zxvf memcache-2.2.5.tgz
+cd memcache-2.2.5/
+/usr/local/webserver/php/bin/phpize
+./configure --with-php-config=/usr/local/webserver/php/bin/php-config
+make
+make install
+cd ../
+ 
+tar jxvf eaccelerator-0.9.6.1.tar.bz2
+cd eaccelerator-0.9.6.1/
+/usr/local/webserver/php/bin/phpize
+./configure --enable-eaccelerator=shared --with-php-config=/usr/local/webserver/php/bin/php-config
+make
+make install
+cd ../
+ 
+tar zxvf PDO_MYSQL-1.0.2.tgz
+cd PDO_MYSQL-1.0.2/
+/usr/local/webserver/php/bin/phpize
+./configure --with-php-config=/usr/local/webserver/php/bin/php-config --with-pdo-mysql=/usr/local/webserver/mysql
+make
+make install
+cd ../
+ 
+tar zxvf ImageMagick.tar.gz
+cd ImageMagick-6.5.1-2/
+./configure
+make
+make install
+cd ../
+ 
+tar zxvf imagick-2.3.0.tgz
+cd imagick-2.3.0/
+/usr/local/webserver/php/bin/phpize
+./configure --with-php-config=/usr/local/webserver/php/bin/php-config
+make
+make install
+cd ../
+</code></pre></td></tr></table>
+</div>
+</div><p>　　5、修改php.ini文件
+　　手工修改：查找/usr/local/webserver/php/etc/php.ini中的extension_dir = &ldquo;./&rdquo;
+　　修改为extension_dir = &ldquo;/usr/local/webserver/php/lib/php/extensions/no-debug-non-zts-20060613/&rdquo;
+　　并在此行后增加以下几行，然后保存：
+　　extension = &ldquo;memcache.so&rdquo;
+　　extension = &ldquo;pdo_mysql.so&rdquo;
+　　extension = &ldquo;imagick.so&rdquo;</p>
+<p>　　再查找output_buffering = Off
+　　修改为output_buffering = On</p>
+<p>　　再查找; cgi.fix_pathinfo=0
+　　修改为cgi.fix_pathinfo=0，防止Nginx文件类型错误解析漏洞。</p>
+<p>　　自动修改：若嫌手工修改麻烦，可执行以下shell命令，自动完成对php.ini文件的修改：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sed -i &#39;s#extension_dir = &#34;./&#34;#extension_dir = &#34;/usr/local/webserver/php/lib/php/extensions/no-debug-non-zts-20060613/&#34;\nextension = &#34;memcache.so&#34;\nextension = &#34;pdo_mysql.so&#34;\nextension = &#34;imagick.so&#34;\n#&#39; /usr/local/webserver/php/etc/php.ini
+sed -i &#39;s#output_buffering = Off#output_buffering = On#&#39; /usr/local/webserver/php/etc/php.ini
+sed -i &#34;s#; always_populate_raw_post_data = On#always_populate_raw_post_data = On#g&#34; /usr/local/webserver/php/etc/php.ini
+sed -i &#34;s#; cgi.fix_pathinfo=0#cgi.fix_pathinfo=0#g&#34; /usr/local/webserver/php/etc/php.ini
+</code></pre></td></tr></table>
+</div>
+</div><p>　　6、配置eAccelerator加速PHP：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /usr/local/webserver/eaccelerator_cache
+vi /usr/local/webserver/php/etc/php.ini
+</code></pre></td></tr></table>
+</div>
+</div><p>　　按shift+g键跳到配置文件的最末尾，加上以下配置信息：</p>
+<blockquote>
+<p>引用</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[eaccelerator]
+zend_extension=&#34;/usr/local/webserver/php/lib/php/extensions/no-debug-non-zts-20060613/eaccelerator.so&#34;
+eaccelerator.shm_size=&#34;64&#34;
+eaccelerator.cache_dir=&#34;/usr/local/webserver/eaccelerator_cache&#34;
+eaccelerator.enable=&#34;1&#34;
+eaccelerator.optimizer=&#34;1&#34;
+eaccelerator.check_mtime=&#34;1&#34;
+eaccelerator.debug=&#34;0&#34;
+eaccelerator.filter=&#34;&#34;
+eaccelerator.shm_max=&#34;0&#34;
+eaccelerator.shm_ttl=&#34;3600&#34;
+eaccelerator.shm_prune_period=&#34;3600&#34;
+eaccelerator.shm_only=&#34;0&#34;
+eaccelerator.compress=&#34;1&#34;
+eaccelerator.compress_level=&#34;9&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>　　7、创建www用户和组，以及供blog.zyan.cc和www.zyan.cc两个虚拟主机使用的目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/usr/sbin/groupadd www
+/usr/sbin/useradd -g www www
+mkdir -p /data0/htdocs/blog
+chmod +w /data0/htdocs/blog
+chown -R www:www /data0/htdocs/blog
+mkdir -p /data0/htdocs/www
+chmod +w /data0/htdocs/www
+chown -R www:www /data0/htdocs/www
+</code></pre></td></tr></table>
+</div>
+</div><p>　　8、创建php-fpm配置文件（php-fpm是为PHP打的一个FastCGI管理补丁，可以平滑变更php.ini配置而无需重启php-cgi）：
+　　在/usr/local/webserver/php/etc/目录中创建php-fpm.conf文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">rm -f /usr/local/webserver/php/etc/php-fpm.conf
+vi /usr/local/webserver/php/etc/php-fpm.conf
+</code></pre></td></tr></table>
+</div>
+</div><p>　　输入以下内容（如果您安装 Nginx + PHP 用于程序调试，请将以下的<value name="display_errors">0</value>改为<value name="display_errors">1</value>，以便显示PHP错误信息，否则，Nginx 会报状态为500的空白错误页）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;?xml version=&#34;1.0&#34; ?&gt;
+&lt;configuration&gt;
+ 
+  All relative paths in this config are relative to php&#39;s install prefix
+ 
+  &lt;section name=&#34;global_options&#34;&gt;
+ 
+    Pid file
+    &lt;value name=&#34;pid_file&#34;&gt;/usr/local/webserver/php/logs/php-fpm.pid&lt;/value&gt;
+ 
+    Error log file
+    &lt;value name=&#34;error_log&#34;&gt;/usr/local/webserver/php/logs/php-fpm.log&lt;/value&gt;
+ 
+    Log level
+    &lt;value name=&#34;log_level&#34;&gt;notice&lt;/value&gt;
+ 
+    When this amount of php processes exited with SIGSEGV or SIGBUS ...
+    &lt;value name=&#34;emergency_restart_threshold&#34;&gt;10&lt;/value&gt;
+ 
+    ... in a less than this interval of time, a graceful restart will be initiated.
+    Useful to work around accidental curruptions in accelerator&#39;s shared memory.
+    &lt;value name=&#34;emergency_restart_interval&#34;&gt;1m&lt;/value&gt;
+ 
+    Time limit on waiting child&#39;s reaction on signals from master
+    &lt;value name=&#34;process_control_timeout&#34;&gt;5s&lt;/value&gt;
+ 
+    Set to &#39;no&#39; to debug fpm
+    &lt;value name=&#34;daemonize&#34;&gt;yes&lt;/value&gt;
+ 
+  &lt;/section&gt;
+ 
+  &lt;workers&gt;
+ 
+    &lt;section name=&#34;pool&#34;&gt;
+ 
+      Name of pool. Used in logs and stats.
+      &lt;value name=&#34;name&#34;&gt;default&lt;/value&gt;
+ 
+      Address to accept fastcgi requests on.
+      Valid syntax is &#39;ip.ad.re.ss:port&#39; or just &#39;port&#39; or &#39;/path/to/unix/socket&#39;
+      &lt;value name=&#34;listen_address&#34;&gt;127.0.0.1:9000&lt;/value&gt;
+ 
+      &lt;value name=&#34;listen_options&#34;&gt;
+ 
+        Set listen(2) backlog
+        &lt;value name=&#34;backlog&#34;&gt;-1&lt;/value&gt;
+ 
+        Set permissions for unix socket, if one used.
+        In Linux read/write permissions must be set in order to allow connections from web server.
+        Many BSD-derrived systems allow connections regardless of permissions.
+        &lt;value name=&#34;owner&#34;&gt;&lt;/value&gt;
+        &lt;value name=&#34;group&#34;&gt;&lt;/value&gt;
+        &lt;value name=&#34;mode&#34;&gt;0666&lt;/value&gt;
+      &lt;/value&gt;
+ 
+      Additional php.ini defines, specific to this pool of workers.
+      &lt;value name=&#34;php_defines&#34;&gt;
+        &lt;value name=&#34;sendmail_path&#34;&gt;/usr/sbin/sendmail -t -i&lt;/value&gt;
+        &lt;value name=&#34;display_errors&#34;&gt;0&lt;/value&gt;
+      &lt;/value&gt;
+ 
+      Unix user of processes
+      &lt;value name=&#34;user&#34;&gt;www&lt;/value&gt;
+ 
+      Unix group of processes
+      &lt;value name=&#34;group&#34;&gt;www&lt;/value&gt;
+ 
+      Process manager settings
+      &lt;value name=&#34;pm&#34;&gt;
+ 
+        Sets style of controling worker process count.
+        Valid values are &#39;static&#39; and &#39;apache-like&#39;
+        &lt;value name=&#34;style&#34;&gt;static&lt;/value&gt;
+ 
+        Sets the limit on the number of simultaneous requests that will be served.
+        Equivalent to Apache MaxClients directive.
+        Equivalent to PHP_FCGI_CHILDREN environment in original php.fcgi
+        Used with any pm_style.
+        &lt;value name=&#34;max_children&#34;&gt;128&lt;/value&gt;
+ 
+        Settings group for &#39;apache-like&#39; pm style
+        &lt;value name=&#34;apache_like&#34;&gt;
+ 
+          Sets the number of server processes created on startup.
+          Used only when &#39;apache-like&#39; pm_style is selected
+          &lt;value name=&#34;StartServers&#34;&gt;20&lt;/value&gt;
+ 
+          Sets the desired minimum number of idle server processes.
+          Used only when &#39;apache-like&#39; pm_style is selected
+          &lt;value name=&#34;MinSpareServers&#34;&gt;5&lt;/value&gt;
+ 
+          Sets the desired maximum number of idle server processes.
+          Used only when &#39;apache-like&#39; pm_style is selected
+          &lt;value name=&#34;MaxSpareServers&#34;&gt;35&lt;/value&gt;
+ 
+        &lt;/value&gt;
+ 
+      &lt;/value&gt;
+ 
+      The timeout (in seconds) for serving a single request after which the worker process will be terminated
+      Should be used when &#39;max_execution_time&#39; ini option does not stop script execution for some reason
+      &#39;0s&#39; means &#39;off&#39;
+      &lt;value name=&#34;request_terminate_timeout&#34;&gt;0s&lt;/value&gt;
+ 
+      The timeout (in seconds) for serving of single request after which a php backtrace will be dumped to slow.log file
+      &#39;0s&#39; means &#39;off&#39;
+      &lt;value name=&#34;request_slowlog_timeout&#34;&gt;0s&lt;/value&gt;
+ 
+      The log file for slow requests
+      &lt;value name=&#34;slowlog&#34;&gt;logs/slow.log&lt;/value&gt;
+ 
+      Set open file desc rlimit
+      &lt;value name=&#34;rlimit_files&#34;&gt;65535&lt;/value&gt;
+ 
+      Set max core size rlimit
+      &lt;value name=&#34;rlimit_core&#34;&gt;0&lt;/value&gt;
+ 
+      Chroot to this directory at the start, absolute path
+      &lt;value name=&#34;chroot&#34;&gt;&lt;/value&gt;
+ 
+      Chdir to this directory at the start, absolute path
+      &lt;value name=&#34;chdir&#34;&gt;&lt;/value&gt;
+ 
+      Redirect workers&#39; stdout and stderr into main error log.
+      If not set, they will be redirected to /dev/null, according to FastCGI specs
+      &lt;value name=&#34;catch_workers_output&#34;&gt;yes&lt;/value&gt;
+ 
+      How much requests each process should execute before respawn.
+      Useful to work around memory leaks in 3rd party libraries.
+      For endless request processing please specify 0
+      Equivalent to PHP_FCGI_MAX_REQUESTS
+      &lt;value name=&#34;max_requests&#34;&gt;1024&lt;/value&gt;
+ 
+      Comma separated list of ipv4 addresses of FastCGI clients that allowed to connect.
+      Equivalent to FCGI_WEB_SERVER_ADDRS environment in original php.fcgi (5.2.2+)
+      Makes sense only with AF_INET listening socket.
+      &lt;value name=&#34;allowed_clients&#34;&gt;127.0.0.1&lt;/value&gt;
+ 
+      Pass environment variables like LD_LIBRARY_PATH
+      All $VARIABLEs are taken from current environment
+      &lt;value name=&#34;environment&#34;&gt;
+        &lt;value name=&#34;HOSTNAME&#34;&gt;$HOSTNAME&lt;/value&gt;
+        &lt;value name=&#34;PATH&#34;&gt;/usr/local/bin:/usr/bin:/bin&lt;/value&gt;
+        &lt;value name=&#34;TMP&#34;&gt;/tmp&lt;/value&gt;
+        &lt;value name=&#34;TMPDIR&#34;&gt;/tmp&lt;/value&gt;
+        &lt;value name=&#34;TEMP&#34;&gt;/tmp&lt;/value&gt;
+        &lt;value name=&#34;OSTYPE&#34;&gt;$OSTYPE&lt;/value&gt;
+        &lt;value name=&#34;MACHTYPE&#34;&gt;$MACHTYPE&lt;/value&gt;
+        &lt;value name=&#34;MALLOC_CHECK_&#34;&gt;2&lt;/value&gt;
+      &lt;/value&gt;
+ 
+    &lt;/section&gt;
+ 
+  &lt;/workers&gt;
+ 
+&lt;/configuration&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>　　9、启动php-cgi进程，监听127.0.0.1的9000端口，进程数为128（如果服务器内存小于3GB，可以只开启64个进程），用户为www：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ulimit -SHn 65535
+/usr/local/webserver/php/sbin/php-fpm start
+</code></pre></td></tr></table>
+</div>
+</div><p>　　注：/usr/local/webserver/php/sbin/php-fpm还有其他参数，包括：start|stop|quit|restart|reload|logrotate，修改php.ini后不重启php-cgi，重新加载配置文件使用reload。</p>
+<h2 id="三安装nginx-0846">三、安装Nginx 0.8.46</h2>
+<p>　　1、安装Nginx所需的pcre库：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">tar zxvf pcre-8.10.tar.gz
+cd pcre-8.10/
+./configure
+make &amp;&amp; make install
+cd ../
+</code></pre></td></tr></table>
+</div>
+</div><p>　　2、安装Nginx</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">tar zxvf nginx-0.8.46.tar.gz
+cd nginx-0.8.46/
+./configure --user=www --group=www --prefix=/usr/local/webserver/nginx --with-http_stub_status_module --with-http_ssl_module
+make &amp;&amp; make install
+cd ../
+</code></pre></td></tr></table>
+</div>
+</div><p>　　3、创建Nginx日志目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /data1/logs
+chmod +w /data1/logs
+chown -R www:www /data1/logs
+</code></pre></td></tr></table>
+</div>
+</div><p>　　4、创建Nginx配置文件
+　　①、在/usr/local/webserver/nginx/conf/目录中创建nginx.conf文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">rm -f /usr/local/webserver/nginx/conf/nginx.conf
+vi /usr/local/webserver/nginx/conf/nginx.conf
+</code></pre></td></tr></table>
+</div>
+</div><p>　　输入以下内容：</p>
+<blockquote>
+<p>引用</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">user  www www;
+ 
+worker_processes 8;
+ 
+error_log  /data1/logs/nginx_error.log  crit;
+ 
+pid        /usr/local/webserver/nginx/nginx.pid;
+ 
+#Specifies the value for maximum file descriptors that can be opened by this process.
+worker_rlimit_nofile 65535;
+ 
+events
+{
+  use epoll;
+  worker_connections 65535;
+}
+ 
+http
+{
+  include       mime.types;
+  default_type  application/octet-stream;
+ 
+  #charset  gb2312;
+ 
+  server_names_hash_bucket_size 128;
+  client_header_buffer_size 32k;
+  large_client_header_buffers 4 32k;
+  client_max_body_size 8m;
+ 
+  sendfile on;
+  tcp_nopush     on;
+ 
+  keepalive_timeout 60;
+ 
+  tcp_nodelay on;
+ 
+  fastcgi_connect_timeout 300;
+  fastcgi_send_timeout 300;
+  fastcgi_read_timeout 300;
+  fastcgi_buffer_size 64k;
+  fastcgi_buffers 4 64k;
+  fastcgi_busy_buffers_size 128k;
+  fastcgi_temp_file_write_size 128k;
+ 
+  gzip on;
+  gzip_min_length  1k;
+  gzip_buffers     4 16k;
+  gzip_http_version 1.0;
+  gzip_comp_level 2;
+  gzip_types       text/plain application/x-javascript text/css application/xml;
+  gzip_vary on;
+ 
+  #limit_zone  crawler  $binary_remote_addr  10m;
+ 
+  server
+  {
+    listen       80;
+    server_name  blog.zyan.cc;
+    index index.html index.htm index.php;
+    root  /data0/htdocs/blog;
+ 
+    #limit_conn   crawler  20;   
+ 
+    location ~ .*\.(php|php5)?$
+    {     
+      #fastcgi_pass  unix:/tmp/php-cgi.sock;
+      fastcgi_pass  127.0.0.1:9000;
+      fastcgi_index index.php;
+      include fcgi.conf;
+    }
+ 
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+    {
+      expires      30d;
+    }
+ 
+    location ~ .*\.(js|css)?$
+    {
+      expires      1h;
+    }   
+ 
+    log_format  access  &#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; &#39;
+              &#39;$status $body_bytes_sent &#34;$http_referer&#34; &#39;
+              &#39;&#34;$http_user_agent&#34; $http_x_forwarded_for&#39;;
+    access_log  /data1/logs/access.log  access;
+      }
+ 
+  server
+  {
+    listen       80;
+    server_name  www.zyan.cc;
+    index index.html index.htm index.php;
+    root  /data0/htdocs/www;
+ 
+    location ~ .*\.(php|php5)?$
+    {     
+      #fastcgi_pass  unix:/tmp/php-cgi.sock;
+      fastcgi_pass  127.0.0.1:9000;
+      fastcgi_index index.php;
+      include fcgi.conf;
+    }
+ 
+    log_format  wwwlogs  &#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; &#39;
+               &#39;$status $body_bytes_sent &#34;$http_referer&#34; &#39;
+               &#39;&#34;$http_user_agent&#34; $http_x_forwarded_for&#39;;
+    access_log  /data1/logs/wwwlogs.log  wwwlogs;
+  }
+ 
+  server
+  {
+    listen  80;
+    server_name  status.blog.zyan.cc;
+ 
+    location / {
+    stub_status on;
+    access_log   off;
+    }
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>　　②、在/usr/local/webserver/nginx/conf/目录中创建fcgi.conf文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">vi /usr/local/webserver/nginx/conf/fcgi.conf
+</code></pre></td></tr></table>
+</div>
+</div><p>　　输入以下内容：</p>
+<blockquote>
+<p>引用</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;
+fastcgi_param  SERVER_SOFTWARE    nginx;
+ 
+fastcgi_param  QUERY_STRING       $query_string;
+fastcgi_param  REQUEST_METHOD     $request_method;
+fastcgi_param  CONTENT_TYPE       $content_type;
+fastcgi_param  CONTENT_LENGTH     $content_length;
+ 
+fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;
+fastcgi_param  REQUEST_URI        $request_uri;
+fastcgi_param  DOCUMENT_URI       $document_uri;
+fastcgi_param  DOCUMENT_ROOT      $document_root;
+fastcgi_param  SERVER_PROTOCOL    $server_protocol;
+ 
+fastcgi_param  REMOTE_ADDR        $remote_addr;
+fastcgi_param  REMOTE_PORT        $remote_port;
+fastcgi_param  SERVER_ADDR        $server_addr;
+fastcgi_param  SERVER_PORT        $server_port;
+fastcgi_param  SERVER_NAME        $server_name;
+ 
+# PHP only, required if PHP was built with --enable-force-cgi-redirect
+fastcgi_param  REDIRECT_STATUS    200;
+</code></pre></td></tr></table>
+</div>
+</div><p>　　5、启动Nginx</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ulimit -SHn 65535
+/usr/local/webserver/nginx/sbin/nginx
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="四配置开机自动启动nginx--php">四、配置开机自动启动Nginx + PHP</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">vi /etc/rc.local
+</code></pre></td></tr></table>
+</div>
+</div><p>　　在末尾增加以下内容：</p>
+<blockquote>
+<p>引用</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ulimit -SHn 65535
+/usr/local/webserver/php/sbin/php-fpm start
+/usr/local/webserver/nginx/sbin/nginx
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="五优化linux内核参数">五、优化Linux内核参数</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">vi /etc/sysctl.conf
+</code></pre></td></tr></table>
+</div>
+</div><p>　　在末尾增加以下内容：</p>
+<blockquote>
+<p>引用</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># Add
+net.ipv4.tcp_max_syn_backlog = 65536
+net.core.netdev_max_backlog =  32768
+net.core.somaxconn = 32768
+ 
+net.core.wmem_default = 8388608
+net.core.rmem_default = 8388608
+net.core.rmem_max = 16777216
+net.core.wmem_max = 16777216
+ 
+net.ipv4.tcp_timestamps = 0
+net.ipv4.tcp_synack_retries = 2
+net.ipv4.tcp_syn_retries = 2
+ 
+net.ipv4.tcp_tw_recycle = 1
+#net.ipv4.tcp_tw_len = 1
+net.ipv4.tcp_tw_reuse = 1
+ 
+net.ipv4.tcp_mem = 94500000 915000000 927000000
+net.ipv4.tcp_max_orphans = 3276800
+ 
+#net.ipv4.tcp_fin_timeout = 30
+#net.ipv4.tcp_keepalive_time = 120
+net.ipv4.ip_local_port_range = 1024  65535
+</code></pre></td></tr></table>
+</div>
+</div><p>　　使配置立即生效：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/sbin/sysctl -p
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="六在不停止nginx服务的情况下平滑变更nginx配置">六、在不停止Nginx服务的情况下平滑变更Nginx配置</h2>
+<p>　　1、修改/usr/local/webserver/nginx/conf/nginx.conf配置文件后，请执行以下命令检查配置文件是否正确：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/usr/local/webserver/nginx/sbin/nginx -t
+</code></pre></td></tr></table>
+</div>
+</div><p>　　如果屏幕显示以下两行信息，说明配置文件正确：
+　　the configuration file /usr/local/webserver/nginx/conf/nginx.conf syntax is ok
+　　the configuration file /usr/local/webserver/nginx/conf/nginx.conf was tested successfully</p>
+<p>　　2、平滑重启：
+　　①、对于Nginx 0.8.x版本，现在平滑重启Nginx配置非常简单，执行以下命令即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/usr/local/webserver/nginx/sbin/nginx -s reload
+</code></pre></td></tr></table>
+</div>
+</div><p>　　②、对于Nginx 0.8.x之前的版本，平滑重启稍微麻烦一些，按照以下步骤进行即可。输入以下命令查看Nginx主进程号：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ps -ef | grep &#34;nginx: master process&#34; | grep -v &#34;grep&#34; | awk -F &#39; &#39; &#39;{print $2}&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>　　屏幕显示的即为Nginx主进程号，例如：
+　　6302
+　　这时，执行以下命令即可使修改过的Nginx配置文件生效：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">kill -HUP 6302
+</code></pre></td></tr></table>
+</div>
+</div><p>　　或者无需这么麻烦，找到Nginx的Pid文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">kill -HUP `cat /usr/local/webserver/nginx/nginx.pid`
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="七编写每天定时切割nginx日志的脚本">七、编写每天定时切割Nginx日志的脚本</h2>
+<p>　　1、创建脚本/usr/local/webserver/nginx/sbin/cut_nginx_log.sh</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">vi /usr/local/webserver/nginx/sbin/cut_nginx_log.sh
+</code></pre></td></tr></table>
+</div>
+</div><p>　　输入以下内容：</p>
+<blockquote>
+<p>引用</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="c1"># This script run at 00:00</span>
+ 
+<span class="c1"># The Nginx logs path</span>
+<span class="nv">logs_path</span><span class="o">=</span><span class="s2">&#34;/usr/local/webserver/nginx/logs/&#34;</span>
+ 
+mkdir -p <span class="si">${</span><span class="nv">logs_path</span><span class="si">}</span><span class="k">$(</span>date -d <span class="s2">&#34;yesterday&#34;</span> +<span class="s2">&#34;%Y&#34;</span><span class="k">)</span>/<span class="k">$(</span>date -d <span class="s2">&#34;yesterday&#34;</span> +<span class="s2">&#34;%m&#34;</span><span class="k">)</span>/
+mv <span class="si">${</span><span class="nv">logs_path</span><span class="si">}</span>access.log <span class="si">${</span><span class="nv">logs_path</span><span class="si">}</span><span class="k">$(</span>date -d <span class="s2">&#34;yesterday&#34;</span> +<span class="s2">&#34;%Y&#34;</span><span class="k">)</span>/<span class="k">$(</span>date -d <span class="s2">&#34;yesterday&#34;</span> +<span class="s2">&#34;%m&#34;</span><span class="k">)</span>/access_<span class="k">$(</span>date -d <span class="s2">&#34;yesterday&#34;</span> +<span class="s2">&#34;%Y%m%d&#34;</span><span class="k">)</span>.log
+<span class="nb">kill</span> -USR1 <span class="sb">`</span>cat /usr/local/webserver/nginx/nginx.pid<span class="sb">`</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>　　2、设置crontab，每天凌晨00:00切割nginx访问日志</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">crontab -e
+</code></pre></td></tr></table>
+</div>
+</div><p>　　输入以下内容：</p>
+<blockquote>
+<p>引用</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">00 00 * * * /bin/bash  /usr/local/webserver/nginx/sbin/cut_nginx_log.sh
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<ul>
+<li>原文链接 <a href="http://blog.zyan.cc/nginx_php_v6/">http://blog.zyan.cc/nginx_php_v6/</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-01-16
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/lnmp/">lnmp</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/nginx-1.5.2-php-5.5.1-mysql-5.6.10-zai-centos-xia-de-bian-yi-an-zhuang/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Nginx 1.5.2 &#43; PHP 5.5.1 &#43; MySQL 5.6.10 在 CentOS 下的编译安装</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/lnmp-yun-xing-huan-jing-qi-ta-an-zhuang-chu-li/">
+            <span class="next-text nav-default">LNMP运行环境其它安装处理</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

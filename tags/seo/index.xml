@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>seo on 小叨笔记</title>
+    <link>https://www.stormwan.com/tags/seo/</link>
+    <description>Recent content in seo on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 18 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/tags/seo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关键词内链替换</title>
+      <link>https://www.stormwan.com/post/guan-jian-ci-nei-lian-ti-huan/</link>
+      <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/guan-jian-ci-nei-lian-ti-huan/</guid>
+      <description>内部链接目标 SEO优化，在博客文章中渲染时对关键词进行替换添加链接1，不改变博客原文 关键词链接到电商商品、活动页、分类页等 解决url收录问题</description>
+    </item>
+    
+  </channel>
+</rss>

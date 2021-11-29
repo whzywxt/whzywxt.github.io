@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Vagrant的基本简单使用 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="一、前言 Vagrant 可以让你使用单一的配置信息来部署一套虚拟环境, 最后打包为一个所谓的 box (就是已经部署好环境的虚拟机器). 你可以手动来安装和配置 box, 也可" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/vagrant-de-ji-ben-jian-dan-shi-yong/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Vagrant的基本简单使用" />
+<meta property="og:description" content="一、前言 Vagrant 可以让你使用单一的配置信息来部署一套虚拟环境, 最后打包为一个所谓的 box (就是已经部署好环境的虚拟机器). 你可以手动来安装和配置 box, 也可" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/vagrant-de-ji-ben-jian-dan-shi-yong/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2017-07-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2017-07-23T00:00:00+00:00" />
+
+<meta itemprop="name" content="Vagrant的基本简单使用">
+<meta itemprop="description" content="一、前言 Vagrant 可以让你使用单一的配置信息来部署一套虚拟环境, 最后打包为一个所谓的 box (就是已经部署好环境的虚拟机器). 你可以手动来安装和配置 box, 也可"><meta itemprop="datePublished" content="2017-07-23T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2017-07-23T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2357">
+<meta itemprop="keywords" content="vagrant,lnmp," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vagrant的基本简单使用"/>
+<meta name="twitter:description" content="一、前言 Vagrant 可以让你使用单一的配置信息来部署一套虚拟环境, 最后打包为一个所谓的 box (就是已经部署好环境的虚拟机器). 你可以手动来安装和配置 box, 也可"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Vagrant的基本简单使用</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-07-23 </span>
+        <div class="post-category">
+            <a href="/categories/web/"> web </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#一前言">一、前言</a></li>
+            <li><a href="#二安装明细">二、安装明细</a></li>
+            <li><a href="#三参考">三、参考</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="一前言">一、前言</h3>
+<blockquote>
+<p>Vagrant 可以让你使用单一的配置信息来部署一套虚拟环境, 最后打包为一个所谓的 box (就是已经部署好环境的虚拟机器). 你可以手动来安装和配置 box, 也可以使用自动部署工具, 如 Puppet 或者 Chef .</p>
+</blockquote>
+<blockquote>
+<p>自动部署工具可以让你快速部署一套一模一样的环境, 避免了一大堆的手动的命令输入, 并且允许你随时删除和重建一个全新的 box, 虚拟机的管理变得更加简单.</p>
+</blockquote>
+<blockquote>
+<p>Vagrant 还可以在虚拟机和主机上分享文件夹, 意味着你可以在主机里面编辑代码, 然后在虚拟机里面运行.</p>
+</blockquote>
+<p><strong>目标环境：</strong></p>
+<ul>
+<li>window下开发，利用xdebug远程联调</li>
+<li>virtual Box的安装(5.1.30版本，5.2的版本之前提示兼容问题)：
+下载地址：https://www.virtualbox.org/wiki/Download_Old_Builds_5_1</li>
+<li>vagrant的安装(2.0.0版本)：
+下载地址：https://www.vagrantup.com/</li>
+<li>Homestead环境配置：</li>
+<li>github地址：https://github.com/laravel/homestead.git</li>
+<li>Laravel Homestead Box安装(Laravel Homestead 是一个官方预封装的 Vagrant Box，提供了一个完美的开发环境，你无需在本地安装 PHP 、web 服务器或任何服务软件) :</li>
+<li>安装命令： vagrant box add laravel/homestead</li>
+<li>内置软件：
+Ubuntu 16.04
+Git
+PHP 7.1
+Nginx
+MySQL
+MariaDB
+Sqlite3
+Postgres
+Composer
+Node (带有 Yarn、Bower、Grunt 和 Gulp)
+Redis
+Memcached
+Beanstalkd
+Mailhog
+ngrok</li>
+</ul>
+<h3 id="二安装明细">二、安装明细</h3>
+<h6 id="1-virtualbox以及vargrant的安装直接略过">1. virtualbox以及vargrant的安装直接略过。</h6>
+<h6 id="2-下载--安装laravelhomestead-box">2. 下载 &amp; 安装laravel/homestead box：</h6>
+<p>在线安装（国内通常被墙了）：vagrant box add laravel/homestead
+离线安装（本地安装）：可以考虑自己找一些laravel/homestead的box的源，或者公司其他同事已经下载好的，可repackage出来：
+假定下载好的离线box存储路径为：D:/VagrantSoftWare/homestead.box
+在目录下，创建一个metadata.json，用于对vagran box一些说明:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{
+    &#34;name&#34;: &#34;laravel/homestead&#34;,
+    &#34;versions&#34;: [{
+        &#34;version&#34;: &#34;4.0.0&#34;,
+        &#34;providers&#34;: [{
+            &#34;name&#34;: &#34;virtualbox&#34;,
+            &#34;url&#34;: &#34;file:///D:/VagrantSoftWare/homestead.box&#34;
+        }]
+    }]
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>执行<code>vagrant.exe box add metadata.json</code>，然后通过<code>vagrant.exe box list</code>就可以查看到：
+$ <code>vagrant.exe box list</code>
+laravel/homestead (virtualbox, 4.0.0)
+然后继续后续的laravel/homestead的配置安装步骤即可。</p>
+<h6 id="3-laravelhomestead的相关环境配置-clone-laravel的vagrantbox环境配置到homestead">3. laravel/homestead的相关环境配置， Clone laravel的Vagrantbox环境配置到~/Homestead</h6>
+<p>[选择稳定版本]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cd ~
+git clone https://github.com/laravel/homestead.git Homestead
+git checkout v6.5.0
+</code></pre></td></tr></table>
+</div>
+</div><p>[初始化，并创建Homestead.yaml配置文件]
+<code>bash init.sh</code></p>
+<h6 id="4-配置homesteadyaml">4. 配置Homestead.yaml</h6>
+<p>Homestead.yaml属于Homestead的配置文件，
+[配置提供器]
+<code>provider: virtualbox</code>    #如果用了其他虚拟机比如vmware_workstation，这块提供商会不同</p>
+<p>[和宿主机器共享文件夹]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">folders: # 默认以vboxsf文件类型挂载
+    - map: F:\windowsShare
+      to: /home/vagrant/www
+folders:    # 以nfs文件类型挂载
+    - map: ~/Code
+      to: /home/vagrant/Code
+      type: &#34;nfs&#34;
+folders:    # 以rsync同步方式，共享文件
+    - map: ~/Code
+      to: /home/vagrant/Code
+      type: &#34;rsync&#34;
+      options:
+          rsync__args: [&#34;--verbose&#34;, &#34;--archive&#34;, &#34;--delete&#34;, &#34;-zz&#34;]
+          rsync__exclude: [&#34;node_modules&#34;]
+[配置 Nginx 站点]
+
+sites:
+    - map: blog.test
+      to: /home/vagrant/code/blog/public
+      php: &#34;7.1&#34;
+      params:
+        - key: ENV
+          value: DEV
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="5-解析host">5. 解析Host</h6>
+<p>192.168.10.10    blog.test</p>
+<p>生成 ~/.ssh/id_rsa ~/.ssh/id_rsa.pub</p>
+<h6 id="6-vagrant的常见操作">6. vagrant的常见操作</h6>
+<ul>
+<li>vagrant up             # 启动vagrant box，也就是linux虚拟机；</li>
+<li>vagrant box list       # 查看当前的vagrant box清单</li>
+<li>vagrant.exe box repackage laravel/homestead virtualbox 4.0.0    #打包vagrantbox</li>
+<li>vagrant ssh            # 连接vagrant box</li>
+<li>vagrant reload         # 加载最新的VagrantFile，并重启vagrant box
+其他跟多的，可以自行vagrant &ndash;help</li>
+</ul>
+<h6 id="7-vagrant-box的相关配置文件">7. vagrant box的相关配置文件</h6>
+<ul>
+<li>php相关配置，包含了多个版本的(5.6~7.2)：/etc/php/</li>
+<li>nginx配置：/etc/nginx</li>
+<li>mysql配置： ~/.my.cnf 以及 /etc/mysql
+其他都是类似的，都在/etc目录下，比如/etc/redis</li>
+</ul>
+<h6 id="8-xdebug的配置">8. XDEBUG的配置</h6>
+<p>vagrant box下的php这边都按模块进行配置了，相关模块配置都是在/etc/php/7.1/fpm/conf.d/下，比如：</p>
+<p>xdebug配置路径： /etc/php/7.1/fpm/conf.d/20-xdebug.ini
+具体配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">zend_extension=xdebug.so
+#xdebug.remote_connect_back = 1    # 不用设定来源调试机器的时候，做调试需要设定该值，设定该值将忽略xdebug.remote_host设置。
+xdebug.remote_autostart=on        # 自动开启远端模式
+xdebug.remote_enable=on            # 开启远端调试
+xdebug.remote_host=192.168.10.1    # 调试端监听机器
+xdebug.remote_port=9000            # phpstorm的监听端口
+xdebug.remote_handler=dbgp    # debug协议
+xdebug.idekey = &#34;PHPSTORM&#34;    # php联调时候需要配置
+xdebug.var_display_max_depth = 5    # 变量嵌套显示深度
+xdebug.max_nesting_level = 512    # 变量嵌套显示深度层次
+开启完后，由于是本地和虚拟机联调，需要到phpstorm中做对应的设置，还需要做好对应的maping映射，这个比较关键，即远端的路径，比如/home/vagrant/code/blog/应该映射到本地，这样才能正常的调试流程；
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="9-挂载情况查看">9. 挂载情况查看</h6>
+<p>[mount -l]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">vagrant on /vagrant type vboxsf (rw,nodev,relatime)
+home_vagrant_www on /home/vagrant/www type vboxsf (rw,nodev,relatime)
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="10-服务器情况">10. 服务器情况</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 127.0.0.1:11300         0.0.0.0:*               LISTEN      1189/beanstalkd 
+tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN      1363/mysqld     
+tcp        0      0 127.0.0.1:6379          0.0.0.0:*               LISTEN      1370/redis-server 1
+tcp        0      0 127.0.0.1:11211         0.0.0.0:*               LISTEN      1214/memcached  
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      1508/nginx -g daemo
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      1210/sshd       
+tcp        0      0 0.0.0.0:5432            0.0.0.0:*               LISTEN      1520/postgres   
+tcp        0      0 0.0.0.0:443             0.0.0.0:*               LISTEN      1508/nginx -g daemo
+tcp6       0      0 :::22                   :::*                    LISTEN      1210/sshd       
+tcp6       0      0 :::5432                 :::*                    LISTEN      1520/postgres   
+tcp6       0      0 :::8025                 :::*                    LISTEN      1221/mailhog    
+tcp6       0      0 :::1025                 :::*                    LISTEN      1221/mailhog
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="11-composer安装laravel">11. composer安装laravel</h6>
+<p>composer的话，用vagrant用户安装就OK了，比如安装Laravel，进入到/home/vagrant/code/blog/，直接composer create-project laravel/laravel .，稍等就可以安装完成了。</p>
+<h6 id="12-其他">12. 其他</h6>
+<p>可以基于vagrant ssh-config查对应的ssh的相关配置，默认直接ssh到虚拟机ip192.168.10.10时候需要基于私钥登录的；</p>
+<h3 id="三参考">三、参考</h3>
+<p>Laravel 虚拟开发环境 Homestead： <a href="https://d.laravel-china.org/docs/5.5/homestead">https://d.laravel-china.org/docs/5.5/homestead</a>
+Laravel 的本地安装遇到的问题：https://stackoverflow.com/questions/34946837/box-laravel-homestead-could-not-be-found
+Xdebug 远端调试文档： <a href="https://xdebug.org/docs/remote">https://xdebug.org/docs/remote</a>
+Xdebug 在phpstorm下的设置</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2017-07-23
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/vagrant/">vagrant</a>
+          <a href="/tags/lnmp/">lnmp</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/an-zhuang-nsq/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">安装NSQ</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/an-zhuang-beanstalkd/">
+            <span class="next-text nav-default">安装Beanstalkd</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

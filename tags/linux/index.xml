@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on 小叨笔记</title>
+    <link>https://www.stormwan.com/tags/linux/</link>
+    <description>Recent content in linux on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 04 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux误删数据恢复</title>
+      <link>https://www.stormwan.com/post/linux-wu-shan-shu-ju-hui-fu/</link>
+      <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/linux-wu-shan-shu-ju-hui-fu/</guid>
+      <description>不能保证完全恢复 一、安装恢复工具 1 2 3 4 5 6 7 wget http://zy-res.oss-cn-hangzhou.aliyuncs.com/server/extundelete-0.2.4.tar.bz2 tar -xvjf extundelete-0.2.4.tar.bz2 cd extundelete-0.2.4 ./configure make &amp;amp;&amp;amp; make install extundelete --version 二、删除数据查找 查看文件系统 1 2 3 4 5 6 7 8 df -h # 结果 文件系统 容量</description>
+    </item>
+    
+    <item>
+      <title>Linux操作命令</title>
+      <link>https://www.stormwan.com/post/linux-cao-zuo-ming-ling/</link>
+      <pubDate>Sun, 26 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/linux-cao-zuo-ming-ling/</guid>
+      <description>Linux操作命令，初始学习记录Linux常用命令 多通过 man 查看，SEE ALSO 是最好的 安装 源代码形式 绝大多数开源软件都是直接以原码形式发布的 源代码</description>
+    </item>
+    
+    <item>
+      <title>Linux系统安装配置</title>
+      <link>https://www.stormwan.com/post/linux-xi-tong-an-zhuang-pei-zhi/</link>
+      <pubDate>Wed, 19 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/linux-xi-tong-an-zhuang-pei-zhi/</guid>
+      <description>解决方案 在Windows7 32位操作系统通过虚拟机来运行Linux 本机已搭建虚拟环境 系统相关准备 Linux系统 CentOS-5.5-i386-bin-DVD.iso 远程登录管理工具 SSHSecureShellClient-3.2.9.exe 虚拟机运行</description>
+    </item>
+    
+    <item>
+      <title>Linux用户管理</title>
+      <link>https://www.stormwan.com/post/linux-yong-hu-guan-li/</link>
+      <pubDate>Tue, 14 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/linux-yong-hu-guan-li/</guid>
+      <description>为什么普通用户可以更改密码？ SetUID的定义：当一个可执行程序具有SetUID权限，普通用户执行这个程序时，将以这个程序所有者的身份执行。</description>
+    </item>
+    
+    <item>
+      <title>Linux常用命令</title>
+      <link>https://www.stormwan.com/post/linux-chang-yong-ming-ling/</link>
+      <pubDate>Wed, 25 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/linux-chang-yong-ming-ling/</guid>
+      <description>基础命令 软件类型 c/s:由个人下载安装软件 升级包 b/s:运行在浏览器上,软件安装 升级包由官方完成 linux常用命令 1 2 3 4 5 6 7 8 9 10 11 12 13</description>
+    </item>
+    
+  </channel>
+</rss>

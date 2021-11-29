@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ES on 小叨笔记</title>
+    <link>https://www.stormwan.com/categories/es/</link>
+    <description>Recent content in ES on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 16 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/categories/es/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Elasticsearch原理理解</title>
+      <link>https://www.stormwan.com/post/elasticsearch-yuan-li-li-jie/</link>
+      <pubDate>Sat, 16 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/elasticsearch-yuan-li-li-jie/</guid>
+      <description>理解ES搜索引擎的原理 倒排索引 普通索引 拿唐诗“静夜思”举例： 窗前明月光，疑似地上霜。 举头望明月，低头思故乡。 普通的索引，以诗名作为key，诗</description>
+    </item>
+    
+    <item>
+      <title>安装Elasticsearch</title>
+      <link>https://www.stormwan.com/post/an-zhuang-elasticsearch/</link>
+      <pubDate>Fri, 24 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/an-zhuang-elasticsearch/</guid>
+      <description>安装Elasticsearch 安装 Installing Marvel 1 2 3 4 5 6 7 8 9 10 11 12 #Step 1: Install Marvel into Elasticsearch: bin/plugin install license bin/plugin install marvel-agent #Step 2: Install Marvel into Kibana bin/kibana plugin --install elasticsearch/marvel/latest #Step 3: Start Elasticsearch and Kibana bin/elasticsearch bin/kibana #Step 4: Navigate to http://localhost:5601/app/marvel Installing Marvel on Offline</description>
+    </item>
+    
+  </channel>
+</rss>

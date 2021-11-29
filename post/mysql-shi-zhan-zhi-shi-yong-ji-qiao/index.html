@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>MySQL实战之实用技巧 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="实用技巧篇 都说InnoDB好，那还要不要使用Memory引擎 自增主键为什么不是连续的 怎么最快地复制一张表 要不要使用分区表 支持range、ha" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/mysql-shi-zhan-zhi-shi-yong-ji-qiao/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="MySQL实战之实用技巧" />
+<meta property="og:description" content="实用技巧篇 都说InnoDB好，那还要不要使用Memory引擎 自增主键为什么不是连续的 怎么最快地复制一张表 要不要使用分区表 支持range、ha" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/mysql-shi-zhan-zhi-shi-yong-ji-qiao/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-04-06T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-04-06T00:00:00+00:00" />
+
+<meta itemprop="name" content="MySQL实战之实用技巧">
+<meta itemprop="description" content="实用技巧篇 都说InnoDB好，那还要不要使用Memory引擎 自增主键为什么不是连续的 怎么最快地复制一张表 要不要使用分区表 支持range、ha"><meta itemprop="datePublished" content="2020-04-06T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-04-06T00:00:00+00:00" />
+<meta itemprop="wordCount" content="811">
+<meta itemprop="keywords" content="mysql," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MySQL实战之实用技巧"/>
+<meta name="twitter:description" content="实用技巧篇 都说InnoDB好，那还要不要使用Memory引擎 自增主键为什么不是连续的 怎么最快地复制一张表 要不要使用分区表 支持range、ha"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">MySQL实战之实用技巧</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-06 </span>
+        <div class="post-category">
+            <a href="/categories/mysql/"> mysql </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#都说innodb好那还要不要使用memory引擎">都说InnoDB好，那还要不要使用Memory引擎</a></li>
+            <li><a href="#自增主键为什么不是连续的">自增主键为什么不是连续的</a></li>
+            <li><a href="#怎么最快地复制一张表">怎么最快地复制一张表</a></li>
+            <li><a href="#要不要使用分区表">要不要使用分区表</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>实用技巧篇</p>
+</blockquote>
+<h3 id="都说innodb好那还要不要使用memory引擎">都说InnoDB好，那还要不要使用Memory引擎</h3>
+<h3 id="自增主键为什么不是连续的">自增主键为什么不是连续的</h3>
+<h3 id="怎么最快地复制一张表">怎么最快地复制一张表</h3>
+<h3 id="要不要使用分区表">要不要使用分区表</h3>
+<p>支持range、hash、list分区，具体参看手册</p>
+<p>1.分区表的组织形式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">t</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">ftime</span><span class="o">`</span><span class="w"> </span><span class="kt">datetime</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="no">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">c</span><span class="o">`</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">ftime</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="kp">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="kp">CHARSET</span><span class="o">=</span><span class="n">latin1</span><span class="w">
+</span><span class="w"></span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="nf">RANGE</span><span class="w"> </span><span class="p">(</span><span class="kt">YEAR</span><span class="p">(</span><span class="n">ftime</span><span class="p">))</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="n">p_2017</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="n">LESS</span><span class="w"> </span><span class="nf">THAN</span><span class="w"> </span><span class="p">(</span><span class="mi">2017</span><span class="p">)</span><span class="w"> </span><span class="kp">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InnoDB</span><span class="p">,</span><span class="w">
+</span><span class="w"> </span><span class="n">PARTITION</span><span class="w"> </span><span class="n">p_2018</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="n">LESS</span><span class="w"> </span><span class="nf">THAN</span><span class="w"> </span><span class="p">(</span><span class="mi">2018</span><span class="p">)</span><span class="w"> </span><span class="kp">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InnoDB</span><span class="p">,</span><span class="w">
+</span><span class="w"> </span><span class="n">PARTITION</span><span class="w"> </span><span class="n">p_2019</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="n">LESS</span><span class="w"> </span><span class="nf">THAN</span><span class="w"> </span><span class="p">(</span><span class="mi">2019</span><span class="p">)</span><span class="w"> </span><span class="kp">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InnoDB</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="n">PARTITION</span><span class="w"> </span><span class="n">p_others</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="n">LESS</span><span class="w"> </span><span class="n">THAN</span><span class="w"> </span><span class="n">MAXVALUE</span><span class="w"> </span><span class="kp">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InnoDB</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="s1">&#39;2017-4-1&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="s1">&#39;2018-4-1&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>物理文件包含一个.frm文件和4个.ibd文件</li>
+<li>每个分区对应一个.ibd文件</li>
+<li>对于引擎层是4个表</li>
+<li>对于Server层是1个表</li>
+</ul>
+<p>2.分区表的引擎层行为</p>
+<ul>
+<li>注意分区表间隙加锁</li>
+<li>手动分表和分区表区别
+<ul>
+<li>分区表有server层决定使用哪个分区</li>
+<li>手工分表由应用层代码来决定使用哪个分表</li>
+<li>引擎层看，没有差别</li>
+</ul>
+</li>
+</ul>
+<p>3.分区策略</p>
+<p>第一次访问一个分区表时，MySQL需要把所有分区都访问一遍</p>
+<p>典型问题：
+一个分区表的分区很多，比如超过1000个，而MySQL启动时，<code>open_files_limit</code>参数使用的是默认值1024
+那么访问时大爱所有的文件，导致打开表文件的个数超过上限而报错</p>
+<p>通用分区策略（generic partitioning）：MyISAM分区表使用的分区策略，每次访问分区都由server层控制</p>
+<p>本地分区策略（native partitioning）：MySQL 5.7.9开始，InnoDB引擎引入，内部自己管理打开分区的行为</p>
+<p>4.分区表的server层行为</p>
+<p>一个分区就是一个表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">-- session A 持有整个表的MDL锁
+begin;
+select * from t where ftime=&#39;2018-4-1&#39;;
+
+-- session B alter语句被堵住
+alter table t truncate partition p_2017;
+(blocked)
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>MySQL在第一次打开分区表的时候，需要访问所有的分区；</li>
+<li>在server层，认为这是同一张表，因此所有分区共用同一个MDL锁；</li>
+<li>在引擎层，认为这是不同的表，因此MDL锁之后的执行过程，会根据分区表规则，只访问必要的分区。</li>
+</ul>
+<p>5.分区表的应用场景</p>
+<p>优势：对业务透明，业务代码简洁，方便清理历史数据<code>alter table t drop partition …</code>直接删除分区文件，效果跟drop普通表类似</p>
+<p>与 <code>delete</code> 语句相比，优势是速度快、对系统影响小</p>
+<blockquote>
+<p>注意：如果有ES索引来监听数据变更，建议先软删除，等ES更新后再 drop，实际情况需看架构影响</p>
+</blockquote>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-04-06
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/mysql/">mysql</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/mysql-shi-zhan-zhi-sql/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">MySQL实战之SQL</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/nginx-zhi-shi/">
+            <span class="next-text nav-default">Nginx知识</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

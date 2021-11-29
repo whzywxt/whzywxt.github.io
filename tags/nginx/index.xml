@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>nginx on 小叨笔记</title>
+    <link>https://www.stormwan.com/tags/nginx/</link>
+    <description>Recent content in nginx on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 05 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nginx知识</title>
+      <link>https://www.stormwan.com/post/nginx-zhi-shi/</link>
+      <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/nginx-zhi-shi/</guid>
+      <description>一、初识Nginx Nginx的三个主要应用场景 1.静态资源服务 通过本地文件系统提供服务 2.反向代理服务 Nginx的强大性能 缓存 负载均衡 3.A</description>
+    </item>
+    
+  </channel>
+</rss>

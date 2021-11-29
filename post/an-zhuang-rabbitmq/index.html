@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>安装RabbitMQ - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="whzywxt" /><meta name="description" content="安装RabbitMQ 环境配置 erlang安装 1 2 3 4 5 6 7 8 9 10 11 12 13 cd /Data/tgz tar zxvf otp_src_18.3.tar.gz cd otp_src_18.3 ./configure --prefix=/usr/local/erlang make make install 增加环境变量 vi /etc/profile 在文件末尾加上如下代码 export PATH=$PATH:/usr/local/erlang/bin 使配" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/an-zhuang-rabbitmq/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="安装RabbitMQ" />
+<meta property="og:description" content="安装RabbitMQ 环境配置 erlang安装 1 2 3 4 5 6 7 8 9 10 11 12 13 cd /Data/tgz tar zxvf otp_src_18.3.tar.gz cd otp_src_18.3 ./configure --prefix=/usr/local/erlang make make install 增加环境变量 vi /etc/profile 在文件末尾加上如下代码 export PATH=$PATH:/usr/local/erlang/bin 使配" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/an-zhuang-rabbitmq/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2016-06-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-06-13T00:00:00+00:00" />
+
+<meta itemprop="name" content="安装RabbitMQ">
+<meta itemprop="description" content="安装RabbitMQ 环境配置 erlang安装 1 2 3 4 5 6 7 8 9 10 11 12 13 cd /Data/tgz tar zxvf otp_src_18.3.tar.gz cd otp_src_18.3 ./configure --prefix=/usr/local/erlang make make install 增加环境变量 vi /etc/profile 在文件末尾加上如下代码 export PATH=$PATH:/usr/local/erlang/bin 使配"><meta itemprop="datePublished" content="2016-06-13T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2016-06-13T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2280">
+<meta itemprop="keywords" content="消息队列," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="安装RabbitMQ"/>
+<meta name="twitter:description" content="安装RabbitMQ 环境配置 erlang安装 1 2 3 4 5 6 7 8 9 10 11 12 13 cd /Data/tgz tar zxvf otp_src_18.3.tar.gz cd otp_src_18.3 ./configure --prefix=/usr/local/erlang make make install 增加环境变量 vi /etc/profile 在文件末尾加上如下代码 export PATH=$PATH:/usr/local/erlang/bin 使配"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">安装RabbitMQ</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-06-13 </span>
+        <div class="post-category">
+            <a href="/categories/web/"> web </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#环境配置">环境配置</a>
+          <ul>
+            <li><a href="#erlang安装">erlang安装</a></li>
+            <li><a href="#simplejson安装">simplejson安装</a></li>
+            <li><a href="#rabbitmq安装配置">rabbitmq安装配置</a></li>
+            <li><a href="#github地址">github地址</a></li>
+            <li><a href="#rabbitmq配置">rabbitmq配置</a></li>
+            <li><a href="#用户角色相关">用户角色相关</a></li>
+            <li><a href="#用户管理">用户管理</a></li>
+            <li><a href="#用户角色">用户角色</a></li>
+            <li><a href="#用户权限">用户权限</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>安装RabbitMQ</p>
+</blockquote>
+<h2 id="环境配置">环境配置</h2>
+<h3 id="erlang安装">erlang安装</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cd /Data/tgz
+tar zxvf otp_src_18.3.tar.gz
+cd otp_src_18.3
+./configure --prefix=/usr/local/erlang
+make
+make install
+
+增加环境变量
+vi /etc/profile
+在文件末尾加上如下代码
+export PATH=$PATH:/usr/local/erlang/bin
+使配置文件生效
+source /etc/profile
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="simplejson安装">simplejson安装</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cd /Data/tgz
+tar zxvf simplejson-3.8.2.tar.gz
+cd simplejson-3.8.2
+python setup.py install
+这是由于simplejson是依赖python脚本的
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="rabbitmq安装配置">rabbitmq安装配置</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cd /Data/tgz
+xz -d rabbitmq-server-generic-unix-3.6.2.tar.xz
+tar -xvf rabbitmq-server-generic-unix-3.6.2.tar
+
+创建软连接 
+cp rabbitmq_server-3.6.2 /usr/local
+cd /usr/local
+ln -s rabbitmq_server-3.6.2 rabbitmq
+
+cd sbin
+可以实现后台启动
+./rabbitmq-server --detached
+
+增加环境变量
+vi /etc/profile
+在文件末尾加上如下代码
+export PATH=$PATH:/usr/local/rabbitmq/sbin使配置文件生效
+使配置文件生效
+source /etc/profile
+
+关闭rabbitmq
+./rabbitmqctl stop
+
+启用管理方式（用网页方式管理MQ）
+cd /usr/local/rabbitmq/sbin
+rabbitmq-plugin enable rabbitmq-management
+然后访问http://localhost:15672 或 http://serverip:15672
+
+新增一个管理员
+rabbitmqctl add_user admin admin123
+# 给用户赋予权限
+rabbitmqctl set_user_tags admin administrator
+
+新增一个vhost
+rabbitmqctl add_vhost admin_host
+# 给用户赋予vhost权限
+rabbitmqctl set_permissions -p admin_host admin &#34;.*&#34; &#34;.*&#34; &#34;.*&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="github地址">github地址</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">https://github.com/php-amqplib/php-amqplib/
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="rabbitmq配置">rabbitmq配置</h3>
+<p>一般情况下，RabbitMQ的默认配置就足够了。如果希望特殊设置的话，有两个途径：
+一个是环境变量的配置文件 rabbitmq-env.conf ；
+一个是配置信息的配置文件 rabbitmq.config；
+注意，这两个文件默认是没有的，如果需要必须自己创建。
+rabbitmq-env.conf
+这个文件的位置是确定和不能改变的，位于：/etc/rabbitmq目录下（这个目录需要自己创建）。
+文件的内容包括了RabbitMQ的一些环境变量，常用的有：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#RABBITMQ_NODE_PORT=    //端口号
+#HOSTNAME=
+RABBITMQ_NODENAME=mq
+RABBITMQ_CONFIG_FILE=        //配置文件的路径
+RABBITMQ_MNESIA_BASE=/rabbitmq/data        //需要使用的MNESIA数据库的路径
+RABBITMQ_LOG_BASE=/rabbitmq/log        //log的路径
+RABBITMQ_PLUGINS_DIR=/rabbitmq/plugins    //插件的路径
+</code></pre></td></tr></table>
+</div>
+</div><p>具体的列表见：http://www.rabbitmq.com/configure.html#define-environment-variables</p>
+<p>rabbitmq.config
+这是一个标准的erlang配置文件。它必须符合erlang配置文件的标准。
+它既有默认的目录，也可以在rabbitmq-env.conf文件中配置。
+文件的内容详见：
+<a href="http://www.rabbitmq.com/configure.html#config-items">http://www.rabbitmq.com/configure.html#config-items</a></p>
+<h3 id="用户角色相关">用户角色相关</h3>
+<blockquote>
+<p>解决rabbitmq的web管理界面无法使用guest用户登录
+<a href="http://www.cnblogs.com/mingaixin/p/4134920.html">http://www.cnblogs.com/mingaixin/p/4134920.html</a></p>
+</blockquote>
+<p>安装最新版本的rabbitmq(3.3.1)，并启用management plugin后，使用默认的账号guest登陆管理控制台，却提示登陆失败。</p>
+<p>翻看官方的release文档后，得知由于账号guest具有所有的操作权限，并且又是默认账号，出于安全因素的考虑，guest用户只能通过localhost登陆使用，并建议修改guest用户的密码以及新建其他账号管理使用rabbitmq(该功能是在3.3.0版本引入的)。</p>
+<p>虽然可以以比较猥琐的方式：将ebin目录下rabbit.app中loopback_users里的&laquo;&ldquo;guest&rdquo;&raquo;删除，
+并重启rabbitmq，可通过任意IP使用guest账号登陆管理控制台，但始终是违背了设计者的初衷，再加上以前对这一块了解也不多，因此有必要总结一下。</p>
+<h3 id="用户管理">用户管理</h3>
+<p>用户管理包括增加用户，删除用户，查看用户列表，修改用户密码。</p>
+<p>相应的命令</p>
+<ul>
+<li>新增一个用户</li>
+</ul>
+<p>rabbitmqctl  add_user  Username  Password</p>
+<ul>
+<li>删除一个用户</li>
+</ul>
+<p>rabbitmqctl  delete_user  Username</p>
+<ul>
+<li>修改用户的密码</li>
+</ul>
+<p>rabbitmqctl  change_password  Username  Newpassword</p>
+<ul>
+<li>查看当前用户列表</li>
+</ul>
+<p>rabbitmqctl  list_users</p>
+<h3 id="用户角色">用户角色</h3>
+<p>按照个人理解，用户角色可分为五类，超级管理员, 监控者, 策略制定者, 普通管理者以及其他。</p>
+<ul>
+<li>超级管理员(administrator)</li>
+</ul>
+<p>可登陆管理控制台(启用management plugin的情况下)，可查看所有的信息，并且可以对用户，策略(policy)进行操作。</p>
+<ul>
+<li>监控者(monitoring)</li>
+</ul>
+<p>可登陆管理控制台(启用management plugin的情况下)，同时可以查看rabbitmq节点的相关信息(进程数，内存使用情况，磁盘使用情况等)</p>
+<ul>
+<li>策略制定者(policymaker)</li>
+</ul>
+<p>可登陆管理控制台(启用management plugin的情况下), 同时可以对policy进行管理。但无法查看节点的相关信息(上图红框标识的部分)。</p>
+<p>与administrator的对比，administrator能看到这些内容</p>
+<ul>
+<li>普通管理者(management)</li>
+</ul>
+<p>仅可登陆管理控制台(启用management plugin的情况下)，无法看到节点信息，也无法对策略进行管理。</p>
+<ul>
+<li>其他</li>
+</ul>
+<p>无法登陆管理控制台，通常就是普通的生产者和消费者。</p>
+<p>了解了这些后，就可以根据需要给不同的用户设置不同的角色，以便按需管理。</p>
+<p>设置用户角色的命令为：</p>
+<p>rabbitmqctl  set_user_tags  User  Tag</p>
+<p>User为用户名， Tag为角色名(对应于上面的administrator，monitoring，policymaker，management，或其他自定义名称)。</p>
+<p>也可以给同一用户设置多个角色，例如</p>
+<p>rabbitmqctl  set_user_tags  hncscwc  monitoring  policymaker</p>
+<h3 id="用户权限">用户权限</h3>
+<p>用户权限指的是用户对exchange，queue的操作权限，包括配置权限，读写权限。配置权限会影响到exchange，queue的声明和删除。读写权限影响到从queue里取消息，向exchange发送消息以及queue和exchange的绑定(bind)操作。</p>
+<p>例如： 将queue绑定到某exchange上，需要具有queue的可写权限，以及exchange的可读权限；向exchange发送消息需要具有exchange的可写权限；从queue里取数据需要具有queue的可读权限。详细请参考官方文档中&quot;How permissions work&quot;部分。</p>
+<p>相关命令为：</p>
+<ul>
+<li>设置用户权限</li>
+</ul>
+<p>rabbitmqctl  set_permissions  -p  VHostPath  User  ConfP  WriteP  ReadP</p>
+<ul>
+<li>查看(指定hostpath)所有用户的权限信息</li>
+</ul>
+<p>rabbitmqctl  list_permissions  [-p  VHostPath]</p>
+<ul>
+<li>查看指定用户的权限信息</li>
+</ul>
+<p>rabbitmqctl  list_user_permissions  User</p>
+<ul>
+<li>清除用户的权限信息</li>
+</ul>
+<p>rabbitmqctl  clear_permissions  [-p VHostPath]  User</p>
+<p><strong>web界面管理</strong>
+http://192.168.233.128:15672/
+admin
+admin123</p>
+<p><strong>参考文档</strong>
+<a href="http://www.cnblogs.com/mingaixin/p/4134920.html">http://www.cnblogs.com/mingaixin/p/4134920.html</a>
+<a href="http://www.cnblogs.com/astroboyx/archive/2012/04/09/2739902.html">http://www.cnblogs.com/astroboyx/archive/2012/04/09/2739902.html</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">whzywxt</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-06-13
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/an-zhuang-elasticsearch/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">安装Elasticsearch</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/design-patterns/gong-chang-mo-shi/">
+            <span class="next-text nav-default">工厂模式</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
