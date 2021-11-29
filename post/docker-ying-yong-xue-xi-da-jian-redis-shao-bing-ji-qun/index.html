@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="whzywxt" /><meta name="description" content=" 基于阿里云 centos7，单机启动多个redis实例
+<meta name="author" content="小叨" /><meta name="description" content=" 基于阿里云 centos7，单机启动多个redis实例
  安装docker（略） 安装redis  查找redis镜像:  1 2 3  docker search redis docker pull docker.io/redis docker images    挂载目录  1 2 3 4  mkdir -p /data/redis_data cd /data/redis_data touch redis_6379.conf vi redis_6379.conf    端口配置 redis_6379.conf redis_6380.conf redis_6381.conf  配置说明： dir：工作目录 logfile：日志文件在工作目录下 slaveof：指明为主机一的从机 requirepass：redis客户端连接的认证密码，若不需要可不配置 masterauth：主从redis同步的认证密码，与连接密码同，若不需要可不用配置 appendonly：是否需要持久化，yes为需要
 1 2 3 4 5 6  logfile &amp;#34;redis_6379.log&amp;#34; port 6379 dir /data appendonly yes appendfilename appendonly.aof requirepass 1234   1 2 3 4 5 6 7 8  logfile &amp;#34;redis_6380.log&amp;#34; port 6380 dir /data appendonly yes appendfilename appendonly.aof slaveof 0.0.0.0 6379 masterauth 1234 requirepass 1234   1 2 3 4 5 6 7 8  logfile &amp;#34;redis_6381.log&amp;#34; port 6381 dir /data appendonly yes appendfilename appendonly.aof slaveof 0.0.0.0 6379 masterauth 1234 requirepass 1234   " /><meta name="keywords" content="Hugo, theme, even" />
 
@@ -407,13 +407,13 @@ requirepass 1234
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
     <a href="/">
-        <li class="mobile-menu-item">Home</li>
+        <li class="mobile-menu-item">主页</li>
       </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
+        <li class="mobile-menu-item">所有文章</li>
       </a><a href="/gopl-zh/">
         <li class="mobile-menu-item">Gopl Book</li>
-      </a><a href="">
-        <li class="mobile-menu-item"></li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
 
@@ -435,13 +435,13 @@ requirepass 1234
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
+        <a class="menu-item-link" href="/">主页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
+        <a class="menu-item-link" href="/post/">所有文章</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/gopl-zh/">Gopl Book</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href=""></a>
+        <a class="menu-item-link" href="/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -656,7 +656,7 @@ sentinel auth-pass mymaster 1234
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
-    <span class="item-content">whzywxt</span>
+    <span class="item-content">小叨</span>
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
@@ -719,7 +719,7 @@ sentinel auth-pass mymaster 1234
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>whzywxt</span>
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
   </span>
 </div>
 
