@@ -6,7 +6,25 @@
     <description>Recent content in Posts on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 04 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 30 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于websocket&#43;hyperf开发数据大屏系统</title>
+      <link>https://www.stormwan.com/post/ji-yu-websocket&#43;hyperf-kai-fa-shu-ju-da-ping-xi-tong/</link>
+      <pubDate>Tue, 30 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/ji-yu-websocket&#43;hyperf-kai-fa-shu-ju-da-ping-xi-tong/</guid>
+      <description>背景 需要在大屏上展示订单趋势、订单国家、店铺数、商品排行、页面访问量等数据 选型 后端：hyperf 前端：react 后端 地图点亮订单国家城市点，</description>
+    </item>
+    
+    <item>
+      <title>文章slug生成</title>
+      <link>https://www.stormwan.com/post/ji-yu-websocket&#43;hyperf-kai-fa-shu-ju-da-ping-xi-tong/</link>
+      <pubDate>Mon, 29 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/ji-yu-websocket&#43;hyperf-kai-fa-shu-ju-da-ping-xi-tong/</guid>
+      <description>背景 文章链接选择 :title 或 :filename 之类的，但是会有中文，不使用中文，又对查找不太方便。 思路 使用 python 将中文转为拼音，然后读取文件内容并进行替换。 中文转拼音示</description>
+    </item>
+    
     <item>
       <title>PHP常用算法</title>
       <link>https://www.stormwan.com/post/php-chang-yong-suan-fa/</link>

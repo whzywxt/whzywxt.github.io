@@ -3,7 +3,84 @@
   
   <url>
     <loc>https://www.stormwan.com/categories/</loc>
-    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/tags/hyperf/</loc>
+    <lastmod>2021-11-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/post/</loc>
+    <lastmod>2021-11-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/tags/</loc>
+    <lastmod>2021-11-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/categories/web/</loc>
+    <lastmod>2021-11-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/tags/websocket/</loc>
+    <lastmod>2021-11-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/post/ji-yu-websocket&#43;hyperf-kai-fa-shu-ju-da-ping-xi-tong/</loc>
+    <lastmod>2021-11-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/</loc>
+    <lastmod>2021-11-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/tags/python/</loc>
+    <lastmod>2021-11-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/categories/seo/</loc>
+    <lastmod>2021-11-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/tags/slug/</loc>
+    <lastmod>2021-11-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/post/ji-yu-websocket&#43;hyperf-kai-fa-shu-ju-da-ping-xi-tong/</loc>
+    <lastmod>2021-11-29T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31,27 +108,6 @@
   
   <url>
     <loc>https://www.stormwan.com/post/php-di-ceng-yun-xing-ji-zhi-yu-yuan-li/</loc>
-    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stormwan.com/post/</loc>
-    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stormwan.com/tags/</loc>
-    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stormwan.com/</loc>
     <lastmod>2020-06-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -205,13 +261,6 @@
   </url>
   
   <url>
-    <loc>https://www.stormwan.com/categories/web/</loc>
-    <lastmod>2020-04-05T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://www.stormwan.com/post/mysql-shi-zhan-zhi-suo-yin/</loc>
     <lastmod>2020-04-03T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -269,13 +318,6 @@
   
   <url>
     <loc>https://www.stormwan.com/tags/seo/</loc>
-    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stormwan.com/categories/seo/</loc>
     <lastmod>2020-02-18T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

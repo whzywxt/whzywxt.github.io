@@ -6,7 +6,16 @@
     <description>Recent content in seo on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 18 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/categories/seo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 29 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/categories/seo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>文章slug生成</title>
+      <link>https://www.stormwan.com/post/ji-yu-websocket&#43;hyperf-kai-fa-shu-ju-da-ping-xi-tong/</link>
+      <pubDate>Mon, 29 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/ji-yu-websocket&#43;hyperf-kai-fa-shu-ju-da-ping-xi-tong/</guid>
+      <description>背景 文章链接选择 :title 或 :filename 之类的，但是会有中文，不使用中文，又对查找不太方便。 思路 使用 python 将中文转为拼音，然后读取文件内容并进行替换。 中文转拼音示</description>
+    </item>
+    
     <item>
       <title>关键词内链替换</title>
       <link>https://www.stormwan.com/post/guan-jian-ci-nei-lian-ti-huan/</link>

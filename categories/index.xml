@@ -6,7 +6,25 @@
     <description>Recent content in Categories on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 04 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 30 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>web</title>
+      <link>https://www.stormwan.com/categories/web/</link>
+      <pubDate>Tue, 30 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/categories/web/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>seo</title>
+      <link>https://www.stormwan.com/categories/seo/</link>
+      <pubDate>Mon, 29 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/categories/seo/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>PHP</title>
       <link>https://www.stormwan.com/categories/php/</link>
@@ -58,24 +76,6 @@
       <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>https://www.stormwan.com/categories/nginx/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>web</title>
-      <link>https://www.stormwan.com/categories/web/</link>
-      <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.stormwan.com/categories/web/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>seo</title>
-      <link>https://www.stormwan.com/categories/seo/</link>
-      <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.stormwan.com/categories/seo/</guid>
       <description></description>
     </item>
     

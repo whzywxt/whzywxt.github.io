@@ -122,6 +122,48 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/mysql-shi-zhan-zhi-sql/">MySQL实战之SQL</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-04-06 </span>
+      <div class="post-category">
+          <a href="/categories/mysql/"> mysql </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      SQL篇 count(*)这么慢，我该怎么办 count实现方式 MyISAM总行数存在磁盘上, 执行 count(*) 时会直接返回, 效率高, 但是有 where 条件, 一样要扫
+    </div>
+    <div class="read-more">
+      <a href="/post/mysql-shi-zhan-zhi-sql/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/mysql-shi-zhan-zhi-shi-yong-ji-qiao/">MySQL实战之实用技巧</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-04-06 </span>
+      <div class="post-category">
+          <a href="/categories/mysql/"> mysql </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      实用技巧篇 都说InnoDB好，那还要不要使用Memory引擎 自增主键为什么不是连续的 怎么最快地复制一张表 要不要使用分区表 支持range、ha
+    </div>
+    <div class="read-more">
+      <a href="/post/mysql-shi-zhan-zhi-shi-yong-ji-qiao/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/nginx-zhi-shi/">Nginx知识</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-04-05 </span>
@@ -289,157 +331,6 @@
   </div>
 </article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/fen-bu-shi-suo/">分布式锁</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-02-11 </span>
-      <div class="post-category">
-          <a href="/categories/redis/"> redis </a>
-          </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      有用到 php laravel 框架 redisLock, 发现还是有一些可以改进的地方, 在网络查找了一些资料, 有文章用 java 开发, 比如对锁的过期时间开启线程, 定时不断的去增加过期时间, 每
-    </div>
-    <div class="read-more">
-      <a href="/post/fen-bu-shi-suo/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/docker-ying-yong-xue-xi-da-jian-redis-shao-bing-ji-qun/">docker应用学习-搭建redis哨兵集群</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-08-29 </span>
-      <div class="post-category">
-          <a href="/categories/redis/"> redis </a>
-          </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <blockquote>
-<p>基于阿里云 centos7，单机启动多个redis实例</p>
-</blockquote>
-<h3 id="安装docker略">安装docker（略）</h3>
-<h3 id="安装redis">安装redis</h3>
-<ul>
-<li>查找redis镜像:</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">docker search redis
-docker pull docker.io/redis
-docker images
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>挂载目录</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /data/redis_data
-cd /data/redis_data
-touch redis_6379.conf
-vi redis_6379.conf
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>端口配置 redis_6379.conf redis_6380.conf redis_6381.conf</li>
-</ul>
-<h5 id="配置说明">配置说明：</h5>
-<p>dir：工作目录
-logfile：日志文件在工作目录下
-slaveof：指明为主机一的从机
-requirepass：redis客户端连接的认证密码，若不需要可不配置
-masterauth：主从redis同步的认证密码，与连接密码同，若不需要可不用配置
-appendonly：是否需要持久化，yes为需要</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">logfile &#34;redis_6379.log&#34;
-port 6379
-dir /data
-appendonly yes
-appendfilename appendonly.aof
-requirepass 1234
-</code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">logfile &#34;redis_6380.log&#34;
-port 6380
-dir /data
-appendonly yes
-appendfilename appendonly.aof
-slaveof 0.0.0.0 6379
-masterauth 1234
-requirepass 1234
-</code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">logfile &#34;redis_6381.log&#34;
-port 6381
-dir /data
-appendonly yes
-appendfilename appendonly.aof
-slaveof 0.0.0.0 6379
-masterauth 1234
-requirepass 1234
-</code></pre></td></tr></table>
-</div>
-</div>
-    </div>
-    <div class="read-more">
-      <a href="/post/docker-ying-yong-xue-xi-da-jian-redis-shao-bing-ji-qun/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
     </section>
   
   <nav class="pagination">
@@ -466,14 +357,7 @@ requirepass 1234
 </div>
 
 <div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
+  
 
   
 
@@ -499,6 +383,17 @@ requirepass 1234
 
 <script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-156364991-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 
