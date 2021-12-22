@@ -6,7 +6,16 @@
     <description>Recent content in Posts on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 09 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nginx加速响应</title>
+      <link>https://www.stormwan.com/post/nginx-jia-su-xiang-ying/</link>
+      <pubDate>Wed, 22 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/nginx-jia-su-xiang-ying/</guid>
+      <description>启用GZIP压缩 Enabling Gzip Compression for HTML, CSS, and JavaScript Files 在网站上构建页面的 HTML，CSS 和 JavaScript 文件可能非常庞大。在大多数情况下，Web 服务器可以即时压缩这些和其他</description>
+    </item>
+    
     <item>
       <title>谈退休生活</title>
       <link>https://www.stormwan.com/post/life/tan-tui-xiu-sheng-huo/</link>

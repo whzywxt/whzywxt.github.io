@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Nginx加速响应 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="小叨" /><meta name="description" content="启用GZIP压缩 Enabling Gzip Compression for HTML, CSS, and JavaScript Files 在网站上构建页面的 HTML，CSS 和 JavaScript 文件可能非常庞大。在大多数情况下，Web 服务器可以即时压缩这些和其他" /><meta name="keywords" content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/nginx-jia-su-xiang-ying/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Nginx加速响应" />
+<meta property="og:description" content="启用GZIP压缩 Enabling Gzip Compression for HTML, CSS, and JavaScript Files 在网站上构建页面的 HTML，CSS 和 JavaScript 文件可能非常庞大。在大多数情况下，Web 服务器可以即时压缩这些和其他" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/nginx-jia-su-xiang-ying/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-12-22T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-12-22T00:00:00+00:00" />
+
+<meta itemprop="name" content="Nginx加速响应">
+<meta itemprop="description" content="启用GZIP压缩 Enabling Gzip Compression for HTML, CSS, and JavaScript Files 在网站上构建页面的 HTML，CSS 和 JavaScript 文件可能非常庞大。在大多数情况下，Web 服务器可以即时压缩这些和其他"><meta itemprop="datePublished" content="2021-12-22T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-12-22T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1473">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Nginx加速响应"/>
+<meta name="twitter:description" content="启用GZIP压缩 Enabling Gzip Compression for HTML, CSS, and JavaScript Files 在网站上构建页面的 HTML，CSS 和 JavaScript 文件可能非常庞大。在大多数情况下，Web 服务器可以即时压缩这些和其他"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">所有文章</li>
+      </a><a href="/gopl-zh/">
+        <li class="mobile-menu-item">Gopl Book</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">所有文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/gopl-zh/">Gopl Book</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Nginx加速响应</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-12-22 </span>
+        <div class="post-category">
+            <a href="/categories/nginx/"> nginx </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#启用gzip压缩">启用GZIP压缩</a></li>
+        <li><a href="#设置缓存头">设置缓存头</a></li>
+        <li><a href="#启用http2协议">启用HTTP2协议</a></li>
+        <li><a href="#优化日志">优化日志</a>
+          <ul>
+            <li><a href="#禁用页面资源请求的日志记录">禁用页面资源请求的日志记录</a></li>
+            <li><a href="#禁用成功请求的日志记录">禁用成功请求的日志记录</a></li>
+            <li><a href="#最小化-io-操作">最小化 I/O 操作</a></li>
+          </ul>
+        </li>
+        <li><a href="#限制带宽">限制带宽</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="启用gzip压缩">启用GZIP压缩</h2>
+<blockquote>
+<p>Enabling Gzip Compression for HTML, CSS, and JavaScript Files</p>
+</blockquote>
+<p>在网站上构建页面的 HTML，CSS 和 JavaScript 文件可能非常庞大。在大多数情况下，Web 服务器可以即时压缩这些和其他文本文件，以节省网络带宽。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">gzip</span> <span class="no">on</span><span class="p">;</span>
+<span class="k">gzip_types</span> <span class="s">application/xml</span>
+    <span class="s">application/json</span>
+    <span class="s">text/css</span>
+    <span class="s">text/javascript</span>
+    <span class="s">application/javascript</span><span class="p">;</span>
+<span class="k">gzip_vary</span> <span class="no">on</span><span class="p">;</span>
+<span class="k">gzip_comp_level</span> <span class="mi">6</span><span class="p">;</span>
+<span class="k">gzip_min_length</span> <span class="mi">500</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="设置缓存头">设置缓存头</h2>
+<blockquote>
+<p>Setting Cache Headers</p>
+</blockquote>
+<p>浏览器检索网页文件时，会将副本保留在本地磁盘缓存中。这样，当你再次访问该页面时，浏览器就不必从服务器重新获取文件。每个浏览器都有自己的使用逻辑，来决定何时使用该文件对应的本地副本，以及何时在服务器更改了该文件时再次获取它。</p>
+<p>可以在发送的 HTTP 响应中设置缓存控制和过期标头，以提高浏览器的缓存行为的效率，从而减少很多不必要的 HTTP 请求。</p>
+<p>首先，可以为字体和图像设置较长的缓存过期时间，这些字体和图像可能不会经常更改。在下面的示例中，设置客户端浏览器将字体和图像在本地缓存中保留一个月。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="p">~</span><span class="sr">*</span> <span class="s">\.(?:jpg|jpeg|gif|png|ico|woff2)</span>$ <span class="p">{</span>
+    <span class="kn">expires</span> <span class="s">1M</span><span class="p">;</span>
+    <span class="kn">add_header</span> <span class="s">Cache-Control</span> <span class="s">&#34;public&#34;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="启用http2协议">启用HTTP2协议</h2>
+<blockquote>
+<p>Enabling HTTP/2 Protocol Support</p>
+</blockquote>
+<p><code>HTTP/2</code> 是用于服务网页的下一代协议，旨在更好地利用网络和主机服务器。</p>
+<p>需要请注意的是，在大多数情况下，还需要启用 <code>TLS</code> 才能正常使用 <code>HTTP/2</code> 协议。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">listen</span> <span class="mi">443</span> <span class="s">ssl</span> <span class="s">http2</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="优化日志">优化日志</h2>
+<blockquote>
+<p>Optimizing Logging</p>
+</blockquote>
+<p>在管理网站的时候，即使是有对应的监控服务，但是对应日志分析还是不够到位。你也可能只关注错误(<code>40x</code> 和 <code>50x</code> 个状态码等等)，而不是成功的请求。通过减少不必要的日志记录，可以节省服务器上的磁盘存储、<code>CPU</code> 和 <code>I/O</code> 操作。这不仅可以让我们服务器更快一些，而且释放的资源可以用来运行其他服务。</p>
+<h3 id="禁用页面资源请求的日志记录">禁用页面资源请求的日志记录</h3>
+<p>如果我们不需要记录检索普通页面资源的请求，比如图像文件、<code>JavaScript</code> 文件和 <code>CSS</code> 文件等等，那么这是一个快速而简单的解决方案。你所需要做的就是创建一个与这些文件类型匹配的 <code>location</code> 块，并配置禁用其中的日志记录。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="p">~</span><span class="sr">*</span> <span class="s">\.(?:jpg|jpeg|gif|png|ico|woff2|js|css)</span>$ <span class="p">{</span>
+    <span class="kn">access_log</span> <span class="no">off</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="禁用成功请求的日志记录">禁用成功请求的日志记录</h3>
+<p>这是一种更好的方法，因为它会丢弃带有 <code>2xx</code> 或 <code>3xx</code> 的响应查询，仅记录错误请求。它比方法 1 稍微复杂一点，因为它取决于您的 Nginx 日志记录的配置方式。</p>
+<p>使用 Nginx 官方文档中的示例，让我们打开条件日志记录。创建一个 <code>$loggable</code> 的变量并将其设置为 <code>0</code>，用于带有 <code>2xx</code> 和 <code>3xx</code> 响应代码的日志请求，否则设置为 <code>1</code>，即可。然后在 <code>access_log</code> 指令中，将该变量作为条件引用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="c1"># /etc/nginx/nginx.conf
+</span><span class="c1"></span><span class="k">access_log</span> <span class="s">/var/log/nginx/access.log</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="c1"># access_log directive
+</span><span class="c1"></span><span class="k">map</span> <span class="nv">$status</span> <span class="nv">$loggable</span> <span class="p">{</span>
+    <span class="kn">~^[23]</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kn">default</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">access_log</span> <span class="s">/var/log/nginx/access.log</span> <span class="s">combined</span> <span class="s">if=</span><span class="nv">$loggable</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="最小化-io-操作">最小化 I/O 操作</h3>
+<p>即使你要记录所有请求，也可以通过打开访问日志缓冲来最大程度地减少 <code>I/O</code> 操作。使用此指令，Nginx 将等待将日志数据写入磁盘，直到填满 <code>512KB</code> 缓冲区或自上次刷新以来已过了 <code>1</code> 分钟（以先发生者为准）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">access_log</span> <span class="s">/var/log/nginx/access.log</span> <span class="s">combined</span> <span class="s">buffer=512k</span> <span class="s">flush=1m</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="限制带宽">限制带宽</h2>
+<blockquote>
+<p>Limiting Bandwidth for Particular URLs</p>
+</blockquote>
+<p>如果服务器提供较大的文件(或较小但非常受欢迎的文件，例如表单或报表文件等)，则设置客户端下载文件的最大速度可能是一个非常有用的选择。如果你的站点已经承受了很高的网络负载，则限制下载速度会留下更多带宽，以使应用程序的关键部分保持响应，这是硬件制造商使用的非常受欢迎的解决方案。</p>
+<p>使用 <code>limit_rate</code> 指令来限制特定 <code>URL</code> 的带宽。在这里，我们将 <code>/download</code> 下每个文件的传输速率限制为每秒 <code>50KB</code> 的速度。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="s">/download/</span> <span class="p">{</span>
+    <span class="kn">limit_rate</span> <span class="mi">50k</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>你可能还希望仅对较大的文件进行速率限制，这可以通过 <code>limit_rate_after</code> 指令进行。在此示例中，每个文件(来自任何目录)的前 <code>500KB</code> 都不受速度限制地进行传输，之后的所有内容均以 <code>50KB/s</code> 的速度为上限。这样可以加快网站关键部分的交付速度，同时降低其他部分的速度。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
+    <span class="kn">limit_rate_after</span> <span class="mi">500k</span><span class="p">;</span>
+    <span class="kn">limit_rate</span> <span class="mi">50k</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>希望这五个技巧能帮助你优化网站的性能，然而速度和带宽增益因网站而异。即使调整你的服务 <code>Nginx</code> 配置，发现似乎并没有显着释放带宽或提高速度，但成千上万个网站分别调整其 <code>Nginx</code> 配置的整体影响加在一起呢？我们的全球网络得到更有效的利用，这意味着最关键的服务将在需要时提供。</p>
+<p>当然我们还可以使用 <code>F5</code> 等负载均衡器。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">小叨</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-12-22
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/life/tan-tui-xiu-sheng-huo/">
+            <span class="next-text nav-default">谈退休生活</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:whzywxt@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whzywxt" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-156364991-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
