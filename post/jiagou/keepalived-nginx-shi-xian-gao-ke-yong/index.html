@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Keepalived&#43;Nginx实现高可用 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="小叨" /><meta name="description" content="一、背景 本文主要介绍使用 keepalived 实现 nginx 的主备高可用 实验环境：Vmware CentOS 7 64 位 机器A Master 192.168.26.129 机器B Slave 192.168.26.130 VIP 192.168.26.128 二、实验步骤 1. 安装 Nginx 和 Keepalive 软件 两台机器一致，" /><meta name="keywords" content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/jiagou/keepalived-nginx-shi-xian-gao-ke-yong/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Keepalived&#43;Nginx实现高可用" />
+<meta property="og:description" content="一、背景 本文主要介绍使用 keepalived 实现 nginx 的主备高可用 实验环境：Vmware CentOS 7 64 位 机器A Master 192.168.26.129 机器B Slave 192.168.26.130 VIP 192.168.26.128 二、实验步骤 1. 安装 Nginx 和 Keepalive 软件 两台机器一致，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/jiagou/keepalived-nginx-shi-xian-gao-ke-yong/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-01-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-01-28T00:00:00+00:00" />
+
+<meta itemprop="name" content="Keepalived&#43;Nginx实现高可用">
+<meta itemprop="description" content="一、背景 本文主要介绍使用 keepalived 实现 nginx 的主备高可用 实验环境：Vmware CentOS 7 64 位 机器A Master 192.168.26.129 机器B Slave 192.168.26.130 VIP 192.168.26.128 二、实验步骤 1. 安装 Nginx 和 Keepalive 软件 两台机器一致，"><meta itemprop="datePublished" content="2022-01-28T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-01-28T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1189">
+<meta itemprop="keywords" content="架构," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Keepalived&#43;Nginx实现高可用"/>
+<meta name="twitter:description" content="一、背景 本文主要介绍使用 keepalived 实现 nginx 的主备高可用 实验环境：Vmware CentOS 7 64 位 机器A Master 192.168.26.129 机器B Slave 192.168.26.130 VIP 192.168.26.128 二、实验步骤 1. 安装 Nginx 和 Keepalive 软件 两台机器一致，"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">所有文章</li>
+      </a><a href="/gopl-zh/">
+        <li class="mobile-menu-item">Gopl Book</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">所有文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/gopl-zh/">Gopl Book</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Keepalived&#43;Nginx实现高可用</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-01-28 </span>
+        <div class="post-category">
+            <a href="/categories/nginx/"> nginx </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一背景">一、背景</a></li>
+        <li><a href="#二实验步骤">二、实验步骤</a>
+          <ul>
+            <li><a href="#1-安装-nginx-和-keepalive-软件">1. 安装 Nginx 和 Keepalive 软件</a></li>
+            <li><a href="#2-编写-nginx-服务存活检测脚本">2. 编写 nginx 服务存活检测脚本</a></li>
+            <li><a href="#3-配置-keepalived">3. 配置 keepalived</a></li>
+            <li><a href="#4-修改-nginx-主页便于追溯主机">4. 修改 Nginx 主页，便于追溯主机</a></li>
+            <li><a href="#5-测试验证">5. 测试验证</a></li>
+          </ul>
+        </li>
+        <li><a href="#三问题总结">三、问题总结</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="一背景">一、背景</h2>
+<p>本文主要介绍使用 <code>keepalived</code> 实现 <code>nginx</code> 的主备高可用</p>
+<p>实验环境：Vmware CentOS 7 64 位</p>
+<ul>
+<li>机器A Master <code>192.168.26.129</code></li>
+<li>机器B Slave <code>192.168.26.130</code></li>
+<li>VIP <code>192.168.26.128</code></li>
+</ul>
+<h2 id="二实验步骤">二、实验步骤</h2>
+<h3 id="1-安装-nginx-和-keepalive-软件">1. 安装 Nginx 和 Keepalive 软件</h3>
+<p>两台机器一致，设置开机启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo yum install -y nginx
+sudo systemctl start nginx.service
+sudo systemctl enable nginx.service
+
+sudo yum install keepalived -y
+sudo systemctl start keepalived.service
+sudo systemctl enable keepalived.service
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2-编写-nginx-服务存活检测脚本">2. 编写 nginx 服务存活检测脚本</h3>
+<p>两台机器一致</p>
+<p><code>sudo vi /etc/keepalived/chk_nginx.sh</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="nv">A</span><span class="o">=</span><span class="sb">`</span>ps -C nginx --no-header <span class="p">|</span>wc -l<span class="sb">`</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$A</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+    systemctl start nginx
+    sleep <span class="m">2</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="sb">`</span>ps -C nginx --no-header <span class="p">|</span>wc -l<span class="sb">`</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+        systemctl stop keepalived.service
+    <span class="k">fi</span>
+<span class="k">fi</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>给脚本执行权限 <code>sudo chmod +x /etc/keepalived/nginx_check.sh</code></p>
+<h3 id="3-配置-keepalived">3. 配置 keepalived</h3>
+<p>机器A Master</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">global_defs {
+    ## keepalived 自带的邮件提醒需要开启 sendmail 服务。 建议用独立的监控或第三方 SMTP
+
+    ## 设置lvs的id，在一个网络内唯一
+    router_id LVS_DEVEL
+} 
+
+## keepalived 会定时执行脚本并对脚本执行的结果进行分析，动态调整 vrrp_instance 的优先级。如果脚本执行结果为 0，并且 weight 配置的值大于 0，则优先级相应的增加。如果脚本执行结果非 0，并且 weight配置的值小于 0，则优先级相应的减少。其他情况，维持原本配置的优先级，即配置文件中 priority 对应的值。
+vrrp_script chk_nginx {
+    script &#34;/etc/keepalived/nginx_check.sh&#34; ## 检测 nginx 状态的脚本路径
+    interval 2 ## 检测时间间隔
+    weight -20 ## 如果条件成立，权重-20
+}
+
+## 定义虚拟路由， VI_1 为虚拟路由的标示符，自己定义名称
+vrrp_instance VI_1 {
+    state MASTER ## 主节点为 MASTER， 对应的备份节点为 BACKUP
+    interface esn33 ## 绑定虚拟 IP 的网络接口，与本机 IP 地址所在的网络接口相同， 我的是 esn33
+    virtual_router_id 33 ## 虚拟路由的 ID 号， 两个节点设置必须一样， 可选 IP 最后一段使用, 相同的 VRID 为一个组，他将决定多播的 MAC 地址
+    ## 权重值,值越大，优先级越高，backup设置比master小,这样就能在master宕机后讲backup变为master,而master回复后就可以恢复
+    priority 100 ## 节点优先级， 值范围 0-254， MASTER 要比 BACKUP 高
+    nopreempt ## 优先级高的设置 nopreempt 解决异常恢复后再次抢占的问题
+    advert_int 1 ## 组播信息发送间隔，两个节点设置必须一样， 默认 1s
+    
+    ## 设置验证信息，两个节点必须一致
+    authentication {
+        auth_type PASS
+        auth_pass 1111 ## 真实生产，按需求对应该过来
+    }
+    
+    ## 将 track_script 块加入 instance 配置块
+    track_script {
+        chk_nginx ## 执行 Nginx 监控的服务
+    }
+    
+    ## 虚拟 IP 池, 两个节点设置必须一样
+    virtual_ipaddress {
+        192.168.26.128 ## 虚拟 ip，可以定义多个
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>机器B Slave，主要修改下 state、 priority</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">global_defs {
+    ...
+} 
+
+vrrp_script chk_nginx {
+    ...
+}
+
+vrrp_instance VI_1 {
+    state BACKUP
+    ...
+    priority 80
+    ...
+    
+    ...
+}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="4-修改-nginx-主页便于追溯主机">4. 修改 Nginx 主页，便于追溯主机</h3>
+<p>非必需，两台主机不同</p>
+<p>机器A Master</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ sudo vi /usr/share/nginx/html/index.html
+
+&lt;h1&gt;Hi, No 1.&lt;/h1&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>机器B Slave</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ sudo vi /usr/share/nginx/html/index.html
+
+&lt;h1&gt;Hi, No 2.&lt;/h1&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>两台机重启keepalived <code>systemctl restart keepalived</code></p>
+<h3 id="5-测试验证">5. 测试验证</h3>
+<p>VIP 访问</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/aa394e44b9252d40f4d4a044e745e73.png" alt=""></p>
+<p>机器A 访问</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/2bf4b212b6474e9869f7678cf224818.png" alt=""></p>
+<p>机器B 访问</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/2481a66b749a3da05a522c749ded2e4.png" alt=""></p>
+<p>关闭机器A的 <code>Keepalived</code> 和 <code>Nginx</code>, 在使用 <code>VIP(192.168.26.128)</code> 访问</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl stop keepalived.service 
+systemctl stop nginx
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/b0f81a723799e7c772bf4cbc4a08302.png" alt=""></p>
+<h2 id="三问题总结">三、问题总结</h2>
+<p>发现 <code>keepalived</code> 并没有定时检查 <code>vrrp_script</code>，当 <code>Nginx</code> 服务停止后不会拉起，卸载 <code>yum</code> 安装的版本，重新编译安装最新版 <code>2.2.7</code>，下载地址 <a href="https://www.keepalived.org/download.html">https://www.keepalived.org/download.html</a>，安装配置完后解决。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">global_defs {
+   router_id haproxy
+}
+vrrp_script chk_haproxy {
+    script &#34;/etc/keepalived/chk_nginx.sh&#34;
+    interval 2
+    weight 2
+}
+vrrp_instance VI_1 {
+    state MASTER
+    interface ens33
+    virtual_router_id 55
+    priority 101
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        192.168.26.128
+    }
+    track_script {
+        chk_haproxy
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">小叨</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-01-28
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%9E%B6%E6%9E%84/">架构</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/jiagou/2021-hui-gu/">
+            <span class="next-text nav-default">2021回顾</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:whzywxt@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whzywxt" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-156364991-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

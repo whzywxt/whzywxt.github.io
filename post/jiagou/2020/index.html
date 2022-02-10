@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="小叨" /><meta name="description" content="架构原理 互联网分层架构的本质 一个典型的互联网分层架构： 客户端层：典型调用方是 browser 或者 APP； 站点应用层：实现核心业务逻辑，从下游获取数据，对上" /><meta name="keywords" content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/jiagou/2020/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="" />
+<meta property="og:description" content="架构原理 互联网分层架构的本质 一个典型的互联网分层架构： 客户端层：典型调用方是 browser 或者 APP； 站点应用层：实现核心业务逻辑，从下游获取数据，对上" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/jiagou/2020/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-01-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-01-12T00:00:00+00:00" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="架构原理 互联网分层架构的本质 一个典型的互联网分层架构： 客户端层：典型调用方是 browser 或者 APP； 站点应用层：实现核心业务逻辑，从下游获取数据，对上"><meta itemprop="datePublished" content="2022-01-12T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-01-12T00:00:00+00:00" />
+<meta itemprop="wordCount" content="794">
+<meta itemprop="keywords" content="架构," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="架构原理 互联网分层架构的本质 一个典型的互联网分层架构： 客户端层：典型调用方是 browser 或者 APP； 站点应用层：实现核心业务逻辑，从下游获取数据，对上"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">所有文章</li>
+      </a><a href="/gopl-zh/">
+        <li class="mobile-menu-item">Gopl Book</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">所有文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/gopl-zh/">Gopl Book</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title"></h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-01-12 </span>
+        <div class="post-category">
+            <a href="/categories//">  </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#架构原理">架构原理</a>
+          <ul>
+            <li><a href="#互联网分层架构的本质">互联网分层架构的本质</a></li>
+            <li><a href="#互联网分层架构为啥要前后端分离">互联网分层架构，为啥要前后端分离？</a></li>
+            <li><a href="#业务层到底需不需要服务化">业务层，到底需不需要服务化？</a></li>
+            <li><a href="#google的锁才是分布式锁">Google的锁，才是分布式锁？</a></li>
+            <li><a href="#mysql双主架构原来能这么玩">MySQL双主架构，原来能这么玩</a></li>
+            <li><a href="#heading"></a></li>
+            <li><a href="#heading-1"></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="架构原理">架构原理</h2>
+<h3 id="互联网分层架构的本质">互联网分层架构的本质</h3>
+<p>一个典型的互联网分层架构：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220112113348.jpg" alt=""></p>
+<ol>
+<li>客户端层：典型调用方是 browser 或者 APP；</li>
+<li>站点应用层：实现核心业务逻辑，从下游获取数据，对上游返回 html 或者 json；</li>
+<li>数据-缓存层：加速访问存储；</li>
+<li>数据-数据库层：固化数据存储；</li>
+</ol>
+<p>如果实施了服务化，这个分层架构图可能是这样：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220112142400.jpg" alt=""></p>
+<p>中间多了一个服务层。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220112142516.jpg" alt=""></p>
+<p>同一个层次的内部，例如端上的APP，以及 web-server，也都有 MVC 分层：</p>
+<ol>
+<li>view 层：展现；</li>
+<li>control 层：逻辑；</li>
+<li>model 层：数据；</li>
+</ol>
+<p>不管是跨进程的分层架构，还是进程内的MVC分层，都是一个“数据移动”，然后“被处理”和“被呈现”的过程，一句话：互联网分层架构，是一个数据移动，处理，呈现的过程，其中数据移动是整个过程的核心。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220112144122.jpg" alt=""></p>
+<p>如图所示，数据处理和呈现要 CPU 计算，CPU 是固定不动的：</p>
+<ol>
+<li>db/service/web-server 都部署在固定的集群上；</li>
+<li>端上，不管是 browser 还是 APP ，也有固定的 CPU 处理；</li>
+</ol>
+<p>数据是移动的：</p>
+<ol>
+<li>跨进程移动：数据从数据库和缓存里，转移到 service 层，到 web-service 层，到 client 层；</li>
+<li>同进程移动：数据从 model 层，转移到 control 层，转移到 view 层；</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220112162120.jpg" alt=""></p>
+<p>数据要移动，所以有两个东西很重要：</p>
+<ol>
+<li>数据传输的格式；</li>
+<li>数据在各层次的形态；</li>
+</ol>
+<p>先看数据传输的格式，即协议很重要：</p>
+<ol>
+<li>service 与 db/cache 之间，二进制协议/文本协议是数据传输的载体；</li>
+<li>web-server 和 service 之间，RPC 的二进制协议是数据传输的载体；</li>
+<li>client 和 web-server 之间，HTTP 协议是数据传输的载体；</li>
+</ol>
+<p>再看数据在各层次的形态，以用户数据为例：</p>
+<ol>
+<li>db 层，数据以“行”为单位存储在 row(uid, name, age)；</li>
+<li>cache 层，数据以 kv 的形式存储在 kv(uid -&gt; user)；</li>
+<li>service 层，会把 row 或者 kv 转化为对程序友好的 User 对象；</li>
+<li>web-server 层，会把对程序友好的 User 对象转化为对 HTTP 友好的 json 对象；</li>
+<li>client 层：拿到的 json 对象；</li>
+</ol>
+<p><strong>结论：互联网分层架构的本质，是数据的移动。</strong></p>
+<p>“分层架构演进”的核心原则与方法：</p>
+<ol>
+<li>让上游更高效的获取与处理数据，<strong>复用</strong>；</li>
+<li>让下游能屏蔽数据的获取细节，<strong>封装</strong>；</li>
+</ol>
+<h3 id="互联网分层架构为啥要前后端分离">互联网分层架构，为啥要前后端分离？</h3>
+<h3 id="业务层到底需不需要服务化">业务层，到底需不需要服务化？</h3>
+<h3 id="google的锁才是分布式锁">Google的锁，才是分布式锁？</h3>
+<h3 id="mysql双主架构原来能这么玩">MySQL双主架构，原来能这么玩</h3>
+<h3 id="heading"></h3>
+<h3 id="heading-1"></h3>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">小叨</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-01-12
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%9E%B6%E6%9E%84/">架构</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/nginx-jia-su-xiang-ying/">
+            <span class="next-text nav-default">Nginx加速响应</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:whzywxt@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whzywxt" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-156364991-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

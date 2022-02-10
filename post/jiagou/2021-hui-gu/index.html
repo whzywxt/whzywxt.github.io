@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>2021回顾 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="小叨" /><meta name="description" content="架构原理 互联网分层架构的本质 一个典型的互联网分层架构： 客户端层：典型调用方是 browser 或者 APP； 站点应用层：实现核心业务逻辑，从下游获取数据，对上" /><meta name="keywords" content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/jiagou/2021-hui-gu/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="2021回顾" />
+<meta property="og:description" content="架构原理 互联网分层架构的本质 一个典型的互联网分层架构： 客户端层：典型调用方是 browser 或者 APP； 站点应用层：实现核心业务逻辑，从下游获取数据，对上" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/jiagou/2021-hui-gu/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-01-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-01-12T00:00:00+00:00" />
+
+<meta itemprop="name" content="2021回顾">
+<meta itemprop="description" content="架构原理 互联网分层架构的本质 一个典型的互联网分层架构： 客户端层：典型调用方是 browser 或者 APP； 站点应用层：实现核心业务逻辑，从下游获取数据，对上"><meta itemprop="datePublished" content="2022-01-12T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-01-12T00:00:00+00:00" />
+<meta itemprop="wordCount" content="6657">
+<meta itemprop="keywords" content="架构," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="2021回顾"/>
+<meta name="twitter:description" content="架构原理 互联网分层架构的本质 一个典型的互联网分层架构： 客户端层：典型调用方是 browser 或者 APP； 站点应用层：实现核心业务逻辑，从下游获取数据，对上"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">所有文章</li>
+      </a><a href="/gopl-zh/">
+        <li class="mobile-menu-item">Gopl Book</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">所有文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/gopl-zh/">Gopl Book</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">2021回顾</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-01-12 </span>
+        <div class="post-category">
+            <a href="/categories//">  </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#架构原理">架构原理</a>
+          <ul>
+            <li><a href="#互联网分层架构的本质">互联网分层架构的本质</a></li>
+            <li><a href="#互联网分层架构为啥要前后端分离">互联网分层架构，为啥要前后端分离？</a></li>
+            <li><a href="#业务层到底需不需要服务化">业务层，到底需不需要服务化？</a></li>
+            <li><a href="#google的锁才是分布式锁">Google的锁，才是分布式锁？</a></li>
+            <li><a href="#mysql双主架构原来能这么玩">MySQL双主架构，原来能这么玩</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="架构原理">架构原理</h2>
+<h3 id="互联网分层架构的本质">互联网分层架构的本质</h3>
+<p>一个典型的<strong>互联网分层架构</strong>：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220112113348.jpg" alt=""></p>
+<ol>
+<li><strong>客户端层</strong>：典型调用方是 browser 或者 APP；</li>
+<li><strong>站点应用层</strong>：实现核心业务逻辑，从下游获取数据，对上游返回 html 或者 json；</li>
+<li><strong>数据-缓存层</strong>：加速访问存储；</li>
+<li><strong>数据-数据库层</strong>：固化数据存储；</li>
+</ol>
+<p>如果实施了服务化，这个分层架构图可能是这样：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220112142400.jpg" alt=""></p>
+<p>中间多了一个服务层。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220112142516.jpg" alt=""></p>
+<p>同一个层次的内部，例如端上的APP，以及 web-server，也都有 MVC 分层：</p>
+<ol>
+<li><code>view</code> 层：展现；</li>
+<li><code>control</code> 层：逻辑；</li>
+<li><code>model</code> 层：数据；</li>
+</ol>
+<p>不管是跨进程的分层架构，还是进程内的MVC分层，都是一个“<strong>数据移动</strong>”，然后“<strong>被处理</strong>”和“<strong>被呈现</strong>”的过程，一句话：互联网分层架构，是一个<strong>数据移动，处理，呈现的过程</strong>，其中<strong>数据移动是整个过程的核心</strong>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220112144122.jpg" alt=""></p>
+<p>如图所示，数据处理和呈现要 CPU 计算，CPU 是固定不动的：</p>
+<ol>
+<li>db/service/web-server 都部署在固定的集群上；</li>
+<li>端上，不管是 browser 还是 APP ，也有固定的 CPU 处理；</li>
+</ol>
+<p>数据是移动的：</p>
+<ol>
+<li>跨进程移动：数据从数据库和缓存里，转移到 service 层，到 web-service 层，到 client 层；</li>
+<li>同进程移动：数据从 model 层，转移到 control 层，转移到 view 层；</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220112162120.jpg" alt=""></p>
+<p>数据要移动，所以有两个东西很重要：</p>
+<ol>
+<li>数据传输的<strong>格式</strong>；</li>
+<li>数据在各层次的<strong>形态</strong>；</li>
+</ol>
+<p>先看数据传输的格式，即协议很重要：</p>
+<ol>
+<li><code>service</code> 与 <code>db/cache</code> 之间，二进制协议/文本协议是数据传输的载体；</li>
+<li><code>web-server</code> 和 <code>service</code> 之间，<code>RPC</code> 的二进制协议是数据传输的载体；</li>
+<li><code>client</code> 和 <code>web-server</code> 之间，<code>HTTP</code> 协议是数据传输的载体；</li>
+</ol>
+<p>再看数据在各层次的形态，以用户数据为例：</p>
+<ol>
+<li><code>db</code> 层，数据以“行”为单位存储在 row(uid, name, age)；</li>
+<li><code>cache</code> 层，数据以 kv 的形式存储在 kv(uid -&gt; user)；</li>
+<li><code>service</code> 层，会把 row 或者 kv 转化为对程序友好的 User 对象；</li>
+<li><code>web-server</code> 层，会把对程序友好的 User 对象转化为对 HTTP 友好的 json 对象；</li>
+<li><code>client</code> 层：拿到的 json 对象；</li>
+</ol>
+<p><strong>结论：互联网分层架构的本质，是数据的移动。</strong></p>
+<p>“分层架构演进”的核心原则与方法：</p>
+<ol>
+<li>让上游更高效的获取与处理数据，<strong>复用</strong>；</li>
+<li>让下游能屏蔽数据的获取细节，<strong>封装</strong>；</li>
+</ol>
+<p>总结</p>
+<ol>
+<li>互联网分层架构的本质，是数据的移动；</li>
+<li>互联网分层架构中，数据的传输格式（协议）与数据在各层次的形态很重要；</li>
+<li>互联网分层架构演进的核心原则与方法：<strong>封装与复用</strong>。</li>
+</ol>
+<h3 id="互联网分层架构为啥要前后端分离">互联网分层架构，为啥要前后端分离？</h3>
+<p>随着时间的推移，业务越来越复杂，改版也越来越多，，此时业务站点层 web-server 层虽有 MVC 架构，但还是会遇到痛点：</p>
+<ol>
+<li>产品追求绚丽的效果，并对设备兼容性要求高；</li>
+<li>前端展现的变化频率远远大于后端逻辑的变化频率，不管是PC，还是手机H5，还是APP端；</li>
+</ol>
+<p>分离后，有单独的前端FE，来更好的处理，不太关心后端逻辑的改动。</p>
+<p>产品需要新增 <code>Mobile</code> 版本，新增 <code>APP</code> 版本，逻辑大部分与 <code>PC</code> 端相同，拷贝代码多份到 <code>Mobile、APP</code> 端，以后逻辑稍微调整，所有端都要升级修复。</p>
+<ol>
+<li>一旦一个服务 <code>RPC</code> 接口有稍许变化，所有 <code>web-server</code> 系统都需要升级修改；</li>
+<li><code>web-server</code> 之间存在大量代码拷贝；</li>
+<li>一旦拷贝代码，出现一个 <code>bug</code>，多个子系统都需要升级修改；</li>
+</ol>
+<p>如何让数据的获取更加高效快捷，如何让数据生产与数据展现解耦分离呢？前后端分离的分层抽象势在必行。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220112170908.jpg" alt=""></p>
+<p>通过前后端分离分层抽象：</p>
+<ol>
+<li><strong>站点展示层</strong>：<code>node.js</code> ，负责数据的展现与交互，由FE维护；</li>
+<li><strong>站点数据层</strong>：<code>web-server</code> ，负责业务逻辑与json数据接口的提供，由后端工程师维护；</li>
+</ol>
+<p><strong>分离好处</strong>：</p>
+<ol>
+<li>复杂的业务逻辑与数据生成，只有在站点数据层写了一次，没有代码拷贝；</li>
+<li>底层 <code>service</code> 接口发生变化，只有站点数据层一处需要升级修改；</li>
+<li>底层 <code>service</code> 如果有 <code>bug</code> ，只有站点数据层一处需要升级修改；</li>
+<li>站点展现层可以根据产品的不同形态，传入不同的参数，调用不同的站点数据层接口。</li>
+</ol>
+<p><strong>除此之外，其他优点</strong>：</p>
+<ol>
+<li>产品追求绚丽结果，并对设备兼容性要求高，可以有更专业的FE对接；</li>
+<li>约定好json接口后，后端和FE分开开发，FE可以用mock的接口自测，不用再等待一起联调；</li>
+</ol>
+<p>于是乎，架构进化了，前后端分离了，如图所示</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220112172053.jpg" alt=""></p>
+<p><strong>当业务越来越复杂，端上的产品越来越多，展现层的变化越来越快越来越多，站点层存在大量代码拷贝，数据获取复杂性成为通用痛点的时候</strong>，就应该进行前后端分离分层抽象，简化数据获取过程，提高数据获取效率，向上游屏蔽底层的复杂性。</p>
+<p>另外要<strong>强调的是</strong>，是否需要前后端分离，和业务复杂性，业务发展阶段，人员素质模型有关，千万不可一概而论。</p>
+<p>要实施前后端分离，以下四点是必须要考虑的。</p>
+<h4 id="第一点seo的考虑">第一点，SEO的考虑。</h4>
+<p>如果是 PC 端的站点，需要考虑是否要强支持SEO，前后端分离的结构，很可能对搜索引擎的spider不友好，可能影响站点的收录。</p>
+<h4 id="第二点产品特性的考虑">第二点，产品特性的考虑。</h4>
+<p>很多产品追求酷炫的前端效果，并且对前端兼容性要求很高，前端产品改版频率很高，那么前后端分离是有必要的。</p>
+<p><strong>否则</strong>，前后端分离只会带来更多系统架构的复杂性。</p>
+<h4 id="第三点公司发展阶段考虑">第三点，公司发展阶段考虑。</h4>
+<p>公司发展的初级阶段，人比较少，对产品迭代速度的要求较高，此时更多的需要一些全栈的工程师，一个人开发从前到后全搞定。如果此时实施前后端分离，将引入“联调”一说，并且增加了沟通成本比，可能导致产品迭代的速度降低。</p>
+<h4 id="第四点人员技能考虑">第四点，人员技能考虑。</h4>
+<p>传统 FE 与后端工程师的合作方式， FE 工程师不需要有很深的后端功底，一旦引入前后端分离， node.js 层的前端同学需要了解更多的后端知识体系，不排除有 FE 同学对后端技能的排斥，引发人员的不稳定。</p>
+<p>总之，前后端分离不只是一个分层架构的技术决策，和SEO、产品特性、公司发展阶段、人员知识体系相关，千万不可一概而论。</p>
+<h3 id="业务层到底需不需要服务化">业务层，到底需不需要服务化？</h3>
+<p>随着时间的推移，系统架构并不会一成不变：</p>
+<ol>
+<li>
+<p>随着业务越来越复杂，业务会不断进行垂直拆分；</p>
+<p>比如：信息分类网站的租房、二手、招聘等多个业务。</p>
+</li>
+<li>
+<p>随着数据越来越复杂，基础数据服务也会越来越多；</p>
+<p>比如：用户服务、订单服务、搜索服务、推荐服务等。</p>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220112194057.jpg" alt=""></p>
+<p>业务垂直拆分，由若干个基础数据服务：</p>
+<ol>
+<li>垂直业务要通过多个RPC接口访问不同的基础数据服务，<strong>服务共享</strong>是服务化的特征；</li>
+<li>每个基础数据服务访问自己的数据存储，数据私有也是服务化的特征；</li>
+</ol>
+<p>上面架构图中的依赖关系是不是？</p>
+<ol>
+<li>基础数据服务与存储层之间连接关系很清晰；</li>
+<li>业务站点层与基础数据服务层之间的连接关系错综复杂，变成了蜘蛛网；</li>
+</ol>
+<p>再举一个更具体的例子，<strong>信息分类站点</strong>列表页站点如何获取底层的数据？</p>
+<ol>
+<li>先调用<strong>商业基础服务</strong>，获取商业广告帖子数据，用于顶部置顶/精准的广告帖子展示；</li>
+<li>再调用<strong>搜索基础服务</strong>，获取自然搜索帖子数据，用于中间自然搜索帖子展示；</li>
+<li>再调用<strong>推荐基础服务</strong>，获取推荐帖子数据，用于底部推荐帖子展示；</li>
+<li>再调用<strong>用户基础服务</strong>，获取用户数据，用于右侧用户信息展示；</li>
+<li>…</li>
+</ol>
+<p>如果只有一个列表页这么写还行，但如果有招聘、房产、二手、二手车、黄页等多个业务，都这么获取共性数据，而只有少部分个性数据，每次都这么一个个调用基础服务，有大量冗余、重复、每次必写的代码。</p>
+<p>特别的，不同业务上游列表页都依赖于底层若干相同服务：</p>
+<ol>
+<li>一旦一个服务RPC接口有稍许变化，所有上游的系统都需要升级修改；</li>
+<li>子系统之间很可能出现代码拷贝；</li>
+<li>一旦拷贝代码，出现一个bug，多个子系统都需要升级修改；</li>
+</ol>
+<div class="admonition question"><p class="admonition-title">如何让数据的获取更加高效快捷呢？</p>
+<p>业务服务化，通用业务服务层的抽象势在必行。</p>
+</div>
+<h3 id="google的锁才是分布式锁">Google的锁，才是分布式锁？</h3>
+<p>早年谷歌四大基础设施，分别是 GFS、MapReduce、BigTable、Chubby。</p>
+<p>Chubby，提供粗粒度的分布式锁服务。</p>
+<p><strong>典型的业务场景</strong>
+具有广泛的应用场景，例如：</p>
+<ol>
+<li>GFS选主；</li>
+<li>BigTable中的表锁；</li>
+</ol>
+<p><strong>内核本质</strong>
+Chubby本质上是一个分布式文件系统，存储大量小文件。每个文件就代表一个锁，并且可以保存一些应用层面的小规模数据。</p>
+<p>用户可以通过打开、关闭、读取文件来获取共享锁或者独占锁；并通过反向通知机制，向用户发送更新信息。</p>
+<p><strong>设计之初目标</strong></p>
+<ol>
+<li>粗粒度的锁服务；</li>
+<li>高可用、高可靠；</li>
+<li>可直接存储服务信息，而无需另建服务；</li>
+<li>高扩展性；</li>
+</ol>
+<p><strong>整体架构</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220126175828.jpg" alt=""></p>
+<p>核心是这两个重要组件：</p>
+<ol>
+<li>Chubby客户端：以库的方式提供，可以通过相应API接口，申请锁服务，获取数据信息，同时保持与服务端的连接；</li>
+<li>Chubby服务端：服务端集群，一般由5个节点组成（至少3个节点），其中一台主节点（master），维护与客户端的所有通信；其他节点不断与主节点通信，获取用户操作；</li>
+</ol>
+<p>在系统实现时，还使用了以下特性：</p>
+<ol>
+<li>客户端缓存，以减少对主节点的访问；</li>
+<li>反向通知机制，锁变化时，会反向通知客户端；</li>
+</ol>
+<p>Chubby的实现关键点</p>
+<ol>
+<li>文件系统</li>
+</ol>
+<p>文件系统由许多Node组成，每个Node代表一个文件，或者一个目录。
+文件系统使用 Berkeley DB 来保存每个 Node 的数据。
+文件系统提供的API很少：创建文件系统、文件操作、目录操作等简易操作。</p>
+<ol start="2">
+<li>基于ICE的通信机制</li>
+</ol>
+<p>核心就是异步，部分组件负责发送，部分组件负责接收。</p>
+<ol start="3">
+<li>客户端与主节点通信</li>
+</ol>
+<ul>
+<li>使用长连接，连接有效期内，锁服务、客户端缓存数据均一直有效；</li>
+<li>定时双向 <code>keepalive</code>；</li>
+<li>出错回调；</li>
+</ul>
+<p>（1）正常情况</p>
+<p>keepalive 会周期性发送，它有两方面功能：</p>
+<p>一，延长租约有效期，携带事件信息告诉客户端更新；</p>
+<p>二，执行回调，例如文件内容修改、子节点增删改、主节点出错等；</p>
+<p>（2）客户端租约过期</p>
+<p>客户端没有收到主节点的 keepalive，租约随之过期，将会进入一个“危险状态”。由于此时不能确定主节点是否已经终止，客户端必须主动
+让本地缓存失效，同时，进入一个寻找新的主节点的阶段。</p>
+<p>这个阶段中，客户端会轮询服务集群，访问非主节点的其他节点，当客户端收到一个肯定的答复时，它会向新的主节点发送 keepalive 信息，告之自己处于“危险状态”，并和新的主节点建立会话，然后把本地缓存中的信息刷新。</p>
+<p>（3）主节点租约过期</p>
+<p>主节点一段时间没有收到客户端的keepalive，会进入一段等待期，此期间内客户端仍没有响应，则主节点认为客户端失效。失效后，主节点会把客户端获得的锁，打开的临时文件清理掉，并通知各副本节点，以保持一致性。</p>
+<p>（4）主服务器出错</p>
+<p>主节点出错，需要内部进行重新选举，各副本节点只响应客户端的读取命令，而忽略写命令。</p>
+<ol start="4">
+<li>服务器集群间的一致性操作。</li>
+</ol>
+<p>要解决的问题是，当主节点收到客户端请求时（主要是写），如何将操作同步到其他服务器节点，以保证数据的一致性。</p>
+<p>（1）节点数目</p>
+<p>一般来说，节点数为5，至少要是3。</p>
+<p>（2）关于复制</p>
+<p>收到客户端请求时，主节点会将请求复制到所有成员，并在消息中添加最新被提交的请求序号。副本节点收到这个请求后，获取主节点处被提交的请求序号，然后执行这个序列之前的所有请求，并把其记录到内存的日志里。</p>
+<p>各副本节点会向主节点回复消息，主节点收到半数以上的消息（集群包含5个节点时，至少要收到3个节点），才能够进行确认，执行请求，并返回客户端。<strong>就是半数以上确认，才认为成功。</strong></p>
+<p>如果某个副本节点出现暂时的故障，没有收到部分消息也没关系，副本节点重新启动后，主动从主节点处获得已执行的，自己却还没有完成的日志，并进行执行。</p>
+<p>最终，所有成员都会获得一致性的数据，正常情况下，至少有3个节点包含一致，且最新的数据。</p>
+<p>最后，举几个Chubby使用场景的例子。</p>
+<p>例子一，<strong>集群选主</strong></p>
+<p>（1）集群中每个节点都试图创建/打开同一个文件，并在该文件中记录自己的服务信息，任何时刻，肯定只有一个服务器能够获得该文件的控制权；</p>
+<p>（2）首先创建该文件的节点成为主，并写入自己的信息；</p>
+<p>（3）后续打开该文件的节点成为从，并读取主的信息；</p>
+<p>例子二，<strong>进程监控</strong></p>
+<p>（1）各个进程都把自己的状态写入指定目录下的临时文件里；</p>
+<p>（2）监控进程通过阅读该目录下的文件信息来获得进程状态；</p>
+<p>（3）各个进程随时有可能死亡，因此指定目录的数据状态会发生变化；</p>
+<p>（4）通过事件机制通知监控进程，读取相关内容，获取最新状态，达到监控目的；</p>
+<p><strong>总结</strong></p>
+<p>Google Chubby提供粗粒度锁服务，它的本质是一个松耦合分布式文件系统。开发者不需要关注复杂的同步协议，直接调用库来取得锁服务，并保证了数据的一致性。</p>
+<p>最后要说明的是，最终Chubby系统代码共13700多行，其中ICE自动生成6400行，手动编写约8000行。</p>
+<p>这就是Google牛逼的地方：<strong>强大的工程能力，快速稳定的实现，快速解决各种业务问题。</strong></p>
+<h3 id="mysql双主架构原来能这么玩">MySQL双主架构，原来能这么玩</h3>
+<p><strong>MySQL为什么要使用双主架构？</strong></p>
+<p>MySQL最常见的集群架构，是一主多从，主从同步，读写分离的架构。通过这种方式，能够扩充数据库的读性能，保证读库的高可用，但此时写库仍然是单点。</p>
+<p>为了保证MySQL写库的高可用，可以在一个MySQL数据库集群中可以<strong>设置两个主库，并设置双向同步</strong>，以冗余写库的方式，来<strong>保证写库的高可用</strong>。</p>
+<p><strong>MySQL双主架构，会存在什么问题？</strong></p>
+<p>如果MySQL双主架构，同时提供服务，可能会引发数据的一致性问题。因为数据的同步有一个时间差，并发的写入可能导致数据同步失败，引起数据丢失。</p>
+<p>举个例子：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220127154845.jpg" alt=""></p>
+<p>如上图所述，假设主库使用了auto increment来作为自增主键：</p>
+<p>（1）两个MySQL主库设置双向同步可以用来保证主库的高可用；</p>
+<p>（2）数据库中现存的记录主键是1，2，3；</p>
+<p>（3）主库1插入了一条记录，主键为4，并向主库2同步数据；</p>
+<p>（4）数据同步成功之前，主库2也插入了一条记录，由于数据还没有同步成功，插入记录生成的主键也为4，并向主库1也同步数据；</p>
+<p>（5）主库1和主库2都插入了主键为4的记录，双主同步失败，数据不一致；</p>
+<p><strong>能否在MySQL层面，保证两个主库生成的主键一定不冲突呢？</strong></p>
+<p>可以的，只需要为两个主库的自增ID：</p>
+<p>（1）设置不同的初始值；</p>
+<p>（2）设置相同的增长步长；</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220127154854.jpg" alt=""></p>
+<p>如上图所示：</p>
+<p>（1）两个MySQL主库设置双向同步可以用来保证主库的高可用；</p>
+<p>（2）库1的自增初始值是1，库2的自增初始值是2，增长步长都为2；</p>
+<p>（3）库1中插入数据主键为1/3/5/7，库2中插入数据主键为2/4/6/8，不冲突；</p>
+<p>（4）数据双向同步后，两个主库会包含全部数据；</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220127154902.jpg" alt=""></p>
+<p>如上图所示，两个主库最终都将包含1/2/3/4/5/6/7/8所有数据，即使有一个主库挂了，另一个主库也能够保证写库的高可用。</p>
+<p><strong>上述方案，依赖与数据库的配置，能不能由应用程序，来保证数据的一致性呢？</strong></p>
+<p>答案是肯定的，应用程序使用统一的ID生成器，可以保证ID的生成不冲突。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220127154922.jpg" alt=""></p>
+<p>如上图所示，调用方插入数据时，带入全局唯一ID，而不依赖于数据库的auto increment，也能解决这个问题。</p>
+<p><em>画外音：如何生成全局唯一趋势递增的ID，不展开。</em></p>
+<p>引发不一致的根本原因，是保证高可用的两个主库都对外提供服务，<strong>如果只有一个主库对外提供服务，另一个主库平时不提供服务，仅仅在主库挂了的时候提供服务，能否消除上述数据不一致呢？</strong></p>
+<p>答案是悲观的，仍然不行。</p>
+<p>使用 <strong><code>VIP + Keepalived</code>的方式保证数据库主库的高可用</strong>，平时只有一台主库提供服务，也可能出现数据不一致。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220127154931.jpg" alt=""></p>
+<p>如上图所示：</p>
+<p>（1）两个MySQL主库设置双向同步可以用来保证主库的高可用；</p>
+<p>（2）只有主库1对外提供写入服务；</p>
+<p>（3）两个主库设置相同的虚IP，在主库1挂掉或者网络异常的时候，虚IP自动漂移，备用主库顶上，保证主库的高可用；</p>
+<p>切换过程中，由于虚IP没有变化，所以切换过程对调用方是透明的，但在极限的情况下，仍可能引发数据不一致。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whzywxt/img/20220127154938.jpg" alt=""></p>
+<p>如上图所示：</p>
+<p>（1）两个MySQL主库设置双向同步，可以用来保证主库的高可用，并设置了相同的虚IP；</p>
+<p>（2）网络抖动前，主库1对上游提供写入服务，插入了一条记录，主键为4，并向备用主库2同步数据；</p>
+<p>（3）<em>突然主库1网络异常，keepalived检测出异常后，实施虚IP漂移，备用主库2开始提供服务；</em></p>
+<p>（4）<em>在主键4的数据同步成功之前，主库2插入了一条记录，也生成了主键为4的记录，结果导致数据不一致；</em></p>
+<p><strong>有没有办法缓解上述问题呢？</strong></p>
+<p>虚IP漂移，双主同步延时导致的数据不一致，本质上，<em>需要在双主同步完数据之后，再实施虚IP偏移。</em></p>
+<p>使用<strong>内网DNS探测</strong>，缓解上述问题：</p>
+<p>（1）使用内网域名连接数据库，例如：db.kg.org；</p>
+<p>（2）主库1和主库2设置双主同步，不使用相同虚IP，而是分别使用ip1和ip2；</p>
+<p>（3）一开始db.kg.org指向ip1；</p>
+<p>（4）用一个小脚本轮询探测ip1主库的连通性；</p>
+<p>（5）当ip1主库发生异常时，脚本delay一个x秒的延时，等待主库2同步完数据之后，再将db.kg.org解析到ip2；</p>
+<p>（6）应用程序以内网域名进行重连，即可自动连接到ip2主库，并保证了数据的一致性；</p>
+<p><em>画外音：本质上，这是一个可用性与一致性的折衷。</em></p>
+<p><strong>总结</strong></p>
+<p>MySQL主库高可用，主库一致性，一些小技巧：</p>
+<p>（1）<strong>双主同步</strong>是一种常见的保证写库高可用的方式；</p>
+<p>（2）**设置相同步长，不同初始值，**可以避免auto increment生成冲突主键；</p>
+<p>（3）不依赖数据库，<strong>业务调用方自己生成全局唯一ID</strong>是一个好方法；</p>
+<p>（4）双主保证写库高可用，只有一个写库提供服务，并不能完全保证一致性；</p>
+<p>（5）<strong>内网DNS探测</strong>，可以实现在主库1出现问题后，延时一个时间，再进行主库切换，以保证数据一致性，但牺牲了几秒钟的高可用；</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">小叨</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-01-12
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%9E%B6%E6%9E%84/">架构</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/jiagou/keepalived-nginx-shi-xian-gao-ke-yong/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Keepalived&#43;Nginx实现高可用</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/nginx-jia-su-xiang-ying/">
+            <span class="next-text nav-default">Nginx加速响应</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:whzywxt@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whzywxt" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-156364991-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

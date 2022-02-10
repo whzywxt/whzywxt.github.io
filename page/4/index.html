@@ -122,6 +122,48 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/an-zhuang-java/">安装Java</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2016-06-25 </span>
+      <div class="post-category">
+          <a href="/categories/web/"> web </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      安装Java 1、到 Sun 的官网下载 http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html 选择 accept license ，然后选择适合自己机型的JDK下载。 2、解压文件，修改文件名 1 2 3 4 $ sudo mkdir /usr/lib/jvm $ sudo tar zxvf jdk-8u91-linux-x64.tar.gz -C /usr/lib/jvm $ cd /usr/lib/jvm $ sudo
+    </div>
+    <div class="read-more">
+      <a href="/post/an-zhuang-java/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/an-zhuang-memcached/">安装Memcached</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2016-06-25 </span>
+      <div class="post-category">
+          <a href="/categories/web/"> web </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      安装Memcached 安装libevent依赖 1 2 3 4 5 tar zxvf libevent-2.0.22-stable.tar.gz cd libevent-2.0.22-stable ./configure --prefix=/Data/apps/libs make make install 安装memcached 1 2 3 4 5 tar zxvf memcached-1.4.27.tar.gz cd memcached-1.4.2 ./configure --prefix=/Data/apps/memcached --with-libevent=/Data/apps/libs make make install 启用 通常：
+    </div>
+    <div class="read-more">
+      <a href="/post/an-zhuang-memcached/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/an-zhuang-elasticsearch/">安装Elasticsearch</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2016-06-24 </span>
@@ -288,48 +330,6 @@
   </div>
 </article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/design-patterns/ce-lve-mo-shi/">策略模式</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2016-05-31 </span>
-      <div class="post-category">
-          <a href="/categories/php/"> php </a>
-          </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      策略模式 策略模式设计帮助构建的对象不必自身包含逻辑，而是能够根据需要利用其他对象中的算法。 使用场景 例如有一个CD类，我们类存储了CD的信息。
-    </div>
-    <div class="read-more">
-      <a href="/post/design-patterns/ce-lve-mo-shi/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/design-patterns/zhuang-shi-qi-mo-shi/">装饰器模式</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2016-05-31 </span>
-      <div class="post-category">
-          <a href="/categories/php/"> php </a>
-          </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      装饰器 装饰器模式，对已有对象的部分内容或者功能进行调整，但是不需要修改原始对象结构，可以使用装饰器设 应用场景 设计一个UserInfo类，里面
-    </div>
-    <div class="read-more">
-      <a href="/post/design-patterns/zhuang-shi-qi-mo-shi/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
     </section>
   
   <nav class="pagination">
@@ -363,7 +363,7 @@
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
   </span>
 </div>
 

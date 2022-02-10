@@ -6,7 +6,25 @@
     <description>Recent content on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 22 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Keepalived&#43;Nginx实现高可用</title>
+      <link>https://www.stormwan.com/post/jiagou/keepalived-nginx-shi-xian-gao-ke-yong/</link>
+      <pubDate>Fri, 28 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/jiagou/keepalived-nginx-shi-xian-gao-ke-yong/</guid>
+      <description>一、背景 本文主要介绍使用 keepalived 实现 nginx 的主备高可用 实验环境：Vmware CentOS 7 64 位 机器A Master 192.168.26.129 机器B Slave 192.168.26.130 VIP 192.168.26.128 二、实验步骤 1. 安装 Nginx 和 Keepalive 软件 两台机器一致，</description>
+    </item>
+    
+    <item>
+      <title>2021回顾</title>
+      <link>https://www.stormwan.com/post/jiagou/2021-hui-gu/</link>
+      <pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/jiagou/2021-hui-gu/</guid>
+      <description>架构原理 互联网分层架构的本质 一个典型的互联网分层架构： 客户端层：典型调用方是 browser 或者 APP； 站点应用层：实现核心业务逻辑，从下游获取数据，对上</description>
+    </item>
+    
     <item>
       <title>Nginx加速响应</title>
       <link>https://www.stormwan.com/post/nginx-jia-su-xiang-ying/</link>
