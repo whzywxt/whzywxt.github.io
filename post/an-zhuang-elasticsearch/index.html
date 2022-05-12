@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="小叨" /><meta name="description" content="安装Elasticsearch 安装 Installing Marvel 1 2 3 4 5 6 7 8 9 10 11 12 #Step 1: Install Marvel into Elasticsearch: bin/plugin install license bin/plugin install marvel-agent #Step 2: Install Marvel into Kibana bin/kibana plugin --install elasticsearch/marvel/latest #Step 3: Start Elasticsearch and Kibana bin/elasticsearch bin/kibana #Step 4: Navigate to http://localhost:5601/app/marvel Installing Marvel on Offline" /><meta name="keywords" content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
+<meta name="author" content="小叨" /><meta name="description" content="Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎，能够解决不断涌现出的各种用例。 作为 Elastic Stack 的核心，它集中存储您的数据，帮助您发现意料之中" /><meta name="keywords" content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
 
 
 
@@ -40,19 +40,19 @@
 
 
 <meta property="og:title" content="安装Elasticsearch" />
-<meta property="og:description" content="安装Elasticsearch 安装 Installing Marvel 1 2 3 4 5 6 7 8 9 10 11 12 #Step 1: Install Marvel into Elasticsearch: bin/plugin install license bin/plugin install marvel-agent #Step 2: Install Marvel into Kibana bin/kibana plugin --install elasticsearch/marvel/latest #Step 3: Start Elasticsearch and Kibana bin/elasticsearch bin/kibana #Step 4: Navigate to http://localhost:5601/app/marvel Installing Marvel on Offline" />
+<meta property="og:description" content="Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎，能够解决不断涌现出的各种用例。 作为 Elastic Stack 的核心，它集中存储您的数据，帮助您发现意料之中" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.stormwan.com/post/an-zhuang-elasticsearch/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2016-06-24T00:00:00+00:00" />
 <meta property="article:modified_time" content="2016-06-24T00:00:00+00:00" />
 
 <meta itemprop="name" content="安装Elasticsearch">
-<meta itemprop="description" content="安装Elasticsearch 安装 Installing Marvel 1 2 3 4 5 6 7 8 9 10 11 12 #Step 1: Install Marvel into Elasticsearch: bin/plugin install license bin/plugin install marvel-agent #Step 2: Install Marvel into Kibana bin/kibana plugin --install elasticsearch/marvel/latest #Step 3: Start Elasticsearch and Kibana bin/elasticsearch bin/kibana #Step 4: Navigate to http://localhost:5601/app/marvel Installing Marvel on Offline"><meta itemprop="datePublished" content="2016-06-24T00:00:00+00:00" />
+<meta itemprop="description" content="Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎，能够解决不断涌现出的各种用例。 作为 Elastic Stack 的核心，它集中存储您的数据，帮助您发现意料之中"><meta itemprop="datePublished" content="2016-06-24T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2016-06-24T00:00:00+00:00" />
-<meta itemprop="wordCount" content="724">
+<meta itemprop="wordCount" content="1336">
 <meta itemprop="keywords" content="搜索索引," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="安装Elasticsearch"/>
-<meta name="twitter:description" content="安装Elasticsearch 安装 Installing Marvel 1 2 3 4 5 6 7 8 9 10 11 12 #Step 1: Install Marvel into Elasticsearch: bin/plugin install license bin/plugin install marvel-agent #Step 2: Install Marvel into Kibana bin/kibana plugin --install elasticsearch/marvel/latest #Step 3: Start Elasticsearch and Kibana bin/elasticsearch bin/kibana #Step 4: Navigate to http://localhost:5601/app/marvel Installing Marvel on Offline"/>
+<meta name="twitter:description" content="Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎，能够解决不断涌现出的各种用例。 作为 Elastic Stack 的核心，它集中存储您的数据，帮助您发现意料之中"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -143,14 +143,12 @@
   <ul>
     <li>
       <ul>
-        <li>
-          <ul>
-            <li><a href="#安装">安装</a></li>
-            <li><a href="#启动">启动</a></li>
-            <li><a href="#索引">索引</a></li>
-            <li><a href="#分析">分析</a></li>
-          </ul>
-        </li>
+        <li><a href="#安装">安装</a></li>
+        <li><a href="#启动">启动</a></li>
+        <li><a href="#索引">索引</a></li>
+        <li><a href="#分析">分析</a></li>
+        <li><a href="#安装ik中文分词">安装IK中文分词</a></li>
+        <li><a href="#遇到的问题">遇到的问题</a></li>
       </ul>
     </li>
   </ul>
@@ -159,9 +157,9 @@
 </div>
     <div class="post-content">
       <blockquote>
-<p>安装Elasticsearch</p>
+<p>Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎，能够解决不断涌现出的各种用例。 作为 Elastic Stack 的核心，它集中存储您的数据，帮助您发现意料之中以及意料之外的情况。</p>
 </blockquote>
-<h3 id="安装">安装</h3>
+<h2 id="安装">安装</h2>
 <ul>
 <li>Installing Marvel</li>
 </ul>
@@ -210,7 +208,7 @@ bin/plugin install file:///Data/tgz/marvel-agent-2.3.3.zip
 bin/kibana plugin --install marvel --url file:///Data/tgz/marvel-2.3.3.tar.gz
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="启动">启动</h3>
+</div><h2 id="启动">启动</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -221,7 +219,7 @@ bin/kibana plugin --install marvel --url file:///Data/tgz/marvel-2.3.3.tar.gz
 bin/kibana
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="索引">索引</h3>
+</div><h2 id="索引">索引</h2>
 <ul>
 <li>创建索引</li>
 </ul>
@@ -464,7 +462,7 @@ curl -XGET &#39;http://localhost:9200/megacorp/employee/_search?pretty&#39; -d &
 }&#39;
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="分析">分析</h3>
+</div><h2 id="分析">分析</h2>
 <ul>
 <li>聚合</li>
 </ul>
@@ -522,7 +520,218 @@ curl -XGET &#39;http://localhost:9200/megacorp/employee/_search?pretty&#39; -d &
 }&#39;
 </code></pre></td></tr></table>
 </div>
+</div><hr>
+<blockquote>
+<p>2022-02-19 Homestead 安装 7.16.0</p>
+</blockquote>
+<h2 id="安装ik中文分词">安装IK中文分词</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ /usr/share/elasticsearch
+
+$ sudo bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.16.0/elasticsearch-analysis-ik-7.16.0.zip
+</code></pre></td></tr></table>
 </div>
+</div><p>ik提供了两个分词器，分别是 <code>ik_max_word</code> 和 <code>ik_smart</code> ，下面我们分别测试下。
+先测试 <code>ik_max_word</code> ，输入命令如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">http:</span><span class="c1">//192.168.10.10:9200/_analyze
+</span><span class="c1"></span><span class="p">{</span>  
+    <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;ik_max_word&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;世界如此之大&#34;</span>  
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>响应结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;tokens&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;世界&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;如此之&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">1</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;如此&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">2</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;之大&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">3</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>再测试 <code>ik_smart</code> ，输入命令如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">http:</span><span class="c1">//192.168.10.10:9200/_analyze
+</span><span class="c1"></span><span class="p">{</span>  
+    <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;ik_smart&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;世界如此之大&#34;</span>  
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>响应结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;tokens&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;世界&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;如此&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">1</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;之大&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;start_offset&#34;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nt">&#34;end_offset&#34;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;position&#34;</span><span class="p">:</span> <span class="mi">2</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="遇到的问题">遇到的问题</h2>
+<p>外网访问，修改 <code>network.host: 0.0.0.0</code> 配置项后启动失败</p>
+<p>启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl start elasticsearch.service
+</code></pre></td></tr></table>
+</div>
+</div><p>查看状态信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl status elasticsearch.service
+</code></pre></td></tr></table>
+</div>
+</div><p>查看日志，找出错误原因</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">tail -f /var/log/elasticsearch/homestead.log
+</code></pre></td></tr></table>
+</div>
+</div><p>ElasticSearch启动过程错误：org.elasticsearch.transport.BindTransportException: Failed to bind to [9300-9400]</p>
+<p>查看本机IP <code>ip addr</code>，将 <code>netword.host</code> 改为 <code>192.168.10.10</code>，重新启动成功。</p>
+
     </div>
 
     <div class="post-copyright">

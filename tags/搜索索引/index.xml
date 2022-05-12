@@ -22,7 +22,7 @@
       <pubDate>Fri, 24 Jun 2016 00:00:00 +0000</pubDate>
       
       <guid>https://www.stormwan.com/post/an-zhuang-elasticsearch/</guid>
-      <description>安装Elasticsearch 安装 Installing Marvel 1 2 3 4 5 6 7 8 9 10 11 12 #Step 1: Install Marvel into Elasticsearch: bin/plugin install license bin/plugin install marvel-agent #Step 2: Install Marvel into Kibana bin/kibana plugin --install elasticsearch/marvel/latest #Step 3: Start Elasticsearch and Kibana bin/elasticsearch bin/kibana #Step 4: Navigate to http://localhost:5601/app/marvel Installing Marvel on Offline</description>
+      <description>Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎，能够解决不断涌现出的各种用例。 作为 Elastic Stack 的核心，它集中存储您的数据，帮助您发现意料之中</description>
     </item>
     
   </channel>

@@ -6,7 +6,16 @@
     <description>Recent content on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 28 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>架构实践</title>
+      <link>https://www.stormwan.com/post/jiagou/jia-gou-shi-jian/</link>
+      <pubDate>Fri, 11 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/jiagou/jia-gou-shi-jian/</guid>
+      <description>保证session一致性 session：服务器为每个用户创建一个会话，存储用户的相关信息，以便多次请求能够定位到同一个上下文。 常见方法： se</description>
+    </item>
+    
     <item>
       <title>Keepalived&#43;Nginx实现高可用</title>
       <link>https://www.stormwan.com/post/jiagou/keepalived-nginx-shi-xian-gao-ke-yong/</link>
@@ -419,7 +428,7 @@ requirepass 1234
       <pubDate>Fri, 24 Jun 2016 00:00:00 +0000</pubDate>
       
       <guid>https://www.stormwan.com/post/an-zhuang-elasticsearch/</guid>
-      <description>安装Elasticsearch 安装 Installing Marvel 1 2 3 4 5 6 7 8 9 10 11 12 #Step 1: Install Marvel into Elasticsearch: bin/plugin install license bin/plugin install marvel-agent #Step 2: Install Marvel into Kibana bin/kibana plugin --install elasticsearch/marvel/latest #Step 3: Start Elasticsearch and Kibana bin/elasticsearch bin/kibana #Step 4: Navigate to http://localhost:5601/app/marvel Installing Marvel on Offline</description>
+      <description>Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎，能够解决不断涌现出的各种用例。 作为 Elastic Stack 的核心，它集中存储您的数据，帮助您发现意料之中</description>
     </item>
     
     <item>

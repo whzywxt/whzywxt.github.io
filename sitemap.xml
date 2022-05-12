@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.stormwan.com/post/</loc>
+    <lastmod>2022-02-11T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/tags/</loc>
+    <lastmod>2022-02-11T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/</loc>
+    <lastmod>2022-02-11T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/tags/%E6%9E%B6%E6%9E%84/</loc>
+    <lastmod>2022-02-11T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/post/jiagou/jia-gou-shi-jian/</loc>
+    <lastmod>2022-02-11T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://www.stormwan.com/categories/</loc>
     <lastmod>2022-01-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -17,34 +52,6 @@
   
   <url>
     <loc>https://www.stormwan.com/categories/nginx/</loc>
-    <lastmod>2022-01-28T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stormwan.com/post/</loc>
-    <lastmod>2022-01-28T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stormwan.com/tags/</loc>
-    <lastmod>2022-01-28T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stormwan.com/</loc>
-    <lastmod>2022-01-28T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stormwan.com/tags/%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2022-01-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
