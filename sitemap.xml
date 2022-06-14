@@ -2,22 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.stormwan.com/categories/</loc>
+    <lastmod>2022-02-19T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/categories/es/</loc>
+    <lastmod>2022-02-19T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://www.stormwan.com/post/</loc>
-    <lastmod>2022-02-11T00:00:00+00:00</lastmod>
+    <lastmod>2022-02-19T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://www.stormwan.com/tags/</loc>
-    <lastmod>2022-02-11T00:00:00+00:00</lastmod>
+    <lastmod>2022-02-19T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/post/an-zhuang-elasticsearch/</loc>
+    <lastmod>2022-02-19T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://www.stormwan.com/</loc>
-    <lastmod>2022-02-11T00:00:00+00:00</lastmod>
+    <lastmod>2022-02-19T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/tags/%E6%90%9C%E7%B4%A2%E7%B4%A2%E5%BC%95/</loc>
+    <lastmod>2022-02-19T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -32,13 +60,6 @@
   <url>
     <loc>https://www.stormwan.com/post/jiagou/jia-gou-shi-jian/</loc>
     <lastmod>2022-02-11T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stormwan.com/categories/</loc>
-    <lastmod>2022-01-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -199,20 +220,6 @@
   
   <url>
     <loc>https://www.stormwan.com/post/elasticsearch-yuan-li-li-jie/</loc>
-    <lastmod>2020-05-16T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stormwan.com/categories/es/</loc>
-    <lastmod>2020-05-16T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stormwan.com/tags/%E6%90%9C%E7%B4%A2%E7%B4%A2%E5%BC%95/</loc>
     <lastmod>2020-05-16T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -487,13 +494,6 @@
   <url>
     <loc>https://www.stormwan.com/post/an-zhuang-memcached/</loc>
     <lastmod>2016-06-25T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stormwan.com/post/an-zhuang-elasticsearch/</loc>
-    <lastmod>2016-06-24T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

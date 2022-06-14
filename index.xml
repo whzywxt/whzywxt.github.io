@@ -6,7 +6,16 @@
     <description>Recent content on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 11 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>安装Elasticsearch</title>
+      <link>https://www.stormwan.com/post/an-zhuang-elasticsearch/</link>
+      <pubDate>Sat, 19 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/an-zhuang-elasticsearch/</guid>
+      <description>Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎，能够解决不断涌现出的各种用例。 作为 Elastic Stack 的核心，它集中存储您的数据，帮助您发现意料之中</description>
+    </item>
+    
     <item>
       <title>架构实践</title>
       <link>https://www.stormwan.com/post/jiagou/jia-gou-shi-jian/</link>
@@ -420,15 +429,6 @@ requirepass 1234
       
       <guid>https://www.stormwan.com/post/an-zhuang-memcached/</guid>
       <description>安装Memcached 安装libevent依赖 1 2 3 4 5 tar zxvf libevent-2.0.22-stable.tar.gz cd libevent-2.0.22-stable ./configure --prefix=/Data/apps/libs make make install 安装memcached 1 2 3 4 5 tar zxvf memcached-1.4.27.tar.gz cd memcached-1.4.2 ./configure --prefix=/Data/apps/memcached --with-libevent=/Data/apps/libs make make install 启用 通常：</description>
-    </item>
-    
-    <item>
-      <title>安装Elasticsearch</title>
-      <link>https://www.stormwan.com/post/an-zhuang-elasticsearch/</link>
-      <pubDate>Fri, 24 Jun 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.stormwan.com/post/an-zhuang-elasticsearch/</guid>
-      <description>Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎，能够解决不断涌现出的各种用例。 作为 Elastic Stack 的核心，它集中存储您的数据，帮助您发现意料之中</description>
     </item>
     
     <item>
