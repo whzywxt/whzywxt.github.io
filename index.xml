@@ -6,7 +6,16 @@
     <description>Recent content on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 19 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>谈街边开店</title>
+      <link>https://www.stormwan.com/post/life/tan-jie-bian-kai-dian/</link>
+      <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/life/tan-jie-bian-kai-dian/</guid>
+      <description>疫情之下，有些人失业了总是想开个小店，找出以前写的文章1，给大家看一下开小店的一些基本方法。 如果真的要开街边小店，给大家分享一下开小店的一些</description>
+    </item>
+    
     <item>
       <title>安装Elasticsearch</title>
       <link>https://www.stormwan.com/post/an-zhuang-elasticsearch/</link>
@@ -627,6 +636,15 @@ requirepass 1234
       
       <guid>https://www.stormwan.com/post/xu-ni-ji-jie-shao/</guid>
       <description>Local Machine CentOS_6_x64_Origin DEVICE=eth0 HWADDR=&amp;quot;00:0c:29:29:e0:45&amp;quot; 192.168.233.128 CentOS_6_x64_A DEVICE=eth0 HWADDR=&amp;quot;00:0c:29:db:6d:ba&amp;quot; 192.168.233.131 CentOS_6_x64_B DEVICE=eth1 HWADDR=&amp;quot;00:0c:29:1a:ef:b0&amp;quot; 192.168.233.132 CentOS_6_x64_C DEVICE=eth1 HWADDR=&amp;quot;00:0c:29:20:ab:4d&amp;quot; 192.168.233.133 CentOS_6_x64_Origin_Clone DEVICE=eth1 HWADDR=&amp;quot;00:0c:29:79:5a:6b&amp;quot; 192.168.233.134 配置基于IP的虚拟主机 1 2 3 4 5 6 7 8 /sbin/ifconfig eth1:1 192.168.233.137 broadcast 192.168.233.255 netmask 255.255.255.0 up /sbin/route add -host 192.168.233.137 dev eth1:1 /sbin/ifconfig eth1:2 192.168.233.138 broadcast 192.168.233.255 netmask 255.255.255.0 up /sbin/route add -host 192.168.233.138 dev eth1:2 /sbin/ifconfig</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://www.stormwan.com/post/jiagou/web%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3%E4%B8%8E%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/jiagou/web%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3%E4%B8%8E%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98/</guid>
+      <description>评估web架构的关键属性 性能：影响高可用的关键因素 可伸缩性：支持部署 架构属性：性能 网络性能 吞吐量：小于等于带宽 开销：首次开销，每次开销 用户感</description>
     </item>
     
   </channel>

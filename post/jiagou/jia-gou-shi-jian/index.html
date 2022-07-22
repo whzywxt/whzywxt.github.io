@@ -49,7 +49,7 @@
 <meta itemprop="name" content="架构实践">
 <meta itemprop="description" content="保证session一致性 session：服务器为每个用户创建一个会话，存储用户的相关信息，以便多次请求能够定位到同一个上下文。 常见方法： se"><meta itemprop="datePublished" content="2022-02-11T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-02-11T00:00:00+00:00" />
-<meta itemprop="wordCount" content="784">
+<meta itemprop="wordCount" content="2174">
 <meta itemprop="keywords" content="架构," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="架构实践"/>
 <meta name="twitter:description" content="保证session一致性 session：服务器为每个用户创建一个会话，存储用户的相关信息，以便多次请求能够定位到同一个上下文。 常见方法： se"/>
@@ -212,9 +212,80 @@
 <li>注册中心或配置中心，Apollo分布式配置中心；</li>
 </ol>
 <h2 id="tcp接入层的负载均衡高可用架构">TCP接入层的负载均衡+高可用架构</h2>
+<p>互联网架构中，web-server接入一般使用nginx来做反向代理，实施负载均衡。整个架构分三层：</p>
+<ol>
+<li><strong>上游调用层</strong>，一般是browser或者APP；</li>
+<li><strong>中间反向代理层</strong>，nginx；</li>
+<li><strong>下游真实接入集群</strong>，web-server，常见web-server的有tomcat，apache；</li>
+</ol>
+<p>那整个访问过程是怎么样的？</p>
+<ol>
+<li>browser向<strong>目标网址</strong>发起请求；</li>
+<li>DNS将<strong>目标网址</strong>解析为外网IP(1.2.3.4)；</li>
+<li>browser通过外网IP(1.2.3.4)访问nginx；</li>
+<li>nginx实施负载均衡策略，常见策略有轮询，随机，IP-hash等；</li>
+<li>nginx将请求转发给内网IP(192.168.0.1)的web-server；</li>
+</ol>
+<p>由于<strong>http短连接，以及web应用无状态</strong>的特性，理论上<strong>任何一个http请求落在任意一台web-server都应该得到正常处理</strong>。
+画外音：如果必须落在一台，说明架构可能不合理，难以水平扩展。</p>
+<p>问题来了，<strong>tcp是有状态的连接</strong>，客户端和服务端一旦建立连接，<strong>一个client发起的请求必须落在同一台tcp-server上</strong>，此时如何做负载均衡，如何保证水平扩展呢？</p>
+<p>方案一：单机法tcp-server</p>
+<p>无法保证高可用。</p>
+<p>方案二：集群法tcp-server</p>
+<p>可以通过搭建tcp-server集群来保证高可用，客户端来实现负载均衡：</p>
+<p>“IP直通车”有什么新问题？
+将IP写死在客户端，在客户端实施负载均衡，扩展性很差：</p>
+<ol>
+<li>如果原有IP发生变化，客户端得不到实时通知；</li>
+<li>如果新增IP，即tcp-sever扩容，客户端也得不到实时通知；</li>
+<li>如果负载均衡策略变化，需要升级客户端；</li>
+</ol>
+<p>方案三：服务端实施负载均衡
+只有将复杂的策略下沉到服务端，才能根本上解决扩展性的问题。</p>
 <h2 id="dns居然还能这么用">DNS，居然还能这么用？</h2>
+<p>一个http请求，典型的执行流程是怎么样的呢？</p>
+<p>可以看到，典型流程为：</p>
+<ol>
+<li>客户端请求dns-server，发起域名解析；</li>
+<li>dns-server返回域名对应的外网ip(1.2.3.4)；</li>
+<li>客户端通过外网ip(1.2.3.4)，访问反向代理；</li>
+<li>反向代理通过内网ip(192.168.x.x)，将请求分发给web-server；</li>
+<li>web-server对请求进行处理；</li>
+</ol>
+<p>除了域名解析，在架构设计时，还能利用DNS做一些什么事情呢？</p>
+<ol>
+<li>
+<p>用户就近访问 “智能DNS”</p>
+</li>
+<li>
+<p>反向代理水平扩展</p>
+</li>
+</ol>
+<p>典型的互联网架构中，可以通过增加web-server来扩充web层的性能，但反向代理nginx仍是整个系统的唯一入口，<strong>如果系统吞吐超过nginx的性能极限，难以扩容</strong>，此时就需要dns-server来配合水平扩展。</p>
+<p>具体做法是：<strong>在dns-server对于同一个域名可以配置多个nginx的外网ip，每次DNS解析请求，轮询返回不同的ip</strong>，这样就能实现nginx的水平扩展，这个方法叫“<strong>DNS轮询</strong>”。</p>
+<ol start="3">
+<li>利用DNS实施负载均衡</li>
+</ol>
+<p>架构设计中，除了域名解析，DNS还有其他用武之地：</p>
+<ol>
+<li>智能DNS，根据用户ip来就近访问服务器；</li>
+<li>DNS轮询，水平扩展反向代理层；</li>
+<li>利用DNS实施负载均衡；</li>
+</ol>
 <h2 id="无锁缓存每秒10万并发怎么实现">无锁缓存，每秒10万并发，怎么实现？</h2>
+<p>业务场景：</p>
+<ol>
+<li>超高吞吐量，每秒要处理海量请求；</li>
+<li>写多读少，大部分请求是对数据进行修改，少部分请求对数据进行读取；</li>
+</ol>
+<p>解决方案：</p>
+<ol>
+<li>Map &lt;key,val&gt; 加锁（库级别锁）；</li>
+<li>减小锁粒度，key 取余后 加锁，或每个key单独加锁，但资源开销大（行级别锁）；</li>
+<li>无锁缓存，对数据签名（比如crc32）放到数据末尾，高并发下多线程写数据可能每个数据只写成功一半，读取时校验签名，不匹配丢弃再从数据库拉取；</li>
+</ol>
 <h2 id="p站架构实践">P站，架构实践</h2>
+<p>Vanilla JS 框架</p>
 
     </div>
 

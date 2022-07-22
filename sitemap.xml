@@ -3,20 +3,41 @@
   
   <url>
     <loc>https://www.stormwan.com/categories/</loc>
-    <lastmod>2022-02-19T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stormwan.com/categories/es/</loc>
-    <lastmod>2022-02-19T00:00:00+00:00</lastmod>
+    <lastmod>2022-06-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://www.stormwan.com/post/</loc>
+    <lastmod>2022-06-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/</loc>
+    <lastmod>2022-06-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/categories/%E7%94%9F%E6%B4%BB/</loc>
+    <lastmod>2022-06-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/post/life/tan-jie-bian-kai-dian/</loc>
+    <lastmod>2022-06-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/categories/es/</loc>
     <lastmod>2022-02-19T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -31,13 +52,6 @@
   
   <url>
     <loc>https://www.stormwan.com/post/an-zhuang-elasticsearch/</loc>
-    <lastmod>2022-02-19T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stormwan.com/</loc>
     <lastmod>2022-02-19T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -88,13 +102,6 @@
   <url>
     <loc>https://www.stormwan.com/post/nginx-jia-su-xiang-ying/</loc>
     <lastmod>2021-12-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stormwan.com/categories/%E7%94%9F%E6%B4%BB/</loc>
-    <lastmod>2021-12-09T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -683,6 +690,12 @@
   <url>
     <loc>https://www.stormwan.com/post/xu-ni-ji-jie-shao/</loc>
     <lastmod>2013-08-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stormwan.com/post/jiagou/web%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3%E4%B8%8E%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
