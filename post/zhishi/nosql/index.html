@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>nosql - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="小叨" /><meta name="description" content="Elasticsearch 特性 分布式的实时文件存储，每个字段都被索引并可被搜索 可实时分析的分布式搜索引擎 可被扩展到百台服务器，处理PB级结构化或非结构化数据 概念 Cl" /><meta name="keywords" content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/zhishi/nosql/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="nosql" />
+<meta property="og:description" content="Elasticsearch 特性 分布式的实时文件存储，每个字段都被索引并可被搜索 可实时分析的分布式搜索引擎 可被扩展到百台服务器，处理PB级结构化或非结构化数据 概念 Cl" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/zhishi/nosql/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-04-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-04-20T00:00:00+00:00" />
+
+<meta itemprop="name" content="nosql">
+<meta itemprop="description" content="Elasticsearch 特性 分布式的实时文件存储，每个字段都被索引并可被搜索 可实时分析的分布式搜索引擎 可被扩展到百台服务器，处理PB级结构化或非结构化数据 概念 Cl"><meta itemprop="datePublished" content="2023-04-20T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-04-20T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1515">
+<meta itemprop="keywords" content="zhishi," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="nosql"/>
+<meta name="twitter:description" content="Elasticsearch 特性 分布式的实时文件存储，每个字段都被索引并可被搜索 可实时分析的分布式搜索引擎 可被扩展到百台服务器，处理PB级结构化或非结构化数据 概念 Cl"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">所有文章</li>
+      </a><a href="/gopl-zh/">
+        <li class="mobile-menu-item">Gopl Book</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">所有文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/gopl-zh/">Gopl Book</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">nosql</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-04-20 </span>
+        <div class="post-category">
+            <a href="/categories/zhishi/"> zhishi </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#elasticsearch">Elasticsearch</a>
+      <ul>
+        <li><a href="#特性">特性</a></li>
+        <li><a href="#概念">概念</a></li>
+        <li><a href="#倒排索引">倒排索引</a></li>
+        <li><a href="#分词">分词</a></li>
+        <li><a href="#分布式原理">分布式原理</a></li>
+        <li><a href="#节点">节点</a></li>
+        <li><a href="#分片">分片</a></li>
+      </ul>
+    </li>
+    <li><a href="#redis">Redis</a>
+      <ul>
+        <li><a href="#用处">用处</a></li>
+        <li><a href="#数据类型">数据类型</a></li>
+        <li><a href="#大key-2mb-处理">大key 2MB 处理</a></li>
+        <li><a href="#热key处理">热key处理</a></li>
+      </ul>
+    </li>
+    <li><a href="#memcache">Memcache</a></li>
+    <li><a href="#mongodb">MongoDB</a>
+      <ul>
+        <li><a href="#概念-1">概念</a></li>
+        <li><a href="#适用场景">适用场景</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="elasticsearch">Elasticsearch</h1>
+<h2 id="特性">特性</h2>
+<ul>
+<li>分布式的实时文件存储，每个字段都被索引并可被搜索</li>
+<li>可实时分析的分布式搜索引擎</li>
+<li>可被扩展到百台服务器，处理PB级结构化或非结构化数据</li>
+</ul>
+<h2 id="概念">概念</h2>
+<ul>
+<li>Cluster：集群，由一个或多个ElasticSearch节点组成</li>
+<li>Node：节点，集群的服务单元，同一集群内的节点名字不重复，一个节点上分配一个或多个分片。</li>
+<li>Shards：分片，索引上数据量太大时，对索引上的数据进行水平拆分，拆分出的每个数据库叫做一个分片。主分片数不能改。</li>
+<li>Replicas：副本，主分片的备份。</li>
+<li>索引 index - Database 数据库，每个索引包含多个文档，每个文档包含不同属性</li>
+<li>类型 type - Table 数据表，比如商品索引，订单索引，数据格式不同，未来可能移除（容易造成混乱）</li>
+<li>文档 document - Row 行，存入数据库原数据，如一行商品数据</li>
+<li>字段 Field - Columns 列，文档中的属性</li>
+<li>映射配置 Mappings - 字段的数据类型、属性、是否索引、是否存储，将输入的数据转为可搜索的索引项</li>
+</ul>
+<h2 id="倒排索引">倒排索引</h2>
+<p>通过value找key</p>
+<h2 id="分词">分词</h2>
+<p>搜索引擎对文章分词之后，再根据关键词建立倒排索引</p>
+<h2 id="分布式原理">分布式原理</h2>
+<p>对数据进行切分，同时一个分片会保存多个副本，保持分布式环境下高可用。</p>
+<p>master、salve1、slave2</p>
+<h2 id="节点">节点</h2>
+<blockquote>
+<p>就是ES实例可，主节点可选举节点</p>
+</blockquote>
+<p>节点是一个ES实例，本质是一个Java进程，一台机器可以运行多个ES进程，一台机器建议只运行一个实例。</p>
+<ul>
+<li>每一个节点都有名字，通过配置文件配置，或者启动的时候 <code>-E node.name=mynode</code>指定</li>
+<li>每一个节点在启动之后，会分配 一个UID，保存在data目录下</li>
+</ul>
+<p>Master-eligible nodes和Master Node</p>
+<ul>
+<li>
+<p>每个节点启动后，默认就是一个Master eligible节点</p>
+<p>可以设置 <code>node.master:false</code>禁止</p>
+</li>
+<li>
+<p>Master eligible节点可以参与选主流程，成为Master节点</p>
+</li>
+<li>
+<p>当第一个节点启动时，它会将自己选举为Master节点</p>
+</li>
+<li>
+<p>每个节点上都保存了集群的状态，只有Master节点才能修改集群的状态信息</p>
+</li>
+</ul>
+<p>Data Node 和 Coordinating Node</p>
+<ul>
+<li>Data Node：可以保存数据的节点；负责保存分片数据，在数据扩展上起到了至关重要的作用</li>
+<li>Coordinating Node：负责接受Client请求，将请求分发到合适的节点，最终把结果汇集到一起</li>
+</ul>
+<h2 id="分片">分片</h2>
+<blockquote>
+<p>随着索引文件的增加，磁盘容量、处理能力会变得不够，将索引切分成小段，大大改进数据查询的效率</p>
+</blockquote>
+<p>主分片</p>
+<ul>
+<li>一个分片是一个实例</li>
+<li>主分片在创建时指定，后续不允许修改，除非reindex</li>
+</ul>
+<p>副本分片</p>
+<blockquote>
+<p>是分片的完整拷贝</p>
+</blockquote>
+<ul>
+<li>副本分片数可以动态跳整</li>
+<li>增加副本数可以在一定程度上提高服务的可用性（提高吞吐）</li>
+</ul>
+<p>分片设定</p>
+<ul>
+<li>分片数过小，导致后续无法增加节点实现水平扩展</li>
+<li>分片数过大，导致数据重新分配时耗时</li>
+</ul>
+<p>创建和增加索引步骤</p>
+<p>Kibana中配置新索引，及逆行Fields Mapping，设置索引别名，也可通过HTTP请求来创建索引</p>
+<p>打分过程和相关新</p>
+<p>Lucene引擎完成，报蛞BM25和TF-IDF等</p>
+<p>支持文本查询和支持Term查询</p>
+<h1 id="redis">Redis</h1>
+<h2 id="用处">用处</h2>
+<ul>
+<li>速度快，内存</li>
+<li>持久化 RDB+AOF</li>
+<li>自动化</li>
+<li>快速主从复制</li>
+<li>Sharding技术，分布到多个redis实例中，横向扩展</li>
+</ul>
+<h2 id="数据类型">数据类型</h2>
+<p>string</p>
+<p>list</p>
+<p>set</p>
+<p>zset</p>
+<p>hash</p>
+<h2 id="大key-2mb-处理">大key 2MB 处理</h2>
+<ul>
+<li>先压缩</li>
+<li>拆分多个key</li>
+</ul>
+<h2 id="热key处理">热key处理</h2>
+<ul>
+<li>将热key多复制出内容完全一样 HotKey1 Hotkey2 Hotkey3 迁移到其它数据分片来分散压力（要修改代码）</li>
+<li>读写分离架构（读写都较大且数据一致性要求高，不是最优方案）</li>
+</ul>
+<h1 id="memcache">Memcache</h1>
+<p>数据结构单一</p>
+<p><strong>用于动态系统中减少数据库负载，适合读多写少，提升性能</strong></p>
+<h1 id="mongodb">MongoDB</h1>
+<p>支持丰富的数据表达，索引，支付查询语言丰富，文件存储位BSON（一种JSON扩展）</p>
+<p><strong>解决海量数据的访问效率问题</strong></p>
+<h2 id="概念-1">概念</h2>
+<ul>
+<li>database 数据库</li>
+<li>collection 表/集合</li>
+<li>document 记录含/文档</li>
+<li>field 字段</li>
+<li>index 索引</li>
+<li>primary key 主键，自动将_id设为主键</li>
+</ul>
+<h2 id="适用场景">适用场景</h2>
+<ul>
+<li>网站数据</li>
+<li>缓存</li>
+<li>大尺寸、低价值的数据</li>
+<li>高伸缩性</li>
+<li>分片集群，可将一个collection数据分成5各篇存放到5各server中，查询时mongodb可以查找对应的数据再返回</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">小叨</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-04-20
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/zhishi/">zhishi</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/zhishi/network/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">network</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/zhishi/php/">
+            <span class="next-text nav-default">php</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:whzywxt@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whzywxt" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+  
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-156364991-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

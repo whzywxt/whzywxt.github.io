@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>php - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="小叨" /><meta name="description" content="语言 版本 PHP5 PHP5.0 : 使用了Zend 2 引擎，增加了新关键字，包括this,try,catch,public,private,protected等 PH" /><meta name="keywords" content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/zhishi/php/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="php" />
+<meta property="og:description" content="语言 版本 PHP5 PHP5.0 : 使用了Zend 2 引擎，增加了新关键字，包括this,try,catch,public,private,protected等 PH" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/zhishi/php/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-04-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-04-20T00:00:00+00:00" />
+
+<meta itemprop="name" content="php">
+<meta itemprop="description" content="语言 版本 PHP5 PHP5.0 : 使用了Zend 2 引擎，增加了新关键字，包括this,try,catch,public,private,protected等 PH"><meta itemprop="datePublished" content="2023-04-20T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-04-20T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3638">
+<meta itemprop="keywords" content="zhishi," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="php"/>
+<meta name="twitter:description" content="语言 版本 PHP5 PHP5.0 : 使用了Zend 2 引擎，增加了新关键字，包括this,try,catch,public,private,protected等 PH"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">所有文章</li>
+      </a><a href="/gopl-zh/">
+        <li class="mobile-menu-item">Gopl Book</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">所有文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/gopl-zh/">Gopl Book</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">php</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-04-20 </span>
+        <div class="post-category">
+            <a href="/categories/zhishi/"> zhishi </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#语言">语言</a>
+      <ul>
+        <li><a href="#版本">版本</a>
+          <ul>
+            <li><a href="#php5">PHP5</a></li>
+            <li><a href="#php6">PHP6</a></li>
+            <li><a href="#php7">PHP7</a></li>
+            <li><a href="#php8">PHP8</a></li>
+            <li><a href="#php7比php5性能高原因2倍提升">PHP7比PHP5性能高原因（2倍提升）</a></li>
+          </ul>
+        </li>
+        <li><a href="#类与对象">类与对象</a></li>
+        <li><a href="#php标准库spl">PHP标准库（SPL）</a></li>
+      </ul>
+    </li>
+    <li><a href="#框架">框架</a>
+      <ul>
+        <li><a href="#laravel">Laravel</a>
+          <ul>
+            <li><a href="#生命周期">生命周期</a></li>
+          </ul>
+        </li>
+        <li><a href="#hyperf">Hyperf</a>
+          <ul>
+            <li><a href="#框架生命周期">框架生命周期</a></li>
+            <li><a href="#请求与协程生命周期">请求与协程生命周期</a></li>
+            <li><a href="#短生命周期对象">短生命周期对象</a></li>
+            <li><a href="#容器仅管理长生命周期对象">容器仅管理长生命周期对象</a></li>
+          </ul>
+        </li>
+        <li><a href="#yii2">Yii2</a></li>
+      </ul>
+    </li>
+    <li><a href="#php-fpm配置与优化">PHP-FPM配置与优化</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="语言">语言</h1>
+<h2 id="版本">版本</h2>
+<h3 id="php5">PHP5</h3>
+<ul>
+<li>PHP5.0 : 使用了Zend 2 引擎，增加了新关键字，包括this,try,catch,public,private,protected等</li>
+<li>PHP5.1：PDO扩展默认启动、性能优化、修复了超过400个bug</li>
+<li>PHP5.2：新增Zip、Filter 、JSON 扩展</li>
+<li>PHP5.3：弃用的功能，匿名函数（又叫闭包函数，1，2），新增魔术方法，命名空间，后期静态绑定，Heredoc 和 Nowdoc, const, 三元运算符，Phar</li>
+<li>PHP5.4：闭包 支持 $this，Short Open Tag, 数组简写形式，Traits, 内置用于开发的 CLI 模式的 web server ，SESSION 扩展能追踪文件的上传进度</li>
+<li>PHP5.5：yield（生成器用法、协程），list() 用于 foreach，finally关键字，opcache扩展</li>
+<li>PHP5.6：支持大于 2GB 的文件上传，常量增强，可变函数参数，命名空间增强，pgsql 扩展现在支持 异步方式连接数据库及执行查询</li>
+</ul>
+<h3 id="php6">PHP6</h3>
+<p>旨在为 PHP提供完全内置的unicode的支持，由于困难，最终取消。</p>
+<h3 id="php7">PHP7</h3>
+<ul>
+<li>PHP7.0 使用了Zend Engine 3.0性能升级，匿名类，标量类型声明，返回值类型声明，太空船操作符，
+单个 use 语句 一次性可以导入多个类、函数和常量
+生成器可以返回表达式
+JSON 扩展已经被 JSOND 取代
+listen 端口现在同时监听 IPv4 和 IPv6 地址
+更多参考资料
+PHP7新特性总结
+从 PHP 5.6.x 移植到 PHP 7.0.x</li>
+<li>PHP7.1 可为空（Nullable）类型 、新增 void 类型、类常量可见性、iterable 伪类
+多异常捕获处理
+list支持键名
+字符串支持负向
+curl支持推送http2</li>
+<li>PHP7.2 新的对象类型object 、允许重写抽象方法(Abstract method)、允许分组命名空间的尾部逗号</li>
+<li>PHP7.3 更灵活的Heredoc和Nowdoc、 数组析构支持引用赋值
+list结构支持引用解析。
+instanceof 运算符支持字面量语法
+LDAP 全支持
+性能提升
+废弃大小写不敏感的常量</li>
+<li>PHP7.4 预加载 、FFI、类属性的类型支持</li>
+</ul>
+<h3 id="php8">PHP8</h3>
+<ul>
+<li>PHP8.0
+JIT
+注解的功能
+构造器属性提升功能（在构造函数中声明类的属性）
+联合类型
+Match 表达式
+Nullsafe 运算符(?-&gt;)</li>
+</ul>
+<h3 id="php7比php5性能高原因2倍提升">PHP7比PHP5性能高原因（2倍提升）</h3>
+<ol>
+<li>变量存储字节减小，减少内存占用，提升变量操作速度</li>
+<li>改善数组结构，数组元素和hash映射表被分配在同一块内存里，降低了内存占用，提升cpu缓存命中率</li>
+<li>改进了函数调用机制，通过优化参数传递的环节，减少了一些指令，提高执行效率</li>
+</ol>
+<h2 id="类与对象">类与对象</h2>
+<ul>
+<li><a href="https://www.php.net/manual/zh/oop5.intro.php">简介</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.basic.php">基本概念</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.properties.php">属性</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.constants.php">类常量</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.autoload.php">类的自动加载</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.decon.php">构造函数和析构函数</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.visibility.php">访问控制（可见性）</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.inheritance.php">对象继承</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.paamayim-nekudotayim.php">范围解析操作符 （::）</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.static.php">静态（static）关键字</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.abstract.php">抽象类</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.interfaces.php">对象接口</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.traits.php">Trait</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.anonymous.php">匿名类</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.overloading.php">重载</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.iterations.php">遍历对象</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.magic.php">魔术方法</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.final.php">Final 关键字</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.cloning.php">对象复制</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.object-comparison.php">对象比较</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.late-static-bindings.php">后期静态绑定</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.references.php">对象和引用</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.serialization.php">对象序列化</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.variance.php">协变与逆变</a></li>
+<li><a href="https://www.php.net/manual/zh/language.oop5.changelog.php">OOP 变更日志</a></li>
+</ul>
+<h2 id="php标准库spl">PHP标准库（SPL）</h2>
+<p>数据结构</p>
+<p>迭代器</p>
+<p>接口</p>
+<p>异常</p>
+<p>SPL函数</p>
+<p>文件处理</p>
+<p>各种类及接口</p>
+<h1 id="框架">框架</h1>
+<h2 id="laravel">Laravel</h2>
+<h3 id="生命周期">生命周期</h3>
+<h4 id="第一步">第一步</h4>
+<p>入口点 <code>public/index.php</code>，加载 <code>composer </code>生成的自动加载器定义，然后从 <code>bootstrap/app.php</code> 中检索 <code>Laravel </code>应用程序实例。</p>
+<h4 id="http--console-内核">HTTP / Console 内核</h4>
+<p>接下来，根据进入应用的请求类型，传入的请求将被发送到 <code>HTTP</code> 内核或者 <code>Console</code> 内核。</p>
+<p>引导程序用来配置异常处理、配置日志、<a href="https://learnku.com/docs/laravel/9.x/configuration#environment-configuration">检测应用程序环境</a>，并执行在实际处理请求之前需要完成的其他任务。</p>
+<p>HTTP 内核还定义了一个 HTTP <a href="https://learnku.com/docs/laravel/9.x/middleware">中间件</a> 列表，所有请求在被应用程序处理之前都必须通过该列表。</p>
+<p>HTTP 内核的 <code>handle</code> 方法的签名非常简单：它接收 <code>Request</code> 接口并返回 <code>Response</code> 接口。</p>
+<h4 id="服务提供者">服务提供者</h4>
+<p>最重要的内核引导操作之一是为应用程序加载 <a href="https://learnku.com/docs/laravel/9.x/providers">服务提供者</a> 。应用程序的所有服务提供程序都在 <code>config/app.php</code> 文件中的 <code>providers</code> 数组。</p>
+<p>服务提供者是所有Laravel应用程序的引导中心，或理解为注册，比如注册服务容器绑定，事件监听器，中间件，甚至路由。是配置应用程序的中心。</p>
+<p>Facades 充当服务容器中底层类的静态代理，提供简洁、富有表现力的好处，同时保持比传统静态方法更多的可测试性核灵活性。是一个提供从容器访问对象的类</p>
+<h4 id="路由">路由</h4>
+<p>应用程序中最重要的服务提供者之一是 <code>App\Providers\RouteServiceProvider</code>。此服务提供者加载应用程序的 <code>routes</code> 目录中包含的路由文件。</p>
+<p>一旦应用程序被引导并且所有服务提供者都被注册，「请求」将被传递给路由器进行调度。路由器将请求发送到路由或控制器，并运行任何路由特定的中间件。</p>
+<p>如果请求通过了所有匹配路由分配的中间件，则执行路由或控制器方法，并通过路由的中间件链路返回路由或控制器方法的响应。</p>
+<h4 id="最后">最后</h4>
+<p>一旦路由或控制器方法返回一个响应，该响应将通过路由的中间件返回，从而使应用程序有机会修改或检查传出的响应</p>
+<p>依赖注入（dependency injection）</p>
+<ul>
+<li>谁依赖谁</li>
+<li>注入什么，自动注入主要依赖反射功能，是控制反转的一种实现方式。</li>
+</ul>
+<p>控制反转（Inversion Of Control, IOC）</p>
+<p>面向对象编程中一种设计原则，减少代码之间的耦合（只依赖接口，不依赖具体实现），将控制权交给容器，在运行时容器将具体的实现动态的“注入”到调用类的对象中。</p>
+<ul>
+<li>谁控制谁</li>
+<li>反转什么</li>
+</ul>
+<p>容器是什么</p>
+<p>你把需要的类丢给容器处理，容器去反射寻找这个类的参数</p>
+<h2 id="hyperf">Hyperf</h2>
+<h3 id="框架生命周期">框架生命周期</h3>
+<h4 id="swoole生命周期">swoole生命周期</h4>
+<p>swoole_server中对象的4层生命周期</p>
+<blockquote>
+<p>变量、对象、资源、require/include的文件等下面统称为对象</p>
+</blockquote>
+<h5 id="程序全局期">程序全局期</h5>
+<p>在 <code>swoole_server-&gt;start</code>之前就创建好的对象，我们称之为程序全局生命周期。这些变量在程序启动后就会一直存在，直到整个程序结束运行才会销毁。</p>
+<p>有一些服务器程序可能会连续运行数月甚至数年才会关闭/重启，那么程序全局期的对象在这段时间持续驻留在内存中的。程序全局对象所占用的内存是 <code>Worker</code>进程间共享的，不会额外占用内存。</p>
+<p>这部分内存会在写时分离（<code>COW</code>），在 <code>Worker</code>进程内对这些对象进行写操作时，会自动从共享内存中分离，变为<strong>进程全局</strong>对象。</p>
+<blockquote>
+<p>程序全局期 <code>include</code>/<code>require</code>的代码，必须在整个程序 <code>shutdown</code>时才会释放，<code>reload</code>无效</p>
+</blockquote>
+<h5 id="进程全局期">进程全局期</h5>
+<p>swoole拥有进程生命周期控制的机制，一个 <code>Worker</code>子进程处理的请求数超过max_request配置后，就会自动销毁。<code>Worker</code>进程启动后创建的对象（onWorkerStart中创建的对象），在这个子进程存活周期之内，是常驻内存的。onConnect/onReceive/onClose 中都可以去访问它。</p>
+<blockquote>
+<p>进程全局对象所占用的内存是在当前子进程内存堆的，并非共享内存。对此对象的修改仅在当前 <code>Worker</code>进程中有效
+进程期include/require的文件，在 <code>reload</code>后就会重新加载</p>
+</blockquote>
+<h5 id="会话期">会话期</h5>
+<p><code>onConnect</code>到 <code>onClose</code>是一次TCP的会话周期，http keep-alive时，一个连接可能会有多个request。 http是无状态的，一个用户可能也不止一个连接，可以通过创建一个session来关联同一个用户的不同请求。</p>
+<h5 id="请求期">请求期</h5>
+<p>请求期就是指一个完整的请求发来，也就是 <code>onReceive</code>收到请求开始处理，直到返回结果发送 <code>response</code>。这个周期所创建的对象，会在请求完成后销毁。</p>
+<p>swoole中请求期对象与普通PHP程序中的对象就是一样的。请求到来时创建，请求结束后销毁。</p>
+<h3 id="请求与协程生命周期">请求与协程生命周期</h3>
+<p>Swoole 在处理每个连接时，会默认创建一个协程去处理，主要体现在 <code>onRequest</code>、<code>onReceive</code>、<code>onConnect</code> 事件，所以可以理解为每个请求都是一个协程，由于创建协程也是个常规操作，所以一个请求协程里面可能会包含很多个协程，同一个进程内协程之间是内存共享的，但调度顺序是非顺序的，且协程间本质上是相互独立的没有父子关系，所以对每个协程的状态处理都需要通过 <a href="https://hyperf.wiki/3.0/#/zh-cn/coroutine?id=%e5%8d%8f%e7%a8%8b%e4%b8%8a%e4%b8%8b%e6%96%87">协程上下文</a> 来管理。</p>
+<h3 id="短生命周期对象">短生命周期对象</h3>
+<p>new 关键字创建的对象，可以使用make创建一个短生命周期对象又可以使用依赖注入功能。</p>
+<h3 id="容器仅管理长生命周期对象">容器仅管理长生命周期对象</h3>
+<p>换种方式理解就是容器内管理的对象 <strong>都是单例</strong> ，这样的设计对于长生命周期的应用来说会更加的高效，减少了大量无意义的对象创建和销毁，这样的设计也就意味着所有需要交由 DI 容器管理的对象<strong>均不能包含</strong> <code>状态</code> 值。
+<code>状态</code> 可直接理解为会随着请求而变化的值，事实上在 <a href="https://hyperf.wiki/3.0/#/zh-cn/coroutine">协程</a> 编程中，这些状态值也是应该存放于 <code>协程上下文</code> 中的，即 <code>Hyperf\Context\Context</code>。</p>
+<h2 id="yii2">Yii2</h2>
+<p>待补充&hellip;&hellip;</p>
+<h1 id="php-fpm配置与优化">PHP-FPM配置与优化</h1>
+<p>进程管理模式使用</p>
+<ul>
+<li>内存大 （4G以上）并对并发和可用性要求的话，建议使用 <code>static </code>+ <code>pm.max_children（最大进程数）</code></li>
+<li>小内存 （1G以上）建议使用 <code>dynamic </code>或 （0.5G上下）建议使用 <code>ondemand </code>模式，降低 <code>pm.start_servers（启动时进程数）</code> 和 <code>pm.max_spare_servers （最大空闲数）</code>进程数</li>
+</ul>
+<p>backlog 大小问题</p>
+<p>一个php-fpm子进程在同一时间只能处理一个进程，nginx发起的请求没有fpm进程进行accept，nginx就会断掉改连接，等fpm忙起来再去accept时，就会发现已断开，报错503</p>
+<p>backlog设置过小，fpm紫禁城全部处于忙碌状态，backlog也塞满了，就会拒绝新的连接，nginx再去请求就会被拒。</p>
+<p>backlog 一般设置2的幂，可参考内核 somaxconn</p>
+<p>php-fpm进程数，每个php-fpm占用内存、平均内存占用</p>
+<p><code>pm.max_requests</code> <code>最大请求数</code> 达到后释放，避免内存泄漏</p>
+<p><code>request_terminate_timeout</code> 最长执行时间优化</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">小叨</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-04-20
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/zhishi/">zhishi</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/zhishi/nosql/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">nosql</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/zhishi/swoole/">
+            <span class="next-text nav-default">swoole</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:whzywxt@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whzywxt" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+  
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-156364991-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

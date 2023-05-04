@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>mysql - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="小叨" /><meta name="description" content="基础篇 sql执行流程 连接器：简历连接、管理连接、校验用户身份 解析sql：此法语法分析，构建语法树 执行sql 预处理阶段：检查表或字段是否存在 优" /><meta name="keywords" content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/zhishi/mysql/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="mysql" />
+<meta property="og:description" content="基础篇 sql执行流程 连接器：简历连接、管理连接、校验用户身份 解析sql：此法语法分析，构建语法树 执行sql 预处理阶段：检查表或字段是否存在 优" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/zhishi/mysql/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-05-04T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-05-04T00:00:00+00:00" />
+
+<meta itemprop="name" content="mysql">
+<meta itemprop="description" content="基础篇 sql执行流程 连接器：简历连接、管理连接、校验用户身份 解析sql：此法语法分析，构建语法树 执行sql 预处理阶段：检查表或字段是否存在 优"><meta itemprop="datePublished" content="2023-05-04T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-05-04T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1682">
+<meta itemprop="keywords" content="zhishi," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="mysql"/>
+<meta name="twitter:description" content="基础篇 sql执行流程 连接器：简历连接、管理连接、校验用户身份 解析sql：此法语法分析，构建语法树 执行sql 预处理阶段：检查表或字段是否存在 优"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">所有文章</li>
+      </a><a href="/gopl-zh/">
+        <li class="mobile-menu-item">Gopl Book</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">所有文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/gopl-zh/">Gopl Book</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">mysql</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-05-04 </span>
+        <div class="post-category">
+            <a href="/categories/zhishi/"> zhishi </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#基础篇">基础篇</a>
+          <ul>
+            <li><a href="#explain-详解">EXPLAIN 详解</a></li>
+          </ul>
+        </li>
+        <li><a href="#索引篇">索引篇</a>
+          <ul>
+            <li><a href="#索引失效">索引失效</a></li>
+          </ul>
+        </li>
+        <li><a href="#事务篇">事务篇</a></li>
+        <li><a href="#锁篇">锁篇</a></li>
+        <li><a href="#日志篇">日志篇</a></li>
+        <li><a href="#内存篇">内存篇</a></li>
+        <li><a href="#架构设计">架构设计</a></li>
+        <li><a href="#缓存设计">缓存设计</a>
+          <ul>
+            <li><a href="#缓存失效">缓存失效</a></li>
+            <li><a href="#缓存穿透">缓存穿透</a></li>
+            <li><a href="#缓存一致性">缓存一致性</a></li>
+            <li><a href="#热点数据">热点数据</a></li>
+          </ul>
+        </li>
+        <li><a href="#数据迁移与同步">数据迁移与同步</a>
+          <ul>
+            <li><a href="#动态数据迁移">动态数据迁移</a></li>
+            <li><a href="#静态数据迁移">静态数据迁移</a></li>
+          </ul>
+        </li>
+        <li><a href="#一致性方案">一致性方案</a>
+          <ul>
+            <li><a href="#强一致性">强一致性</a></li>
+            <li><a href="#弱一致性">弱一致性</a></li>
+            <li><a href="#最终一致性">最终一致性</a></li>
+          </ul>
+        </li>
+        <li><a href="#三种经典的缓存模式">三种经典的缓存模式</a>
+          <ul>
+            <li><a href="#旁路缓存模式cache-aside-pattern">旁路缓存模式（Cache-Aside Pattern）</a></li>
+            <li><a href="#read-throughwrite-through读写穿透">Read-Through/Write-Through（读写穿透）</a></li>
+            <li><a href="#write-behind-异步缓存写入">Write behind （异步缓存写入）</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="基础篇">基础篇</h2>
+<p>sql执行流程</p>
+<ul>
+<li>连接器：简历连接、管理连接、校验用户身份</li>
+<li>解析sql：此法语法分析，构建语法树</li>
+<li>执行sql
+<ul>
+<li>预处理阶段：检查表或字段是否存在</li>
+<li>优化阶段：最小查询成本的执行计划</li>
+<li>执行阶段：按执行计划执行sql</li>
+</ul>
+</li>
+</ul>
+<h3 id="explain-详解">EXPLAIN 详解</h3>
+<h4 id="type">type</h4>
+<ul>
+<li>select_type</li>
+<li>type（system &gt; const &gt; eq_ref &gt; ref &gt; range &gt; index &gt; all）
+<ul>
+<li>system、const 常量记录数</li>
+<li>eg_ref 主键或唯一索引被连接</li>
+<li>ref 普通索引，多个符合条件的记录行</li>
+<li>range 范围查询</li>
+<li>index 扫描全表索引，一般是某个二级索引</li>
+<li>ALL 全表扫面</li>
+</ul>
+</li>
+<li>possible_keys 可能用到索引</li>
+<li>key 实际索引</li>
+<li>rows 读取行数</li>
+<li>extra列
+<ul>
+<li>use index 覆盖索引</li>
+<li>use where 使用where语句，字段未被索引覆盖</li>
+<li>use index condition 查询的列不完全被索引覆盖</li>
+<li>useing temporary 临时表要优化</li>
+<li>useing filesort 外部排序不是索引排序，数据小内存，大磁盘</li>
+</ul>
+</li>
+</ul>
+<h2 id="索引篇">索引篇</h2>
+<h3 id="索引失效">索引失效</h3>
+<ul>
+<li>左或左右模糊匹配</li>
+<li>对索引使用函数</li>
+<li>对索引进行表达式计算</li>
+<li>对索引使用隐形转换</li>
+<li>联合索引非最左匹配； <code>index(a,b,c) where a=1 and c=3</code> 索引截断，5.6版本后锁、索引下推减少回表次数</li>
+<li>where 子句中的 or；<code>where id=1 or age = 10</code> 对 age 加索引 可以走 <code>index merge</code> 避免全表扫描</li>
+</ul>
+<p>索引区别</p>
+<ul>
+<li>exist 子查询使用索引</li>
+<li>not exist 主子查询使用索引</li>
+<li>in 与子查询一起，只能主查询使用索引</li>
+<li>not in 不使用索引</li>
+</ul>
+<h2 id="事务篇">事务篇</h2>
+<p><strong>特性 ACID</strong></p>
+<p>持久性 redo log（重做日志）</p>
+<p>原子性 undo log（回滚日志）</p>
+<p>隔离性 mvcc（多并发版本控制）</p>
+<p>一致性则通过持久性+原子性+隔离性来保证</p>
+<p><strong>并发引起事务问题？</strong></p>
+<p>同时多个事务的时候，可能出现脏读、不可重复读、幻读等问题</p>
+<p><strong>脏读</strong>，读到其他事务未提交的数据；。</p>
+<p><strong>不可重复读</strong>，前后读取的数据不一致；。</p>
+<p><strong>幻读</strong>，前后读取的记录数量不一致。</p>
+<p><strong>隔离级别</strong></p>
+<p>读未提交</p>
+<p>读提交</p>
+<p>可重复读（默认），很大程度上避免了幻读，开启事务后尽快执行 select&hellip;for update 当前读使用next-key lock避免</p>
+<p>串行化，会对记录加上读写锁</p>
+<h2 id="锁篇">锁篇</h2>
+<h2 id="日志篇">日志篇</h2>
+<h2 id="内存篇">内存篇</h2>
+<h2 id="架构设计">架构设计</h2>
+<h2 id="缓存设计">缓存设计</h2>
+<h3 id="缓存失效">缓存失效</h3>
+<p>过期时间设置不合理，大量key同时过期，导致数据库压力，可能雪崩</p>
+<p>解决：错开各key过期时间及分批次刷新</p>
+<h3 id="缓存穿透">缓存穿透</h3>
+<p>数据库不存在的记录</p>
+<ol>
+<li>现在记录不存在，不表示一直不存在</li>
+<li>可能存在大量值为空的垃圾记录（攻击居多）</li>
+</ol>
+<p>解决方法：</p>
+<ol>
+<li>布隆过滤器Bloom Filter，空间效率很高的随机数据结构，位数组很简洁标识一个集合，高效判断元素是否存在（比如黑名单，不存在的id加入）</li>
+</ol>
+<h3 id="缓存一致性">缓存一致性</h3>
+<p>参看三种经典的缓存模式</p>
+<h3 id="热点数据">热点数据</h3>
+<ul>
+<li>极热点数据，可设置永不过期（或长时间不过期），定时刷新</li>
+</ul>
+<h2 id="数据迁移与同步">数据迁移与同步</h2>
+<h3 id="动态数据迁移">动态数据迁移</h3>
+<ol>
+<li>性服务线上sql脚本和es初始化</li>
+<li>导出老服务全量数据（db和es)，并记录时间点t1时刻</li>
+<li>迁移全量数据（db和es）</li>
+<li>新服务上线</li>
+<li>老服务加入切流量功能后上线，切流量开关默认关闭</li>
+<li>灰度发布
+<ol>
+<li>新服务以测试域名上线，与老服务同时运行</li>
+<li>打开切流量开关，让部分用户流入到新服务，尽量选流量小时刻</li>
+<li>新服务稳定后，全部切到新服务上，老服务下线，切流完成，记录t2时刻</li>
+</ol>
+</li>
+<li>增量数据迁移，查询全量数据t1时刻到t2时刻的，这段时间老服务新增或更新的数据库并迁移到新服务</li>
+</ol>
+<h3 id="静态数据迁移">静态数据迁移</h3>
+<p>数据变化小，一段时间不可用，直接导出迁移</p>
+<h2 id="一致性方案">一致性方案</h2>
+<h3 id="强一致性">强一致性</h3>
+<p>写入什么，读出来什么，体验好，实现对系统的影响大</p>
+<h3 id="弱一致性">弱一致性</h3>
+<p>写入后，不承诺可以读到写入的值，尽可能在某个时间级别（秒级别），数据达到一致</p>
+<h3 id="最终一致性">最终一致性</h3>
+<p>弱一致性的一个特例，系统保证在一定时间内，能够达到一个数据一致的状态。</p>
+<h2 id="三种经典的缓存模式">三种经典的缓存模式</h2>
+<h3 id="旁路缓存模式cache-aside-pattern">旁路缓存模式（Cache-Aside Pattern）</h3>
+<h5 id="读流程">读流程</h5>
+<ol>
+<li>读的时候，先读缓存，命中缓存的话，直接返回数据。</li>
+<li>缓存没有命中的话，就去读数据库，从数据库取出数据，放入缓存后，同时返回响应。</li>
+</ol>
+<h5 id="写流程">写流程</h5>
+<ul>
+<li>先更新数据库，再删除缓存。</li>
+</ul>
+<h3 id="read-throughwrite-through读写穿透">Read-Through/Write-Through（读写穿透）</h3>
+<h5 id="read-through">Read-Through</h5>
+<ol>
+<li>从缓存读取数据，读到直接返回</li>
+<li>如果读取不到的话，从数据库加载，写入缓存后，再返回响应。</li>
+</ol>
+<blockquote>
+<p>与Cache-Aside比，多了一层 <code>Cache-Provider</code>封装。</p>
+</blockquote>
+<h3 id="write-behind-异步缓存写入">Write behind （异步缓存写入）</h3>
+<p><strong>Write behind</strong>跟<strong>Read-Through/Write-Through</strong>有相似的地方，都是由 <code>Cache Provider</code>来负责缓存和数据库的读写。它两又有个很大的不同：<strong>Read/Write Through</strong>是同步更新缓存和数据的，<strong>Write Behind</strong>则是只更新缓存，不直接更新数据库，通过<strong>批量异步</strong>的方式来更新数据库。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">小叨</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-05-04
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/zhishi/">zhishi</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/zhishi/golang/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">golang</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/zhishi/workerman/">
+            <span class="next-text nav-default">workerman</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:whzywxt@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whzywxt" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+  
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-156364991-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

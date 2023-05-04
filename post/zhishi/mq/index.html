@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>mq - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="小叨" /><meta name="description" content="消息队列 选型要点 勾 ✔ 叉 ✖ 功能性 Kafka Pulsar RocketMQ RabbitMQ NSQ 消费推拉模式 pull push pull push push 延迟队列 ✖ ✔ ✔ ✔ ✔ 死信队列 ✖ ✔ ✔ ✔ ✖ 优先级队列 ✖ ✖ ✖ ✔ ✖ 消息回溯 ✔ ✔ ✔ ✖ ✖ 消息" /><meta name="keywords" content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/zhishi/mq/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="mq" />
+<meta property="og:description" content="消息队列 选型要点 勾 ✔ 叉 ✖ 功能性 Kafka Pulsar RocketMQ RabbitMQ NSQ 消费推拉模式 pull push pull push push 延迟队列 ✖ ✔ ✔ ✔ ✔ 死信队列 ✖ ✔ ✔ ✔ ✖ 优先级队列 ✖ ✖ ✖ ✔ ✖ 消息回溯 ✔ ✔ ✔ ✖ ✖ 消息" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/zhishi/mq/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-04-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-04-20T00:00:00+00:00" />
+
+<meta itemprop="name" content="mq">
+<meta itemprop="description" content="消息队列 选型要点 勾 ✔ 叉 ✖ 功能性 Kafka Pulsar RocketMQ RabbitMQ NSQ 消费推拉模式 pull push pull push push 延迟队列 ✖ ✔ ✔ ✔ ✔ 死信队列 ✖ ✔ ✔ ✔ ✖ 优先级队列 ✖ ✖ ✖ ✔ ✖ 消息回溯 ✔ ✔ ✔ ✖ ✖ 消息"><meta itemprop="datePublished" content="2023-04-20T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-04-20T00:00:00+00:00" />
+<meta itemprop="wordCount" content="600">
+<meta itemprop="keywords" content="zhishi," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="mq"/>
+<meta name="twitter:description" content="消息队列 选型要点 勾 ✔ 叉 ✖ 功能性 Kafka Pulsar RocketMQ RabbitMQ NSQ 消费推拉模式 pull push pull push push 延迟队列 ✖ ✔ ✔ ✔ ✔ 死信队列 ✖ ✔ ✔ ✔ ✖ 优先级队列 ✖ ✖ ✖ ✔ ✖ 消息回溯 ✔ ✔ ✔ ✖ ✖ 消息"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">所有文章</li>
+      </a><a href="/gopl-zh/">
+        <li class="mobile-menu-item">Gopl Book</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">所有文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/gopl-zh/">Gopl Book</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">mq</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-04-20 </span>
+        <div class="post-category">
+            <a href="/categories/zhishi/"> zhishi </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#消息队列">消息队列</a>
+      <ul>
+        <li><a href="#rabbitmq">RabbitMQ</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="消息队列">消息队列</h1>
+<p>选型要点 勾 ✔ 叉 ✖</p>
+<table>
+<thead>
+<tr>
+<th>功能性</th>
+<th>Kafka</th>
+<th>Pulsar</th>
+<th>RocketMQ</th>
+<th>RabbitMQ</th>
+<th>NSQ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>消费推拉模式</td>
+<td>pull</td>
+<td>push</td>
+<td>pull</td>
+<td>push</td>
+<td>push</td>
+</tr>
+<tr>
+<td>延迟队列</td>
+<td>✖</td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>死信队列</td>
+<td>✖</td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+<td>✖</td>
+</tr>
+<tr>
+<td>优先级队列</td>
+<td>✖</td>
+<td>✖</td>
+<td>✖</td>
+<td>✔</td>
+<td>✖</td>
+</tr>
+<tr>
+<td>消息回溯</td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+<td>✖</td>
+<td>✖</td>
+</tr>
+<tr>
+<td>消息持久化</td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>消息确认机制</td>
+<td>Offset</td>
+<td>Offset+单条</td>
+<td>Offset</td>
+<td>单条</td>
+<td>单条</td>
+</tr>
+<tr>
+<td>消息TTL</td>
+<td>✖</td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+<td>✖</td>
+</tr>
+<tr>
+<td>多租户隔离</td>
+<td>✖</td>
+<td>✔</td>
+<td>✖</td>
+<td>✖</td>
+<td>✖</td>
+</tr>
+<tr>
+<td>消息顺序性</td>
+<td>分区有序</td>
+<td>流模式有序</td>
+<td>消费者加锁</td>
+<td>✖</td>
+<td>✖</td>
+</tr>
+<tr>
+<td>消息查询</td>
+<td>✖</td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+<td>✖</td>
+</tr>
+<tr>
+<td>消息可靠性</td>
+<td>request.requeired.acks</td>
+<td>Ack Quorum Size(Qa))</td>
+<td></td>
+<td>镜像模式</td>
+<td>mem-queue-size</td>
+</tr>
+<tr>
+<td>高可用</td>
+<td>分布式</td>
+<td>分布式</td>
+<td>主从</td>
+<td>主从</td>
+<td>分布式</td>
+</tr>
+<tr>
+<td>集群扩容</td>
+<td>增加节点，通过复制数据均衡</td>
+<td>增加节点，通过新增分片负载均衡</td>
+<td>增加节点</td>
+<td>增加节点</td>
+<td>增加节点</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rabbitmq">RabbitMQ</h2>
+<p>死信队列，用来存放那些没有成功消费的消息，通常可以用来作为消息重试</p>
+<blockquote>
+<p>消息被拒绝、消息过期、队列达到最大长度</p>
+</blockquote>
+<ul>
+<li>路由键和生产者发布消息事指定的路由键不同，导致找不到消费者，导致无法消费</li>
+<li>消息本身问题，莫格关键词为空无法消费，一直处理失败，反复重新进入队列，引起消息积压</li>
+<li>消息队列的数量超过了设置的最大队列长度</li>
+</ul>
+<p>延时队列用来存放指定时间被处理元素的队列，未支付订单取消</p>
+<p>常用交换器</p>
+<ul>
+<li>direct 点对点，一对一，交换机绑定队列，消息与特定路由键匹配</li>
+<li>topic 主题交换机，或通配符交换机，使用通配符去匹配路由到对应的队列</li>
+<li>fanout 队列绑定到交换机上，发送到交换机的消息会被转发与该交换机绑定的所有队列上，像子网广播（或发布订阅）</li>
+<li>headers 与上述三种不同，不用路由键匹配，匹配请求头中多所带的键值进行路由</li>
+</ul>
+<p>消息积压</p>
+<ul>
+<li>增加消费者处理能力，或减少发布频率，增加消费端实例</li>
+<li>考虑使用队列最大长度限制</li>
+<li>给消息设置TTL，超时丢弃</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">小叨</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-04-20
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/zhishi/">zhishi</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/zhishi/workerman/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">workerman</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/zhishi/network/">
+            <span class="next-text nav-default">network</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:whzywxt@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whzywxt" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+  
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-156364991-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

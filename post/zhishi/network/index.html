@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>network - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="小叨" /><meta name="description" content="HTTP 协议格式 请求（Request） 首行 Method（GET、POST、OPTIONS等） URL（协议名、登录信息、域名、端口号、文件路径、查询" /><meta name="keywords" content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.stormwan.com/post/zhishi/network/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="network" />
+<meta property="og:description" content="HTTP 协议格式 请求（Request） 首行 Method（GET、POST、OPTIONS等） URL（协议名、登录信息、域名、端口号、文件路径、查询" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.stormwan.com/post/zhishi/network/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-04-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-04-20T00:00:00+00:00" />
+
+<meta itemprop="name" content="network">
+<meta itemprop="description" content="HTTP 协议格式 请求（Request） 首行 Method（GET、POST、OPTIONS等） URL（协议名、登录信息、域名、端口号、文件路径、查询"><meta itemprop="datePublished" content="2023-04-20T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-04-20T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2536">
+<meta itemprop="keywords" content="zhishi," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="network"/>
+<meta name="twitter:description" content="HTTP 协议格式 请求（Request） 首行 Method（GET、POST、OPTIONS等） URL（协议名、登录信息、域名、端口号、文件路径、查询"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">所有文章</li>
+      </a><a href="/gopl-zh/">
+        <li class="mobile-menu-item">Gopl Book</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">所有文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/gopl-zh/">Gopl Book</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">network</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-04-20 </span>
+        <div class="post-category">
+            <a href="/categories/zhishi/"> zhishi </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#http">HTTP</a>
+      <ul>
+        <li><a href="#协议格式">协议格式</a>
+          <ul>
+            <li><a href="#请求request">请求（Request）</a></li>
+            <li><a href="#响应response">响应（Response）</a></li>
+            <li><a href="#响应状态码">响应状态码</a></li>
+            <li><a href="#浏览器输入一个网址内部发生了什么">浏览器输入一个网址，内部发生了什么？</a></li>
+            <li><a href="#三次握手和四次挥手">三次握手和四次挥手</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#https保证安全">HTTPS保证安全</a>
+      <ul>
+        <li><a href="#作用">作用</a></li>
+        <li><a href="#ssl和tls">SSL和TLS</a>
+          <ul>
+            <li><a href="#ssl-安全套接字层">SSL 安全套接字层</a></li>
+            <li><a href="#tls-传输层安全协议">TLS 传输层安全协议</a></li>
+          </ul>
+        </li>
+        <li><a href="#握手过程">握手过程</a>
+          <ul>
+            <li><a href="#客户端首次请求">客户端首次请求</a></li>
+            <li><a href="#服务端首次回应">服务端首次回应</a></li>
+            <li><a href="#客户端再次回应">客户端再次回应</a></li>
+            <li><a href="#服务器再次响应">服务器再次响应</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#nginx">Nginx</a>
+      <ul>
+        <li><a href="#全局调优">全局调优</a></li>
+        <li><a href="#events-模块下的调优">events 模块下的调优</a></li>
+      </ul>
+    </li>
+    <li><a href="#linux系统排查">Linux系统排查</a>
+      <ul>
+        <li><a href="#网络篇">网络篇</a>
+          <ul>
+            <li><a href="#网路不通">网路不通</a></li>
+            <li><a href="#网络很慢">网络很慢</a></li>
+          </ul>
+        </li>
+        <li><a href="#cpu篇">CPU篇</a>
+          <ul>
+            <li><a href="#sysstat-工具与负载历史回放">sysstat 工具与负载历史回放</a></li>
+          </ul>
+        </li>
+        <li><a href="#io篇">IO篇</a>
+          <ul>
+            <li><a href="#遇到只读的文件系统">遇到只读的文件系统</a></li>
+            <li><a href="#磁盘满">磁盘满</a></li>
+          </ul>
+        </li>
+        <li><a href="#内存篇">内存篇</a></li>
+      </ul>
+    </li>
+    <li><a href="#mqtt协议">MQTT协议</a>
+      <ul>
+        <li><a href="#发布者">发布者</a></li>
+        <li><a href="#订阅者">订阅者</a></li>
+        <li><a href="#代理">代理</a></li>
+        <li><a href="#主题">主题</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker">Docker</a>
+      <ul>
+        <li><a href="#容器生命周期管理">容器生命周期管理</a></li>
+        <li><a href="#容器操作">容器操作</a></li>
+        <li><a href="#镜像仓库">镜像仓库</a></li>
+        <li><a href="#本地镜像管理">本地镜像管理</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="http">HTTP</h1>
+<h2 id="协议格式">协议格式</h2>
+<h3 id="请求request">请求（Request）</h3>
+<p>首行</p>
+<ul>
+<li>Method（GET、POST、OPTIONS等）</li>
+<li>URL（协议名、登录信息、域名、端口号、文件路径、查询字符串）</li>
+<li>Version</li>
+</ul>
+<p>请求头（Header）：键值对结构，每个键值对占一行，键和值之间使用冒号空格分隔</p>
+<ul>
+<li>Host</li>
+<li>Content-Length</li>
+<li>Content-Type</li>
+<li>User-Agent</li>
+<li>Referer</li>
+<li>Cookie</li>
+</ul>
+<p>空行：Header 结束标志</p>
+<p>正文：可有可无</p>
+<h3 id="响应response">响应（Response）</h3>
+<p>首行 <code>HTTP/1.1 200 OK</code></p>
+<ul>
+<li>版本号 HTTP/1.1</li>
+<li>状态码 200</li>
+<li>状态码描述 OK</li>
+</ul>
+<p>响应头：键值对结构，每个键值对占一行，键和值之间使用冒号空格分隔</p>
+<p>空行：Header的结束标志</p>
+<p>正文：可有可无</p>
+<h3 id="响应状态码">响应状态码</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">1XX	Hold on 等会继续
+2XX	Here you are 成功访问
+3XX	Go away 重定向
+4XX	You fucked up 服务器崩了
+5XX	I fucked up 客服端的问题
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="浏览器输入一个网址内部发生了什么">浏览器输入一个网址，内部发生了什么？</h3>
+<ul>
+<li>DNS解析</li>
+<li>TCP连接：获取到ip地址后，通过tcp协议与服务器建立连接</li>
+<li>HTTP请求：一旦TCP建立成功，浏览器会向服务器发送HTTP请求，包括请求头、请求方法、请求体等信息。</li>
+<li>服务器处理请求</li>
+<li>HTTP响应</li>
+<li>页面渲染</li>
+<li>TCP连接断开</li>
+</ul>
+<h3 id="三次握手和四次挥手">三次握手和四次挥手</h3>
+<p>三次握手，确认双方的发送能力和接收能力正常，指定自己的初始化序列号为后面可靠性传送做准备。</p>
+<p>HTTP2比HTTP1.1性能</p>
+<ul>
+<li>头部压缩</li>
+<li>二进制格式（帧）</li>
+<li>并发传输</li>
+<li>服务器主动推送资源</li>
+</ul>
+<p>HTTP3优化</p>
+<ul>
+<li>无对头阻塞（因为TCP原因换成UDP），某个流阻塞，不影响其他流</li>
+<li>更快的连接建立</li>
+<li>连接迁移（通过连接ID来标记通信的断电，不是通过TCP四元组）</li>
+</ul>
+<h1 id="https保证安全">HTTPS保证安全</h1>
+<h2 id="作用">作用</h2>
+<p>内容加密：建立信息安全通道，保证传输的安全</p>
+<p>身份认证：确认网站的真实性</p>
+<p>数据完整性：防止内容被篡改</p>
+<h2 id="ssl和tls">SSL和TLS</h2>
+<h3 id="ssl-安全套接字层">SSL 安全套接字层</h3>
+<ul>
+<li>记录协议：建立在可靠的传输协议（如TCP）之上</li>
+<li>握手协议：建立在记录协议之上，用于在传输数据之前进行身份认证、协商加密算法、交换加密密钥等</li>
+</ul>
+<h3 id="tls-传输层安全协议">TLS 传输层安全协议</h3>
+<p>建立在SSL3.0规范之上，也分记录协议和握手协议</p>
+<p>比SSL优势：</p>
+<ul>
+<li>消息认证密钥散列法</li>
+<li>增强伪随机功能</li>
+<li>改进的已完成消息验证</li>
+<li>一致证书处理</li>
+<li>特定报警消息</li>
+</ul>
+<h2 id="握手过程">握手过程</h2>
+<h3 id="客户端首次请求">客户端首次请求</h3>
+<p>客户端提供：</p>
+<ul>
+<li>支持协议版本，如TLS1.0</li>
+<li>生成的随机数，用于“对话密钥”</li>
+<li>支持加密算法，如RSA</li>
+<li>支持压缩方法</li>
+</ul>
+<h3 id="服务端首次回应">服务端首次回应</h3>
+<p>服务端提供：</p>
+<ul>
+<li>协议版本</li>
+<li>加密算法</li>
+<li>随机数</li>
+<li>服务器证书</li>
+</ul>
+<h3 id="客户端再次回应">客户端再次回应</h3>
+<ul>
+<li>再产生一个随机数（第三个）</li>
+<li>ChangeCipherSpec 告知服务端已切换到协商过的加密套件</li>
+<li>生成一个Session Secret</li>
+</ul>
+<h3 id="服务器再次响应">服务器再次响应</h3>
+<ul>
+<li>对第三个随机数验证</li>
+<li>发送ChangeCipherSpec 告知已切换到协商过的加密套件</li>
+<li>使用Session Secret和加密套件加密一段Finish 消息发送给客户端，验证是否成功</li>
+</ul>
+<p>SSL握手使用非对称加密（速度慢，耗费资源），传送数据使用非对称加密。</p>
+<h1 id="nginx">Nginx</h1>
+<h2 id="全局调优">全局调优</h2>
+<blockquote>
+<p>最多开启8各，8个以上性能就不会再提升了，稳定性会变低</p>
+</blockquote>
+<p>worker_processes 2</p>
+<blockquote>
+<p>cpu有多少个核，就有几位数，1代表内核开启，0代表内核关闭 <code>10101010</code>表示开启了第2,4,6,8内核，<code>01010101</code>表示开始了1,3,5,7内核</p>
+</blockquote>
+<p>worker_cpu_affinity 01 10</p>
+<blockquote>
+<p>用于设置一个 worker 进程所能打开的最多文件数量。其默认值与当前 Linux 系统可以打开的最大文件描述符数量相同</p>
+</blockquote>
+<p>worker_rlimit_nofile 65535</p>
+<h2 id="events-模块下的调优">events 模块下的调优</h2>
+<p>worker_connections 1024</p>
+<p>accept_mutex on</p>
+<p>accept_mutex_delay 500ms</p>
+<p>multi_accept on</p>
+<p>use epoll</p>
+<p>漏桶算法限流</p>
+<h1 id="linux系统排查">Linux系统排查</h1>
+<h2 id="网络篇">网络篇</h2>
+<h3 id="网路不通">网路不通</h3>
+<blockquote>
+<p>要定位问题，一般不断尝试不可能故障的地方，最终定位问题根源。</p>
+</blockquote>
+<ol>
+<li>是否接入到网络</li>
+</ol>
+<p><code>ethtool eth0</code></p>
+<ol start="2">
+<li>是否启用了相对应的网卡</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ifconfig eth1
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>是否设置网关</li>
+</ol>
+<p><code>route -n</code></p>
+<ol start="4">
+<li>DNS故障</li>
+</ol>
+<p>有问题在文件 <code>/etc/resolv.conf</code> 查看配置，也可查看 <code>cat /etc/sysconfig/network-scripts/ifcfg-eth0</code> 永久配置</p>
+<p><code>nslookup google.com</code></p>
+<ol start="5">
+<li>能否路由到目标主机</li>
+</ol>
+<p>使用 <code>traceroute</code> 跟踪 <code>traceroute google.com</code></p>
+<ol start="6">
+<li>远程端口是否开放</li>
+</ol>
+<p><code>telnet ip port </code></p>
+<blockquote>
+<p>telnet 无法判断是没有开放，还是被防火墙拦截了，nmap工具更强大</p>
+</blockquote>
+<p><code>nmap -p ip prt</code> 查看端口开放</p>
+<p><code>netstat -lnp | grep PORT</code>  在本地查看某个端口是否开放</p>
+<ol start="7">
+<li>查看防火墙规则</li>
+</ol>
+<p><code>iptables -L</code></p>
+<p>比如 <code>iptables -t nat -n -L PREROUTING</code> 查看转发</p>
+<h3 id="网络很慢">网络很慢</h3>
+<ol>
+<li>DNS是否是问题的源头</li>
+<li>路由过程哪些是瓶颈</li>
+</ol>
+<p><code>traceroute</code> 不仅查看路由正确性，还可以查看网络中每一跳的延时</p>
+<ol start="3">
+<li>查看带宽的使用情况</li>
+</ol>
+<p><code>iftop</code> 工具</p>
+<p><code>tcpdump</code> 工具</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># tcpdump -n port N    //只捕捉特定端口的流量
+# tcpdump -n port N1 or port N2    //捕获多个端口的流量
+# tcpdump -w output.pcap    //数据包转储，将原始数据包保留到output.pcap
+# tcpdump -C 10 -w output.pcap    //限制每个转储文件的上限，达到上限后将文件分卷(以MB为单位)
+# tcpdump -C 10 -W 5 -w output.pcap    //不仅限制每个卷的上限，而且限制卷的总数
+# tcpdump -r output.pcap    //重播已经保存的数据包记录
+</code></pre></td></tr></table>
+</div>
+</div><p>其它思路，鸟哥的Linux私房菜中也提供了一些类似的网络排查思路：</p>
+<ol>
+<li>网卡是否工作，包括硬件和驱动：lspci，dmesg</li>
+<li>IP参数是否正确设置：ifconfig</li>
+<li>局域网内通信是否正常：ping</li>
+<li>路由信息是否正常：route -n</li>
+<li>DNS状态：dig, nslookup</li>
+<li>路由节点状况与延时：traceroute</li>
+<li>服务监听端口：netstat -lnp</li>
+<li>防火墙：iptables, SELinux</li>
+</ol>
+<h2 id="cpu篇">CPU篇</h2>
+<p>uptime查看负载，w查看负载</p>
+<p>top查看cpu使用率</p>
+<p>us 用户进程占用</p>
+<p>sy 内核进程占用</p>
+<p>wa 低，id 高，排除cpu资源瓶颈可能</p>
+<p>wa高，说明io占用了大量cpu时间，检查交换空间使用，内存充足徐检查那个进程占用大量io资</p>
+<p>iostat 查看系统io占用</p>
+<p>iotop 也可查看</p>
+<h3 id="sysstat-工具与负载历史回放">sysstat 工具与负载历史回放</h3>
+<p>sar 命令</p>
+<h2 id="io篇">IO篇</h2>
+<h3 id="遇到只读的文件系统">遇到只读的文件系统</h3>
+<p>重新挂载分区</p>
+<h3 id="磁盘满">磁盘满</h3>
+<p><code>df -h</code> 磁盘空间</p>
+<p><code>df -i </code>查看文件节点数</p>
+<ul>
+<li>删除大量文件</li>
+<li>移动大量文件</li>
+<li>压缩大量文件成一个</li>
+<li>备份当前文件系统的所有文件，重新格式化，获取更多节点，再复制回去（不推荐）</li>
+</ul>
+<h2 id="内存篇">内存篇</h2>
+<p>内存硬件查看</p>
+<p><code>dmidecode -t memory</code></p>
+<p>内存大体使用</p>
+<p><code>free -m/-h</code></p>
+<p>内核态占用</p>
+<p><code>slabtop</code></p>
+<p>内存动态变化</p>
+<p><code>vmstat</code></p>
+<h1 id="mqtt协议">MQTT协议</h1>
+<p>是一种消息传递模式，它将发送消息的客户端（发布者）与接收消息的客户端（订阅者）解耦。</p>
+<p>代理（Broker）的中间角色负责所有消息的路由和分发工作，发布者将带有主题的消息发送给代理，订阅者则向代理订阅主题来接收消息。</p>
+<p>主题和订阅者无法被提前注册或创建，不存在任何订阅消息将被丢弃。</p>
+<h2 id="发布者">发布者</h2>
+<p>一次只能向一个主题发送数据</p>
+<h2 id="订阅者">订阅者</h2>
+<p>一次可订阅多个主题。</p>
+<h2 id="代理">代理</h2>
+<p>负责接收发布者的消息，并将消息转发至符合条件的订阅者。代理也需要负责处理客户端发起的连接、断开连接、订阅、取消订阅等请求。</p>
+<h2 id="主题">主题</h2>
+<p>MQTT进行消息路由的基础，类似url路径</p>
+<h1 id="docker">Docker</h1>
+<p>启动服务（构建或重新创建，启动并附加到容器） <code>docker-compose up -d</code></p>
+<p>停止服务 <code>docker-compose down</code></p>
+<p>列出所有运行容器 <code>docker-compose ps</code></p>
+<p>查看服务日志 <code>docker-compose logs</code></p>
+<p>构建 <code>docker-compose build</code></p>
+<p>启动、停止、重启 <code>docker-compose start | stop | restart</code></p>
+<h2 id="容器生命周期管理">容器生命周期管理</h2>
+<ul>
+<li>创建容器 <code>docker create</code></li>
+<li>运行容器 <code>docker run</code>
+<ul>
+<li>-d</li>
+<li>-i</li>
+<li>-p</li>
+<li>-P</li>
+<li>-t</li>
+</ul>
+</li>
+<li>暂停容器（可选）<code>docker pause | unpause</code></li>
+<li>取消暂停容器（可选）</li>
+<li>启动容器 <code>docker start | stop | restart</code></li>
+<li>停止容器</li>
+<li>重启容器</li>
+<li>杀死容器 <code>docker kill</code></li>
+<li>销毁容器 <code>docker exec</code></li>
+</ul>
+<h2 id="容器操作">容器操作</h2>
+<h2 id="镜像仓库">镜像仓库</h2>
+<h2 id="本地镜像管理">本地镜像管理</h2>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">小叨</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-04-20
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/zhishi/">zhishi</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/zhishi/mq/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">mq</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/zhishi/nosql/">
+            <span class="next-text nav-default">nosql</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:whzywxt@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whzywxt" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.stormwan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+  
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-156364991-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

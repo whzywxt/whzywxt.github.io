@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>workerman on 小叨笔记</title>
+    <link>https://www.stormwan.com/tags/workerman/</link>
+    <description>Recent content in workerman on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 04 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/tags/workerman/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>workerman</title>
+      <link>https://www.stormwan.com/post/zhishi/workerman/</link>
+      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/zhishi/workerman/</guid>
+      <description>Workerman是一款纯PHP开发的开源高性能的PHP 应用容器。 应用方向 即时通讯类 物联网类 游戏服务器类 HTTP服务 SOA服务化 其它服务器软</description>
+    </item>
+    
+  </channel>
+</rss>

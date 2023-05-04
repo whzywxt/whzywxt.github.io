@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>swoole on 小叨笔记</title>
+    <link>https://www.stormwan.com/tags/swoole/</link>
+    <description>Recent content in swoole on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 20 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/tags/swoole/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>swoole</title>
+      <link>https://www.stormwan.com/post/zhishi/swoole/</link>
+      <pubDate>Thu, 20 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.stormwan.com/post/zhishi/swoole/</guid>
+      <description>进程模型 Master进程 多线程进程 Master线程 Accept 信号处理 定时器任务 业务逻辑 心跳检测线程 Reactor线程 在Master中创建的线程 负责额</description>
+    </item>
+    
+  </channel>
+</rss>
