@@ -2,80 +2,80 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>zhishi on 小叨笔记</title>
-    <link>https://www.stormwan.com/categories/zhishi/</link>
+    <link>https://www.zouwan.top/categories/zhishi/</link>
     <description>Recent content in zhishi on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 04 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/categories/zhishi/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/categories/zhishi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>golang</title>
-      <link>https://www.stormwan.com/post/zhishi/golang/</link>
+      <link>https://www.zouwan.top/post/zhishi/golang/</link>
       <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/zhishi/golang/</guid>
+      <guid>https://www.zouwan.top/post/zhishi/golang/</guid>
       <description>golang channel 与 swoole chan 对比 swoole的chan类似于队列，先进先出，可以设置缓冲区（管道长度），isFull()方法判断，如果满了就将当前协程挂起。 g</description>
     </item>
     
     <item>
       <title>mysql</title>
-      <link>https://www.stormwan.com/post/zhishi/mysql/</link>
+      <link>https://www.zouwan.top/post/zhishi/mysql/</link>
       <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/zhishi/mysql/</guid>
+      <guid>https://www.zouwan.top/post/zhishi/mysql/</guid>
       <description>基础篇 sql执行流程 连接器：简历连接、管理连接、校验用户身份 解析sql：此法语法分析，构建语法树 执行sql 预处理阶段：检查表或字段是否存在 优</description>
     </item>
     
     <item>
       <title>workerman</title>
-      <link>https://www.stormwan.com/post/zhishi/workerman/</link>
+      <link>https://www.zouwan.top/post/zhishi/workerman/</link>
       <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/zhishi/workerman/</guid>
+      <guid>https://www.zouwan.top/post/zhishi/workerman/</guid>
       <description>Workerman是一款纯PHP开发的开源高性能的PHP 应用容器。 应用方向 即时通讯类 物联网类 游戏服务器类 HTTP服务 SOA服务化 其它服务器软</description>
     </item>
     
     <item>
       <title>mq</title>
-      <link>https://www.stormwan.com/post/zhishi/mq/</link>
+      <link>https://www.zouwan.top/post/zhishi/mq/</link>
       <pubDate>Thu, 20 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/zhishi/mq/</guid>
+      <guid>https://www.zouwan.top/post/zhishi/mq/</guid>
       <description>消息队列 选型要点 勾 ✔ 叉 ✖ 功能性 Kafka Pulsar RocketMQ RabbitMQ NSQ 消费推拉模式 pull push pull push push 延迟队列 ✖ ✔ ✔ ✔ ✔ 死信队列 ✖ ✔ ✔ ✔ ✖ 优先级队列 ✖ ✖ ✖ ✔ ✖ 消息回溯 ✔ ✔ ✔ ✖ ✖ 消息</description>
     </item>
     
     <item>
       <title>network</title>
-      <link>https://www.stormwan.com/post/zhishi/network/</link>
+      <link>https://www.zouwan.top/post/zhishi/network/</link>
       <pubDate>Thu, 20 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/zhishi/network/</guid>
+      <guid>https://www.zouwan.top/post/zhishi/network/</guid>
       <description>HTTP 协议格式 请求（Request） 首行 Method（GET、POST、OPTIONS等） URL（协议名、登录信息、域名、端口号、文件路径、查询</description>
     </item>
     
     <item>
       <title>nosql</title>
-      <link>https://www.stormwan.com/post/zhishi/nosql/</link>
+      <link>https://www.zouwan.top/post/zhishi/nosql/</link>
       <pubDate>Thu, 20 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/zhishi/nosql/</guid>
+      <guid>https://www.zouwan.top/post/zhishi/nosql/</guid>
       <description>Elasticsearch 特性 分布式的实时文件存储，每个字段都被索引并可被搜索 可实时分析的分布式搜索引擎 可被扩展到百台服务器，处理PB级结构化或非结构化数据 概念 Cl</description>
     </item>
     
     <item>
       <title>php</title>
-      <link>https://www.stormwan.com/post/zhishi/php/</link>
+      <link>https://www.zouwan.top/post/zhishi/php/</link>
       <pubDate>Thu, 20 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/zhishi/php/</guid>
+      <guid>https://www.zouwan.top/post/zhishi/php/</guid>
       <description>语言 版本 PHP5 PHP5.0 : 使用了Zend 2 引擎，增加了新关键字，包括this,try,catch,public,private,protected等 PH</description>
     </item>
     
     <item>
       <title>swoole</title>
-      <link>https://www.stormwan.com/post/zhishi/swoole/</link>
+      <link>https://www.zouwan.top/post/zhishi/swoole/</link>
       <pubDate>Thu, 20 Apr 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/zhishi/swoole/</guid>
+      <guid>https://www.zouwan.top/post/zhishi/swoole/</guid>
       <description>进程模型 Master进程 多线程进程 Master线程 Accept 信号处理 定时器任务 业务逻辑 心跳检测线程 Reactor线程 在Master中创建的线程 负责额</description>
     </item>
     

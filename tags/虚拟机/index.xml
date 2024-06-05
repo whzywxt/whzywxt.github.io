@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>虚拟机 on 小叨笔记</title>
-    <link>https://www.stormwan.com/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
+    <link>https://www.zouwan.top/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
     <description>Recent content in 虚拟机 on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 30 Dec 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 30 Dec 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>虚拟机安装CentOS</title>
-      <link>https://www.stormwan.com/post/xu-ni-ji-an-zhuang-centos/</link>
+      <link>https://www.zouwan.top/post/xu-ni-ji-an-zhuang-centos/</link>
       <pubDate>Wed, 30 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/xu-ni-ji-an-zhuang-centos/</guid>
+      <guid>https://www.zouwan.top/post/xu-ni-ji-an-zhuang-centos/</guid>
       <description>VirtualBox安装迷你版CentOS minimal.iso 迷你版对于服务器安装很适合，小巧，安装快速；放入小U，携带方便 做成自动化安装也很方便 centos</description>
     </item>
     
     <item>
       <title>虚拟机介绍</title>
-      <link>https://www.stormwan.com/post/xu-ni-ji-jie-shao/</link>
+      <link>https://www.zouwan.top/post/xu-ni-ji-jie-shao/</link>
       <pubDate>Thu, 29 Aug 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/xu-ni-ji-jie-shao/</guid>
+      <guid>https://www.zouwan.top/post/xu-ni-ji-jie-shao/</guid>
       <description>Local Machine CentOS_6_x64_Origin DEVICE=eth0 HWADDR=&amp;quot;00:0c:29:29:e0:45&amp;quot; 192.168.233.128 CentOS_6_x64_A DEVICE=eth0 HWADDR=&amp;quot;00:0c:29:db:6d:ba&amp;quot; 192.168.233.131 CentOS_6_x64_B DEVICE=eth1 HWADDR=&amp;quot;00:0c:29:1a:ef:b0&amp;quot; 192.168.233.132 CentOS_6_x64_C DEVICE=eth1 HWADDR=&amp;quot;00:0c:29:20:ab:4d&amp;quot; 192.168.233.133 CentOS_6_x64_Origin_Clone DEVICE=eth1 HWADDR=&amp;quot;00:0c:29:79:5a:6b&amp;quot; 192.168.233.134 配置基于IP的虚拟主机 1 2 3 4 5 6 7 8 /sbin/ifconfig eth1:1 192.168.233.137 broadcast 192.168.233.255 netmask 255.255.255.0 up /sbin/route add -host 192.168.233.137 dev eth1:1 /sbin/ifconfig eth1:2 192.168.233.138 broadcast 192.168.233.255 netmask 255.255.255.0 up /sbin/route add -host 192.168.233.138 dev eth1:2 /sbin/ifconfig</description>
     </item>
     

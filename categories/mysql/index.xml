@@ -2,62 +2,62 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>mysql on 小叨笔记</title>
-    <link>https://www.stormwan.com/categories/mysql/</link>
+    <link>https://www.zouwan.top/categories/mysql/</link>
     <description>Recent content in mysql on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 06 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MySQL实战之SQL</title>
-      <link>https://www.stormwan.com/post/mysql-shi-zhan-zhi-sql/</link>
+      <link>https://www.zouwan.top/post/mysql-shi-zhan-zhi-sql/</link>
       <pubDate>Mon, 06 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/mysql-shi-zhan-zhi-sql/</guid>
+      <guid>https://www.zouwan.top/post/mysql-shi-zhan-zhi-sql/</guid>
       <description>SQL篇 count(*)这么慢，我该怎么办 count实现方式 MyISAM总行数存在磁盘上, 执行 count(*) 时会直接返回, 效率高, 但是有 where 条件, 一样要扫</description>
     </item>
     
     <item>
       <title>MySQL实战之实用技巧</title>
-      <link>https://www.stormwan.com/post/mysql-shi-zhan-zhi-shi-yong-ji-qiao/</link>
+      <link>https://www.zouwan.top/post/mysql-shi-zhan-zhi-shi-yong-ji-qiao/</link>
       <pubDate>Mon, 06 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/mysql-shi-zhan-zhi-shi-yong-ji-qiao/</guid>
+      <guid>https://www.zouwan.top/post/mysql-shi-zhan-zhi-shi-yong-ji-qiao/</guid>
       <description>实用技巧篇 都说InnoDB好，那还要不要使用Memory引擎 自增主键为什么不是连续的 怎么最快地复制一张表 要不要使用分区表 支持range、ha</description>
     </item>
     
     <item>
       <title>MySQL实战之索引</title>
-      <link>https://www.stormwan.com/post/mysql-shi-zhan-zhi-suo-yin/</link>
+      <link>https://www.zouwan.top/post/mysql-shi-zhan-zhi-suo-yin/</link>
       <pubDate>Fri, 03 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/mysql-shi-zhan-zhi-suo-yin/</guid>
+      <guid>https://www.zouwan.top/post/mysql-shi-zhan-zhi-suo-yin/</guid>
       <description>索引篇 普通索引和唯一索引，应该怎么选 查询过程 更新过程 MySQL为什么有时候会选错索引 先建一个简单的表，表里有a、b两个字段，并分别建上索引：</description>
     </item>
     
     <item>
       <title>MySQL实战之主从数据一致</title>
-      <link>https://www.stormwan.com/post/mysql-shi-zhan-zhi-zhu-cong-shu-ju-yi-zhi/</link>
+      <link>https://www.zouwan.top/post/mysql-shi-zhan-zhi-zhu-cong-shu-ju-yi-zhi/</link>
       <pubDate>Thu, 02 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/mysql-shi-zhan-zhi-zhu-cong-shu-ju-yi-zhi/</guid>
+      <guid>https://www.zouwan.top/post/mysql-shi-zhan-zhi-zhu-cong-shu-ju-yi-zhi/</guid>
       <description>主从数据一致篇 MySQL是怎么保证数据不丢 只要redo log和binlog保证持久化到磁盘，就能确保MySQL异常重启后，数据可以恢复。 bi</description>
     </item>
     
     <item>
       <title>MySQL实战之问题分析</title>
-      <link>https://www.stormwan.com/post/mysql-shi-zhan-zhi-wen-ti-fen-xi/</link>
+      <link>https://www.zouwan.top/post/mysql-shi-zhan-zhi-wen-ti-fen-xi/</link>
       <pubDate>Thu, 02 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/mysql-shi-zhan-zhi-wen-ti-fen-xi/</guid>
+      <guid>https://www.zouwan.top/post/mysql-shi-zhan-zhi-wen-ti-fen-xi/</guid>
       <description>问题分析篇 Mysql&amp;quot;抖&amp;quot;一下 可能是flush&amp;quot;脏页&amp;quot; 当内存数据页跟磁盘数据页内容不一致的时候，我们</description>
     </item>
     
     <item>
       <title>MySQL基础架构介绍</title>
-      <link>https://www.stormwan.com/post/mysql-ji-chu-jia-gou-jie-shao/</link>
+      <link>https://www.zouwan.top/post/mysql-ji-chu-jia-gou-jie-shao/</link>
       <pubDate>Thu, 19 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/mysql-ji-chu-jia-gou-jie-shao/</guid>
+      <guid>https://www.zouwan.top/post/mysql-ji-chu-jia-gou-jie-shao/</guid>
       <description>Server层 连接器 管理链接, 权限验证 查询缓存 命中则直接返回结果 弊大于利, 不建议使用 mysql8.0版本直接将查询缓存的整块功能移除 分析器 词</description>
     </item>
     

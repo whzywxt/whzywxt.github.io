@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>缓存 on 小叨笔记</title>
-    <link>https://www.stormwan.com/tags/%E7%BC%93%E5%AD%98/</link>
+    <link>https://www.zouwan.top/tags/%E7%BC%93%E5%AD%98/</link>
     <description>Recent content in 缓存 on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 25 Feb 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/tags/%E7%BC%93%E5%AD%98/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Feb 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/tags/%E7%BC%93%E5%AD%98/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>安装redis</title>
-      <link>https://www.stormwan.com/post/an-zhuang-redis/</link>
+      <link>https://www.zouwan.top/post/an-zhuang-redis/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/an-zhuang-redis/</guid>
+      <guid>https://www.zouwan.top/post/an-zhuang-redis/</guid>
       <description>安装 1 2 3 4 5 6 7 8 9 10 11 # 获取安装文件 wget http://download.redis.io/releases/redis-3.2.8.tar.gz # 解压文件 tar -xvzf redis-3.2.8.tar.gz mv redis-3.2.8 /usr/local/redis # 编译安装 cd /usr/local/redis make make install 启动或关闭 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22</description>
     </item>
     
     <item>
       <title>安装Memcached</title>
-      <link>https://www.stormwan.com/post/an-zhuang-memcached/</link>
+      <link>https://www.zouwan.top/post/an-zhuang-memcached/</link>
       <pubDate>Sat, 25 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/an-zhuang-memcached/</guid>
+      <guid>https://www.zouwan.top/post/an-zhuang-memcached/</guid>
       <description>安装Memcached 安装libevent依赖 1 2 3 4 5 tar zxvf libevent-2.0.22-stable.tar.gz cd libevent-2.0.22-stable ./configure --prefix=/Data/apps/libs make make install 安装memcached 1 2 3 4 5 tar zxvf memcached-1.4.27.tar.gz cd memcached-1.4.2 ./configure --prefix=/Data/apps/memcached --with-libevent=/Data/apps/libs make make install 启用 通常：</description>
     </item>
     

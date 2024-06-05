@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>nginx on 小叨笔记</title>
-    <link>https://www.stormwan.com/categories/nginx/</link>
+    <link>https://www.zouwan.top/categories/nginx/</link>
     <description>Recent content in nginx on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 28 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/categories/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/categories/nginx/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Keepalived&#43;Nginx实现高可用</title>
-      <link>https://www.stormwan.com/post/jiagou/keepalived-nginx-shi-xian-gao-ke-yong/</link>
+      <link>https://www.zouwan.top/post/jiagou/keepalived-nginx-shi-xian-gao-ke-yong/</link>
       <pubDate>Fri, 28 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/jiagou/keepalived-nginx-shi-xian-gao-ke-yong/</guid>
+      <guid>https://www.zouwan.top/post/jiagou/keepalived-nginx-shi-xian-gao-ke-yong/</guid>
       <description>一、背景 本文主要介绍使用 keepalived 实现 nginx 的主备高可用 实验环境：Vmware CentOS 7 64 位 机器A Master 192.168.26.129 机器B Slave 192.168.26.130 VIP 192.168.26.128 二、实验步骤 1. 安装 Nginx 和 Keepalive 软件 两台机器一致，</description>
     </item>
     
     <item>
       <title>Nginx加速响应</title>
-      <link>https://www.stormwan.com/post/nginx-jia-su-xiang-ying/</link>
+      <link>https://www.zouwan.top/post/nginx-jia-su-xiang-ying/</link>
       <pubDate>Wed, 22 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/nginx-jia-su-xiang-ying/</guid>
+      <guid>https://www.zouwan.top/post/nginx-jia-su-xiang-ying/</guid>
       <description>启用GZIP压缩 Enabling Gzip Compression for HTML, CSS, and JavaScript Files 在网站上构建页面的 HTML，CSS 和 JavaScript 文件可能非常庞大。在大多数情况下，Web 服务器可以即时压缩这些和其他</description>
     </item>
     
     <item>
       <title>Nginx知识</title>
-      <link>https://www.stormwan.com/post/nginx-zhi-shi/</link>
+      <link>https://www.zouwan.top/post/nginx-zhi-shi/</link>
       <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/nginx-zhi-shi/</guid>
+      <guid>https://www.zouwan.top/post/nginx-zhi-shi/</guid>
       <description>一、初识Nginx Nginx的三个主要应用场景 1.静态资源服务 通过本地文件系统提供服务 2.反向代理服务 Nginx的强大性能 缓存 负载均衡 3.A</description>
     </item>
     

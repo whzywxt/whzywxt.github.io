@@ -2,116 +2,116 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on 小叨笔记</title>
-    <link>https://www.stormwan.com/categories/</link>
+    <link>https://www.zouwan.top/categories/</link>
     <description>Recent content in Categories on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 04 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>zhishi</title>
-      <link>https://www.stormwan.com/categories/zhishi/</link>
+      <link>https://www.zouwan.top/categories/zhishi/</link>
       <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/categories/zhishi/</guid>
+      <guid>https://www.zouwan.top/categories/zhishi/</guid>
       <description></description>
     </item>
     
     <item>
       <title>生活</title>
-      <link>https://www.stormwan.com/categories/%E7%94%9F%E6%B4%BB/</link>
+      <link>https://www.zouwan.top/categories/%E7%94%9F%E6%B4%BB/</link>
       <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/categories/%E7%94%9F%E6%B4%BB/</guid>
+      <guid>https://www.zouwan.top/categories/%E7%94%9F%E6%B4%BB/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ES</title>
-      <link>https://www.stormwan.com/categories/es/</link>
+      <link>https://www.zouwan.top/categories/es/</link>
       <pubDate>Sat, 19 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/categories/es/</guid>
+      <guid>https://www.zouwan.top/categories/es/</guid>
       <description></description>
     </item>
     
     <item>
       <title>nginx</title>
-      <link>https://www.stormwan.com/categories/nginx/</link>
+      <link>https://www.zouwan.top/categories/nginx/</link>
       <pubDate>Fri, 28 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/categories/nginx/</guid>
+      <guid>https://www.zouwan.top/categories/nginx/</guid>
       <description></description>
     </item>
     
     <item>
       <title>web</title>
-      <link>https://www.stormwan.com/categories/web/</link>
+      <link>https://www.zouwan.top/categories/web/</link>
       <pubDate>Tue, 30 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/categories/web/</guid>
+      <guid>https://www.zouwan.top/categories/web/</guid>
       <description></description>
     </item>
     
     <item>
       <title>seo</title>
-      <link>https://www.stormwan.com/categories/seo/</link>
+      <link>https://www.zouwan.top/categories/seo/</link>
       <pubDate>Mon, 29 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/categories/seo/</guid>
+      <guid>https://www.zouwan.top/categories/seo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>PHP</title>
-      <link>https://www.stormwan.com/categories/php/</link>
+      <link>https://www.zouwan.top/categories/php/</link>
       <pubDate>Thu, 04 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/categories/php/</guid>
+      <guid>https://www.zouwan.top/categories/php/</guid>
       <description></description>
     </item>
     
     <item>
       <title>redis</title>
-      <link>https://www.stormwan.com/categories/redis/</link>
+      <link>https://www.zouwan.top/categories/redis/</link>
       <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/categories/redis/</guid>
+      <guid>https://www.zouwan.top/categories/redis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>linux</title>
-      <link>https://www.stormwan.com/categories/linux/</link>
+      <link>https://www.zouwan.top/categories/linux/</link>
       <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/categories/linux/</guid>
+      <guid>https://www.zouwan.top/categories/linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>mysql</title>
-      <link>https://www.stormwan.com/categories/mysql/</link>
+      <link>https://www.zouwan.top/categories/mysql/</link>
       <pubDate>Mon, 06 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/categories/mysql/</guid>
+      <guid>https://www.zouwan.top/categories/mysql/</guid>
       <description></description>
     </item>
     
     <item>
       <title>go</title>
-      <link>https://www.stormwan.com/categories/go/</link>
+      <link>https://www.zouwan.top/categories/go/</link>
       <pubDate>Tue, 15 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/categories/go/</guid>
+      <guid>https://www.zouwan.top/categories/go/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vmware</title>
-      <link>https://www.stormwan.com/categories/vmware/</link>
+      <link>https://www.zouwan.top/categories/vmware/</link>
       <pubDate>Wed, 30 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/categories/vmware/</guid>
+      <guid>https://www.zouwan.top/categories/vmware/</guid>
       <description></description>
     </item>
     

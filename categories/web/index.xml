@@ -2,125 +2,125 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>web on 小叨笔记</title>
-    <link>https://www.stormwan.com/categories/web/</link>
+    <link>https://www.zouwan.top/categories/web/</link>
     <description>Recent content in web on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 30 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/categories/web/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 30 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/categories/web/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>基于websocket&#43;hyperf开发数据大屏系统</title>
-      <link>https://www.stormwan.com/post/ji-yu-websocket&#43;hyperf-kai-fa-shu-ju-da-ping-xi-tong/</link>
+      <link>https://www.zouwan.top/post/ji-yu-websocket&#43;hyperf-kai-fa-shu-ju-da-ping-xi-tong/</link>
       <pubDate>Tue, 30 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/ji-yu-websocket&#43;hyperf-kai-fa-shu-ju-da-ping-xi-tong/</guid>
+      <guid>https://www.zouwan.top/post/ji-yu-websocket&#43;hyperf-kai-fa-shu-ju-da-ping-xi-tong/</guid>
       <description>背景 需要在大屏上展示订单趋势、订单国家、店铺数、商品排行、页面访问量等数据 选型 后端：hyperf 前端：react 后端 地图点亮订单国家城市点，</description>
     </item>
     
     <item>
       <title>Nginx知识</title>
-      <link>https://www.stormwan.com/post/nginx-zhi-shi/</link>
+      <link>https://www.zouwan.top/post/nginx-zhi-shi/</link>
       <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/nginx-zhi-shi/</guid>
+      <guid>https://www.zouwan.top/post/nginx-zhi-shi/</guid>
       <description>一、初识Nginx Nginx的三个主要应用场景 1.静态资源服务 通过本地文件系统提供服务 2.反向代理服务 Nginx的强大性能 缓存 负载均衡 3.A</description>
     </item>
     
     <item>
       <title>Vagrant的基本简单使用</title>
-      <link>https://www.stormwan.com/post/vagrant-de-ji-ben-jian-dan-shi-yong/</link>
+      <link>https://www.zouwan.top/post/vagrant-de-ji-ben-jian-dan-shi-yong/</link>
       <pubDate>Sun, 23 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/vagrant-de-ji-ben-jian-dan-shi-yong/</guid>
+      <guid>https://www.zouwan.top/post/vagrant-de-ji-ben-jian-dan-shi-yong/</guid>
       <description>一、前言 Vagrant 可以让你使用单一的配置信息来部署一套虚拟环境, 最后打包为一个所谓的 box (就是已经部署好环境的虚拟机器). 你可以手动来安装和配置 box, 也可</description>
     </item>
     
     <item>
       <title>安装Beanstalkd</title>
-      <link>https://www.stormwan.com/post/an-zhuang-beanstalkd/</link>
+      <link>https://www.zouwan.top/post/an-zhuang-beanstalkd/</link>
       <pubDate>Sun, 23 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/an-zhuang-beanstalkd/</guid>
+      <guid>https://www.zouwan.top/post/an-zhuang-beanstalkd/</guid>
       <description>安装 Beanstalkd 下载 解压 安装 1 2 3 4 5 6 7 8 9 10 wget https://github.com/kr/beanstalkd/archive/v1.10.tar.gz -O beanstalkd-1.10.tar.gz tar zxvf beanstalkd-1.10.tar.gz cd beanstalkd-1.10 make make install # 默认安装到 /usr/local/bin ln -s /usr/local/bin/beanstalkd /usr/bin/beanstalkd # 也可以直接yum安装 从EPEL源安装 以下步骤会自动完成</description>
     </item>
     
     <item>
       <title>安装Java</title>
-      <link>https://www.stormwan.com/post/an-zhuang-java/</link>
+      <link>https://www.zouwan.top/post/an-zhuang-java/</link>
       <pubDate>Sat, 25 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/an-zhuang-java/</guid>
+      <guid>https://www.zouwan.top/post/an-zhuang-java/</guid>
       <description>安装Java 1、到 Sun 的官网下载 http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html 选择 accept license ，然后选择适合自己机型的JDK下载。 2、解压文件，修改文件名 1 2 3 4 $ sudo mkdir /usr/lib/jvm $ sudo tar zxvf jdk-8u91-linux-x64.tar.gz -C /usr/lib/jvm $ cd /usr/lib/jvm $ sudo</description>
     </item>
     
     <item>
       <title>安装Memcached</title>
-      <link>https://www.stormwan.com/post/an-zhuang-memcached/</link>
+      <link>https://www.zouwan.top/post/an-zhuang-memcached/</link>
       <pubDate>Sat, 25 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/an-zhuang-memcached/</guid>
+      <guid>https://www.zouwan.top/post/an-zhuang-memcached/</guid>
       <description>安装Memcached 安装libevent依赖 1 2 3 4 5 tar zxvf libevent-2.0.22-stable.tar.gz cd libevent-2.0.22-stable ./configure --prefix=/Data/apps/libs make make install 安装memcached 1 2 3 4 5 tar zxvf memcached-1.4.27.tar.gz cd memcached-1.4.2 ./configure --prefix=/Data/apps/memcached --with-libevent=/Data/apps/libs make make install 启用 通常：</description>
     </item>
     
     <item>
       <title>安装RabbitMQ</title>
-      <link>https://www.stormwan.com/post/an-zhuang-rabbitmq/</link>
+      <link>https://www.zouwan.top/post/an-zhuang-rabbitmq/</link>
       <pubDate>Mon, 13 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/an-zhuang-rabbitmq/</guid>
+      <guid>https://www.zouwan.top/post/an-zhuang-rabbitmq/</guid>
       <description>安装RabbitMQ 环境配置 erlang安装 1 2 3 4 5 6 7 8 9 10 11 12 13 cd /Data/tgz tar zxvf otp_src_18.3.tar.gz cd otp_src_18.3 ./configure --prefix=/usr/local/erlang make make install 增加环境变量 vi /etc/profile 在文件末尾加上如下代码 export PATH=$PATH:/usr/local/erlang/bin 使配</description>
     </item>
     
     <item>
       <title>Nginx 1.5.2 &#43; PHP 5.5.1 &#43; MySQL 5.6.10 在 CentOS 下的编译安装</title>
-      <link>https://www.stormwan.com/post/nginx-1.5.2-php-5.5.1-mysql-5.6.10-zai-centos-xia-de-bian-yi-an-zhuang/</link>
+      <link>https://www.zouwan.top/post/nginx-1.5.2-php-5.5.1-mysql-5.6.10-zai-centos-xia-de-bian-yi-an-zhuang/</link>
       <pubDate>Sun, 21 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/nginx-1.5.2-php-5.5.1-mysql-5.6.10-zai-centos-xia-de-bian-yi-an-zhuang/</guid>
+      <guid>https://www.zouwan.top/post/nginx-1.5.2-php-5.5.1-mysql-5.6.10-zai-centos-xia-de-bian-yi-an-zhuang/</guid>
       <description>1、安装Nginx 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 mkdir -p /Data/tgz cd /Data/tgz yum install wget yum install pcre yum install openssl* yum -y install gcc gcc-c++ autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel ncurses</description>
     </item>
     
     <item>
       <title>Nginx 0.8.x &#43; PHP 5.2.13（FastCGI）搭建胜过Apache十倍的Web服务器</title>
-      <link>https://www.stormwan.com/post/nginx-0.8.x-php-5.2.13-fastcgi-da-jian-sheng-guo-apache-shi-bei-de-web-fu-wu-qi/</link>
+      <link>https://www.zouwan.top/post/nginx-0.8.x-php-5.2.13-fastcgi-da-jian-sheng-guo-apache-shi-bei-de-web-fu-wu-qi/</link>
       <pubDate>Sat, 16 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/nginx-0.8.x-php-5.2.13-fastcgi-da-jian-sheng-guo-apache-shi-bei-de-web-fu-wu-qi/</guid>
+      <guid>https://www.zouwan.top/post/nginx-0.8.x-php-5.2.13-fastcgi-da-jian-sheng-guo-apache-shi-bei-de-web-fu-wu-qi/</guid>
       <description>前言：本文是我撰写的关于搭建“Nginx + PHP（FastCGI）”Web服务器的第6篇文章。本系列文章作为国内最早详细介绍 Nginx + PHP 安装、配置</description>
     </item>
     
     <item>
       <title>LNMP运行环境其它安装处理</title>
-      <link>https://www.stormwan.com/post/lnmp-yun-xing-huan-jing-qi-ta-an-zhuang-chu-li/</link>
+      <link>https://www.zouwan.top/post/lnmp-yun-xing-huan-jing-qi-ta-an-zhuang-chu-li/</link>
       <pubDate>Mon, 11 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/lnmp-yun-xing-huan-jing-qi-ta-an-zhuang-chu-li/</guid>
+      <guid>https://www.zouwan.top/post/lnmp-yun-xing-huan-jing-qi-ta-an-zhuang-chu-li/</guid>
       <description>隐藏nginx版本信息 编辑nginx.conf 在 http{} 里加上 server_tokens off; 1 2 3 4 5 6 7 8 9 http { ...... sendfile on; tcp_nopush on; keepalive_timeout 60; tcp_nodelay on; server_tokens off; ...... } 编辑php-fpm配置文件，如f</description>
     </item>
     
     <item>
       <title>php-fpm配置</title>
-      <link>https://www.stormwan.com/post/php-fpm-pei-zhi/</link>
+      <link>https://www.zouwan.top/post/php-fpm-pei-zhi/</link>
       <pubDate>Mon, 11 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/php-fpm-pei-zhi/</guid>
+      <guid>https://www.zouwan.top/post/php-fpm-pei-zhi/</guid>
       <description>转 php-fpm配置 http://www.cnblogs.com/xiangxiaodong/p/3493039.html php 5.3.6 中 php-fpm 配置 成 服务启动 从php5.3.3开始 源码中开始包含 php-fpm，不用专门再打补丁了，只需要解开源码直接con</description>
     </item>
     
     <item>
       <title>CentOS minimal 初始化设置</title>
-      <link>https://www.stormwan.com/post/centos-minimal-chu-shi-hua-she-zhi/</link>
+      <link>https://www.zouwan.top/post/centos-minimal-chu-shi-hua-she-zhi/</link>
       <pubDate>Tue, 05 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/centos-minimal-chu-shi-hua-she-zhi/</guid>
+      <guid>https://www.zouwan.top/post/centos-minimal-chu-shi-hua-she-zhi/</guid>
       <description>CentOS-6.5-x86_64 minimal 迷你版安装笔记 - 系统初始化 参考文章http://blog.csdn.net/xxd851116/article/details/1741</description>
     </item>
     
     <item>
       <title>搭建LNMP运行环境问题汇总</title>
-      <link>https://www.stormwan.com/post/da-jian-lnmp-yun-xing-huan-jing-wen-ti-hui-zong/</link>
+      <link>https://www.zouwan.top/post/da-jian-lnmp-yun-xing-huan-jing-wen-ti-hui-zong/</link>
       <pubDate>Tue, 05 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/da-jian-lnmp-yun-xing-huan-jing-wen-ti-hui-zong/</guid>
+      <guid>https://www.zouwan.top/post/da-jian-lnmp-yun-xing-huan-jing-wen-ti-hui-zong/</guid>
       <description>CentOS_6.5_x64 + Nginx 0.8.x + PHP 5.2.14（FastCGI）+ MySQL 5.5.3 参考文章 http://zyan.cc/nginx_php_v6/ 1. VMWare克隆或复制CentOS虚拟机后无法上网的解决,执行service network r</description>
     </item>
     

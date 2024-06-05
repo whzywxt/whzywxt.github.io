@@ -2,44 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>架构 on 小叨笔记</title>
-    <link>https://www.stormwan.com/tags/%E6%9E%B6%E6%9E%84/</link>
+    <link>https://www.zouwan.top/tags/%E6%9E%B6%E6%9E%84/</link>
     <description>Recent content in 架构 on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 11 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/tags/%E6%9E%B6%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/tags/%E6%9E%B6%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>架构实践</title>
-      <link>https://www.stormwan.com/post/jiagou/jia-gou-shi-jian/</link>
+      <link>https://www.zouwan.top/post/jiagou/jia-gou-shi-jian/</link>
       <pubDate>Fri, 11 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/jiagou/jia-gou-shi-jian/</guid>
+      <guid>https://www.zouwan.top/post/jiagou/jia-gou-shi-jian/</guid>
       <description>保证session一致性 session：服务器为每个用户创建一个会话，存储用户的相关信息，以便多次请求能够定位到同一个上下文。 常见方法： se</description>
     </item>
     
     <item>
       <title>Keepalived&#43;Nginx实现高可用</title>
-      <link>https://www.stormwan.com/post/jiagou/keepalived-nginx-shi-xian-gao-ke-yong/</link>
+      <link>https://www.zouwan.top/post/jiagou/keepalived-nginx-shi-xian-gao-ke-yong/</link>
       <pubDate>Fri, 28 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/jiagou/keepalived-nginx-shi-xian-gao-ke-yong/</guid>
+      <guid>https://www.zouwan.top/post/jiagou/keepalived-nginx-shi-xian-gao-ke-yong/</guid>
       <description>一、背景 本文主要介绍使用 keepalived 实现 nginx 的主备高可用 实验环境：Vmware CentOS 7 64 位 机器A Master 192.168.26.129 机器B Slave 192.168.26.130 VIP 192.168.26.128 二、实验步骤 1. 安装 Nginx 和 Keepalive 软件 两台机器一致，</description>
     </item>
     
     <item>
       <title>2021回顾</title>
-      <link>https://www.stormwan.com/post/jiagou/2021-hui-gu/</link>
+      <link>https://www.zouwan.top/post/jiagou/2021-hui-gu/</link>
       <pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/jiagou/2021-hui-gu/</guid>
+      <guid>https://www.zouwan.top/post/jiagou/2021-hui-gu/</guid>
       <description>架构原理 互联网分层架构的本质 一个典型的互联网分层架构： 客户端层：典型调用方是 browser 或者 APP； 站点应用层：实现核心业务逻辑，从下游获取数据，对上</description>
     </item>
     
     <item>
       <title>2017~2018回顾商城重构收获</title>
-      <link>https://www.stormwan.com/post/2017-2018-hui-gu-shang-cheng-zhong-gou-shou-huo/</link>
+      <link>https://www.zouwan.top/post/2017-2018-hui-gu-shang-cheng-zhong-gou-shou-huo/</link>
       <pubDate>Thu, 19 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/2017-2018-hui-gu-shang-cheng-zhong-gou-shou-huo/</guid>
+      <guid>https://www.zouwan.top/post/2017-2018-hui-gu-shang-cheng-zhong-gou-shou-huo/</guid>
       <description>17年Q4年商城重构接入SOA，18年5月上线流量切换完成，旺季PC端Q4日均pv3000万；双11当天，销售额一千万美金，峰值日pv统计1</description>
     </item>
     

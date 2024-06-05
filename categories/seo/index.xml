@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>seo on 小叨笔记</title>
-    <link>https://www.stormwan.com/categories/seo/</link>
+    <link>https://www.zouwan.top/categories/seo/</link>
     <description>Recent content in seo on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 29 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/categories/seo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 29 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/categories/seo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>文章slug生成</title>
-      <link>https://www.stormwan.com/post/wen-zhang-slug-sheng-cheng/</link>
+      <link>https://www.zouwan.top/post/wen-zhang-slug-sheng-cheng/</link>
       <pubDate>Mon, 29 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/wen-zhang-slug-sheng-cheng/</guid>
+      <guid>https://www.zouwan.top/post/wen-zhang-slug-sheng-cheng/</guid>
       <description>背景 文章链接选择 :title 或 :filename 之类的，但是会有中文，不使用中文，又对查找不太方便。 思路 使用 python 将中文转为拼音，然后读取文件内容并进行替换。 中文转拼音示</description>
     </item>
     
     <item>
       <title>关键词内链替换</title>
-      <link>https://www.stormwan.com/post/guan-jian-ci-nei-lian-ti-huan/</link>
+      <link>https://www.zouwan.top/post/guan-jian-ci-nei-lian-ti-huan/</link>
       <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/guan-jian-ci-nei-lian-ti-huan/</guid>
+      <guid>https://www.zouwan.top/post/guan-jian-ci-nei-lian-ti-huan/</guid>
       <description>内部链接目标 SEO优化，在博客文章中渲染时对关键词进行替换添加链接1，不改变博客原文 关键词链接到电商商品、活动页、分类页等 解决url收录问题</description>
     </item>
     

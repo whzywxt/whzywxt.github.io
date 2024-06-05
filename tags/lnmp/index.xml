@@ -2,71 +2,71 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>lnmp on 小叨笔记</title>
-    <link>https://www.stormwan.com/tags/lnmp/</link>
+    <link>https://www.zouwan.top/tags/lnmp/</link>
     <description>Recent content in lnmp on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 23 Jul 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://www.stormwan.com/tags/lnmp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Jul 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/tags/lnmp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Vagrant的基本简单使用</title>
-      <link>https://www.stormwan.com/post/vagrant-de-ji-ben-jian-dan-shi-yong/</link>
+      <link>https://www.zouwan.top/post/vagrant-de-ji-ben-jian-dan-shi-yong/</link>
       <pubDate>Sun, 23 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/vagrant-de-ji-ben-jian-dan-shi-yong/</guid>
+      <guid>https://www.zouwan.top/post/vagrant-de-ji-ben-jian-dan-shi-yong/</guid>
       <description>一、前言 Vagrant 可以让你使用单一的配置信息来部署一套虚拟环境, 最后打包为一个所谓的 box (就是已经部署好环境的虚拟机器). 你可以手动来安装和配置 box, 也可</description>
     </item>
     
     <item>
       <title>Nginx 1.5.2 &#43; PHP 5.5.1 &#43; MySQL 5.6.10 在 CentOS 下的编译安装</title>
-      <link>https://www.stormwan.com/post/nginx-1.5.2-php-5.5.1-mysql-5.6.10-zai-centos-xia-de-bian-yi-an-zhuang/</link>
+      <link>https://www.zouwan.top/post/nginx-1.5.2-php-5.5.1-mysql-5.6.10-zai-centos-xia-de-bian-yi-an-zhuang/</link>
       <pubDate>Sun, 21 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/nginx-1.5.2-php-5.5.1-mysql-5.6.10-zai-centos-xia-de-bian-yi-an-zhuang/</guid>
+      <guid>https://www.zouwan.top/post/nginx-1.5.2-php-5.5.1-mysql-5.6.10-zai-centos-xia-de-bian-yi-an-zhuang/</guid>
       <description>1、安装Nginx 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 mkdir -p /Data/tgz cd /Data/tgz yum install wget yum install pcre yum install openssl* yum -y install gcc gcc-c++ autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel ncurses</description>
     </item>
     
     <item>
       <title>Nginx 0.8.x &#43; PHP 5.2.13（FastCGI）搭建胜过Apache十倍的Web服务器</title>
-      <link>https://www.stormwan.com/post/nginx-0.8.x-php-5.2.13-fastcgi-da-jian-sheng-guo-apache-shi-bei-de-web-fu-wu-qi/</link>
+      <link>https://www.zouwan.top/post/nginx-0.8.x-php-5.2.13-fastcgi-da-jian-sheng-guo-apache-shi-bei-de-web-fu-wu-qi/</link>
       <pubDate>Sat, 16 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/nginx-0.8.x-php-5.2.13-fastcgi-da-jian-sheng-guo-apache-shi-bei-de-web-fu-wu-qi/</guid>
+      <guid>https://www.zouwan.top/post/nginx-0.8.x-php-5.2.13-fastcgi-da-jian-sheng-guo-apache-shi-bei-de-web-fu-wu-qi/</guid>
       <description>前言：本文是我撰写的关于搭建“Nginx + PHP（FastCGI）”Web服务器的第6篇文章。本系列文章作为国内最早详细介绍 Nginx + PHP 安装、配置</description>
     </item>
     
     <item>
       <title>LNMP运行环境其它安装处理</title>
-      <link>https://www.stormwan.com/post/lnmp-yun-xing-huan-jing-qi-ta-an-zhuang-chu-li/</link>
+      <link>https://www.zouwan.top/post/lnmp-yun-xing-huan-jing-qi-ta-an-zhuang-chu-li/</link>
       <pubDate>Mon, 11 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/lnmp-yun-xing-huan-jing-qi-ta-an-zhuang-chu-li/</guid>
+      <guid>https://www.zouwan.top/post/lnmp-yun-xing-huan-jing-qi-ta-an-zhuang-chu-li/</guid>
       <description>隐藏nginx版本信息 编辑nginx.conf 在 http{} 里加上 server_tokens off; 1 2 3 4 5 6 7 8 9 http { ...... sendfile on; tcp_nopush on; keepalive_timeout 60; tcp_nodelay on; server_tokens off; ...... } 编辑php-fpm配置文件，如f</description>
     </item>
     
     <item>
       <title>php-fpm配置</title>
-      <link>https://www.stormwan.com/post/php-fpm-pei-zhi/</link>
+      <link>https://www.zouwan.top/post/php-fpm-pei-zhi/</link>
       <pubDate>Mon, 11 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/php-fpm-pei-zhi/</guid>
+      <guid>https://www.zouwan.top/post/php-fpm-pei-zhi/</guid>
       <description>转 php-fpm配置 http://www.cnblogs.com/xiangxiaodong/p/3493039.html php 5.3.6 中 php-fpm 配置 成 服务启动 从php5.3.3开始 源码中开始包含 php-fpm，不用专门再打补丁了，只需要解开源码直接con</description>
     </item>
     
     <item>
       <title>CentOS minimal 初始化设置</title>
-      <link>https://www.stormwan.com/post/centos-minimal-chu-shi-hua-she-zhi/</link>
+      <link>https://www.zouwan.top/post/centos-minimal-chu-shi-hua-she-zhi/</link>
       <pubDate>Tue, 05 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/centos-minimal-chu-shi-hua-she-zhi/</guid>
+      <guid>https://www.zouwan.top/post/centos-minimal-chu-shi-hua-she-zhi/</guid>
       <description>CentOS-6.5-x86_64 minimal 迷你版安装笔记 - 系统初始化 参考文章http://blog.csdn.net/xxd851116/article/details/1741</description>
     </item>
     
     <item>
       <title>搭建LNMP运行环境问题汇总</title>
-      <link>https://www.stormwan.com/post/da-jian-lnmp-yun-xing-huan-jing-wen-ti-hui-zong/</link>
+      <link>https://www.zouwan.top/post/da-jian-lnmp-yun-xing-huan-jing-wen-ti-hui-zong/</link>
       <pubDate>Tue, 05 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.stormwan.com/post/da-jian-lnmp-yun-xing-huan-jing-wen-ti-hui-zong/</guid>
+      <guid>https://www.zouwan.top/post/da-jian-lnmp-yun-xing-huan-jing-wen-ti-hui-zong/</guid>
       <description>CentOS_6.5_x64 + Nginx 0.8.x + PHP 5.2.14（FastCGI）+ MySQL 5.5.3 参考文章 http://zyan.cc/nginx_php_v6/ 1. VMWare克隆或复制CentOS虚拟机后无法上网的解决,执行service network r</description>
     </item>
     
