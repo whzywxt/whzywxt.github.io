@@ -2,8 +2,57 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.zouwan.top/tags/ai-code/</loc>
+    <lastmod>2025-09-03T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://www.zouwan.top/categories/</loc>
-    <lastmod>2023-05-04T00:00:00+00:00</lastmod>
+    <lastmod>2025-09-03T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zouwan.top/tags/cursor/</loc>
+    <lastmod>2025-09-03T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zouwan.top/post/cursor-ai-code/</loc>
+    <lastmod>2025-09-03T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zouwan.top/post/</loc>
+    <lastmod>2025-09-03T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zouwan.top/tags/</loc>
+    <lastmod>2025-09-03T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zouwan.top/categories/web/</loc>
+    <lastmod>2025-09-03T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zouwan.top/</loc>
+    <lastmod>2025-09-03T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -17,20 +66,6 @@
   
   <url>
     <loc>https://www.zouwan.top/post/zhishi/mysql/</loc>
-    <lastmod>2023-05-04T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zouwan.top/post/</loc>
-    <lastmod>2023-05-04T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zouwan.top/tags/</loc>
     <lastmod>2023-05-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -59,13 +94,6 @@
   
   <url>
     <loc>https://www.zouwan.top/categories/zhishi/</loc>
-    <lastmod>2023-05-04T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zouwan.top/</loc>
     <lastmod>2023-05-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -199,13 +227,6 @@
   
   <url>
     <loc>https://www.zouwan.top/tags/hyperf/</loc>
-    <lastmod>2021-11-30T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zouwan.top/categories/web/</loc>
     <lastmod>2021-11-30T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

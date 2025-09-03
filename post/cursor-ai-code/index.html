@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Cursor使用教程 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="小叨" /><meta name="description" content="安装Cursor 1、到官网下载 https://cursor.com/ 2、安装中文插件 搜索扩展 Chinese 可以找到对应的中文插件完成安装 使用Cursor编写PHP代码 1、不基于框架编写 比如" /><meta name="keywords" content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.zouwan.top/post/cursor-ai-code/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Cursor使用教程" />
+<meta property="og:description" content="安装Cursor 1、到官网下载 https://cursor.com/ 2、安装中文插件 搜索扩展 Chinese 可以找到对应的中文插件完成安装 使用Cursor编写PHP代码 1、不基于框架编写 比如" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.zouwan.top/post/cursor-ai-code/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2025-09-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2025-09-03T00:00:00+00:00" />
+
+<meta itemprop="name" content="Cursor使用教程">
+<meta itemprop="description" content="安装Cursor 1、到官网下载 https://cursor.com/ 2、安装中文插件 搜索扩展 Chinese 可以找到对应的中文插件完成安装 使用Cursor编写PHP代码 1、不基于框架编写 比如"><meta itemprop="datePublished" content="2025-09-03T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2025-09-03T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1226">
+<meta itemprop="keywords" content="Cursor,AI Code," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Cursor使用教程"/>
+<meta name="twitter:description" content="安装Cursor 1、到官网下载 https://cursor.com/ 2、安装中文插件 搜索扩展 Chinese 可以找到对应的中文插件完成安装 使用Cursor编写PHP代码 1、不基于框架编写 比如"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">所有文章</li>
+      </a><a href="/gopl-zh/">
+        <li class="mobile-menu-item">Gopl Book</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">所有文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/gopl-zh/">Gopl Book</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Cursor使用教程</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2025-09-03 </span>
+        <div class="post-category">
+            <a href="/categories/web/"> web </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#安装cursor">安装Cursor</a>
+          <ul>
+            <li><a href="#1到官网下载">1、到官网下载</a></li>
+            <li><a href="#2安装中文插件">2、安装中文插件</a></li>
+          </ul>
+        </li>
+        <li><a href="#使用cursor编写php代码">使用Cursor编写PHP代码</a>
+          <ul>
+            <li><a href="#1不基于框架编写">1、不基于框架编写</a></li>
+            <li><a href="#2基于laravel框架编写">2、基于Laravel框架编写</a></li>
+          </ul>
+        </li>
+        <li><a href="#使用cursor编写一个坦克大战游戏使用html编写">使用Cursor编写一个坦克大战游戏，使用HTML编写</a></li>
+        <li><a href="#使用cursor进行3d建模">使用Cursor进行3D建模</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="安装cursor">安装Cursor</h2>
+<h3 id="1到官网下载">1、到官网下载</h3>
+<p><a href="https://cursor.com/">https://cursor.com/</a></p>
+<h3 id="2安装中文插件">2、安装中文插件</h3>
+<p>搜索扩展 <code>Chinese</code> 可以找到对应的中文插件完成安装</p>
+<h2 id="使用cursor编写php代码">使用Cursor编写PHP代码</h2>
+<h3 id="1不基于框架编写">1、不基于框架编写</h3>
+<p>比如新建一个会话输入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">写一个PHP登录验证脚本，判断用户名和密码是否正确，使用MySQL数据库。
+</code></pre></td></tr></table>
+</div>
+</div><p>每个人输入指令后的结果可能与下面不一样，仅仅是记录下过程</p>
+<p>它自己会思考拆分任务，然后开始工作&hellip;</p>
+<ol>
+<li>创建sql脚本，还会生成几条测试数据</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">-- 创建数据库
+CREATE DATABASE IF NOT EXISTS login_system CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- 使用数据库
+USE login_system;
+
+-- 创建用户表
+CREATE TABLE IF NOT EXISTS users (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   username VARCHAR(50) NOT NULL UNIQUE,
+   password VARCHAR(255) NOT NULL,
+   email VARCHAR(100) NOT NULL UNIQUE,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- 插入示例用户数据（密码使用password_hash加密）
+-- 用户名: admin, 密码: admin123
+-- 用户名: user1, 密码: user123
+INSERT INTO users (username, password, email) VALUES 
+(&#39;admin&#39;, &#39;$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi&#39;, &#39;admin@example.com&#39;),
+(&#39;user1&#39;, &#39;$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm&#39;, &#39;user1@example.com&#39;);
+
+-- 注意：上面的密码哈希值对应的明文密码分别是：
+-- admin123 和 user123
+-- 在实际使用中，请使用 password_hash() 函数生成新的密码哈希
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>
+<p>开始编写php代码 <code>login.php</code> <code>logout.php</code> <code>welcome.php</code></p>
+</li>
+<li>
+<p>编写完成后可以自己检查写代码</p>
+</li>
+<li>
+<p>可以输入指令运行程序</p>
+</li>
+</ol>
+<p>它自己会启动一个web服务，还会写一个<code>test_db.php</code> 的文件测试下数据库连接，如果 <code>php</code> 没有安装还会编写脚本安装（当然了我自己是有开发环境的），然后自己使用上面的用户名和密码验证一下</p>
+<p>不满意代码，还可以提出修正优化的</p>
+<h3 id="2基于laravel框架编写">2、基于Laravel框架编写</h3>
+<p>使用Laravel框架写一个用户注册控制器，包含表单验证和数据库写入。</p>
+<p>它居然可以分析当前项目的代码，响应还是已有代码封装的方法，路由也是会自动加入前缀，👍</p>
+<blockquote>
+<p>使用Cursor编写Python代码，爬取微博或推特帖子</p>
+</blockquote>
+<p>编写完成让它运行即可，遇到的问题后居然自己解决</p>
+<ol>
+<li>
+<p>先是遇到 432 错误，认为限流，将增强请求头与重试策略（添加 Referer、Accept-Language、X-Requested-With，针对 418/432 等状态延长退避），然后再次尝试抓取</p>
+</li>
+<li>
+<p>还是同样问题，最后让我提供 Cookie 值后，重新抓取，最后把抓取成功后的数据导出为csv格式</p>
+</li>
+</ol>
+<p>附上生成 README.md</p>
+<h4 id="微博用户帖子抓取脚本">微博用户帖子抓取脚本</h4>
+<p>使用 <code>m.weibo.cn</code> 接口抓取指定用户的微博列表，支持分页、重试与导出 JSON/CSV。</p>
+<h5 id="安装依赖">安装依赖</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pip install -r requirements.txt
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="基本用法">基本用法</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">python weibo_scraper.py <span class="m">1197161814</span> --pages <span class="m">5</span> --out-json weibo_1197161814.json --out-csv weibo_1197161814.csv
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>uid</code>: 微博用户的数值 <code>uid</code></li>
+<li><code>--pages</code>: 抓取的最大页数（默认 3）</li>
+<li><code>--since-id</code>: 使用 <code>since_id</code> 翻页（通常更稳），与 <code>--pages</code> 共同限制抓取量</li>
+<li><code>--delay MIN MAX</code>: 每页之间的随机延时范围（默认 0.8～1.6 秒）</li>
+<li><code>--cookie</code>: 可选，若遇到频率限制可提供浏览器 Cookie 提高成功率</li>
+<li><code>--out-json/--out-csv</code>: 导出路径</li>
+</ul>
+<h5 id="示例">示例</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 仅查看抓取条数</span>
+python weibo_scraper.py <span class="m">1197161814</span> --pages <span class="m">2</span>
+
+<span class="c1"># 使用 since_id 翻页并导出 CSV</span>
+python weibo_scraper.py <span class="m">1197161814</span> --since-id --pages <span class="m">10</span> --out-csv weibo.csv
+
+<span class="c1"># 遇到 418/414 等限流时提供 Cookie （从已登录浏览器复制）</span>
+python weibo_scraper.py <span class="m">1197161814</span> --pages <span class="m">5</span> --cookie <span class="s2">&#34;SUB=...; SSOLoginState=...;&#34;</span> --out-json out.json
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="字段说明导出">字段说明（导出）</h5>
+<ul>
+<li><code>id/mblogid/bid/created_at/text_raw</code></li>
+<li><code>reposts_count/comments_count/attitudes_count</code></li>
+<li><code>scheme/page_url</code></li>
+<li><code>pics</code>: 图片大图 URL 列表（CSV 为空格分隔）</li>
+<li><code>user.*</code>: 用户基本信息</li>
+</ul>
+<h5 id="注意">注意</h5>
+<ul>
+<li>该脚本仅供学习交流，请遵守目标站点服务条款与法律法规。</li>
+<li>频率限制可能导致失败，建议适当调大 <code>--delay</code> 并使用 <code>--since-id</code>。</li>
+<li>接口字段可能变化，若解析失败请反馈错误信息以便调整。</li>
+</ul>
+<h2 id="使用cursor编写一个坦克大战游戏使用html编写">使用Cursor编写一个坦克大战游戏，使用HTML编写</h2>
+<h2 id="使用cursor进行3d建模">使用Cursor进行3D建模</h2>
+<blockquote>
+<p>需要用到 Blender 和 MCP</p>
+</blockquote>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">小叨</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2025-09-03
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/cursor/">Cursor</a>
+          <a href="/tags/ai-code/">AI Code</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/zhishi/golang/">
+            <span class="next-text nav-default">golang</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:whzywxt@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whzywxt" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.zouwan.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+  
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-156364991-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

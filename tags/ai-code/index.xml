@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI Code on 小叨笔记</title>
+    <link>https://www.zouwan.top/tags/ai-code/</link>
+    <description>Recent content in AI Code on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 03 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/tags/ai-code/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cursor使用教程</title>
+      <link>https://www.zouwan.top/post/cursor-ai-code/</link>
+      <pubDate>Wed, 03 Sep 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.zouwan.top/post/cursor-ai-code/</guid>
+      <description>安装Cursor 1、到官网下载 https://cursor.com/ 2、安装中文插件 搜索扩展 Chinese 可以找到对应的中文插件完成安装 使用Cursor编写PHP代码 1、不基于框架编写 比如</description>
+    </item>
+    
+  </channel>
+</rss>
