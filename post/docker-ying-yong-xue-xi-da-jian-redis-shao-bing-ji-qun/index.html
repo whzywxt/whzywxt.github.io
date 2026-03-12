@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>docker应用学习-搭建redis哨兵集群 - 小叨笔记</title>
   <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
@@ -16,9 +16,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="小叨" /><meta name="description" content=" 基于阿里云 centos7，单机启动多个redis实例
+<meta name="author"
+  content="小叨" /><meta name="description" content=" 基于阿里云 centos7，单机启动多个redis实例
  安装docker（略） 安装redis  查找redis镜像:  1 2 3  docker search redis docker pull docker.io/redis docker images    挂载目录  1 2 3 4  mkdir -p /data/redis_data cd /data/redis_data touch redis_6379.conf vi redis_6379.conf    端口配置 redis_6379.conf redis_6380.conf redis_6381.conf  配置说明： dir：工作目录 logfile：日志文件在工作目录下 slaveof：指明为主机一的从机 requirepass：redis客户端连接的认证密码，若不需要可不配置 masterauth：主从redis同步的认证密码，与连接密码同，若不需要可不用配置 appendonly：是否需要持久化，yes为需要
-1 2 3 4 5 6  logfile &amp;#34;redis_6379.log&amp;#34; port 6379 dir /data appendonly yes appendfilename appendonly.aof requirepass 1234   1 2 3 4 5 6 7 8  logfile &amp;#34;redis_6380.log&amp;#34; port 6380 dir /data appendonly yes appendfilename appendonly.aof slaveof 0.0.0.0 6379 masterauth 1234 requirepass 1234   1 2 3 4 5 6 7 8  logfile &amp;#34;redis_6381.log&amp;#34; port 6381 dir /data appendonly yes appendfilename appendonly.aof slaveof 0.0.0.0 6379 masterauth 1234 requirepass 1234   " /><meta name="keywords" content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
+1 2 3 4 5 6  logfile &amp;#34;redis_6379.log&amp;#34; port 6379 dir /data appendonly yes appendfilename appendonly.aof requirepass 1234   1 2 3 4 5 6 7 8  logfile &amp;#34;redis_6380.log&amp;#34; port 6380 dir /data appendonly yes appendfilename appendonly.aof slaveof 0.0.0.0 6379 masterauth 1234 requirepass 1234   1 2 3 4 5 6 7 8  logfile &amp;#34;redis_6381.log&amp;#34; port 6381 dir /data appendonly yes appendfilename appendonly.aof slaveof 0.0.0.0 6379 masterauth 1234 requirepass 1234   " /><meta name="keywords"
+  content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
 
 
 
@@ -29,12 +31,15 @@
 
 
 <link rel="canonical" href="https://www.zouwan.top/post/docker-ying-yong-xue-xi-da-jian-redis-shao-bing-ji-qun/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
+<link rel="apple-touch-icon" sizes="180x180" href="/%20apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/%20favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/%20favicon-16x16.png">
+<link rel="manifest" href="/%20manifest.json">
+<link rel="mask-icon" href="/%20safari-pinned-tab.svg" color="#5bbad5">
+<link rel="me" href="https://gallery.zouwan.top/">
+<link rel="dns-prefetch" href="//gallery.zouwan.top">
+<link rel="alternate" hreflang="zh-Hans" href="https://www.zouwan.top/" />
+<link rel="alternate" hreflang="en" href="https://gallery.zouwan.top/" />
 
 
 <link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
@@ -391,7 +396,6 @@ requirepass 1234
   <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
 <![endif]-->
-
 </head>
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
@@ -416,6 +420,8 @@ requirepass 1234
         <li class="mobile-menu-item">数独游戏</li>
       </a><a href="/about/">
         <li class="mobile-menu-item">关于我</li>
+      </a><a href="https://gallery.zouwan.top/">
+        <li class="mobile-menu-item">壁纸画廊 (EN)</li>
       </a>
   </ul>
 
@@ -446,6 +452,8 @@ requirepass 1234
         <a class="menu-item-link" href="/magic-sudoku.html">数独游戏</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/about/">关于我</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://gallery.zouwan.top/">壁纸画廊 (EN)</a>
       </li>
   </ul>
 </nav>
@@ -707,7 +715,15 @@ sentinel auth-pass mymaster 1234
       <a href="https://github.com/whzywxt" class="iconfont icon-github" title="github"></a>
   <a href="https://www.zouwan.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
-
+<section style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #ddd; text-align: center; font-size: 0.9rem;">
+    <div class="global-resources">
+        <span>推荐资源:</span> 
+        <a href="https://gallery.zouwan.top/" target="_blank" rel="noopener" title="High Quality 4K Mobile Wallpapers" style="color: #2563eb; font-weight: 600;">
+            HD Wallpapers Gallery
+        </a>
+        <p style="color: #666; font-size: 0.8rem; margin-top: 5px;">Explore aesthetic, minimalist, and 4K backgrounds for iPhone & Android.</p>
+    </div>
+</section>
 <div class="copyright">
   
   
@@ -716,7 +732,7 @@ sentinel auth-pass mymaster 1234
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
   </span>
 </div>
 

@@ -2,6 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.zouwan.top/post/</loc>
+    <lastmod>2026-03-12T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zouwan.top/tags/</loc>
+    <lastmod>2026-03-12T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zouwan.top/tags/%E5%A3%81%E7%BA%B8/</loc>
+    <lastmod>2026-03-12T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zouwan.top/</loc>
+    <lastmod>2026-03-12T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zouwan.top/tags/%E8%B5%84%E6%BA%90/</loc>
+    <lastmod>2026-03-12T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zouwan.top/post/wallpaper-gallery-launch/</loc>
+    <lastmod>2026-03-12T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://www.zouwan.top/tags/ai-code/</loc>
     <lastmod>2025-09-03T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -30,28 +72,7 @@
   </url>
   
   <url>
-    <loc>https://www.zouwan.top/post/</loc>
-    <lastmod>2025-09-03T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zouwan.top/tags/</loc>
-    <lastmod>2025-09-03T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://www.zouwan.top/categories/web/</loc>
-    <lastmod>2025-09-03T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zouwan.top/</loc>
     <lastmod>2025-09-03T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
