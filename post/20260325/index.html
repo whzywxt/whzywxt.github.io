@@ -54,7 +54,7 @@
 <meta itemprop="name" content="深度实战：基于 Swoole &#43; Redis 打造高可靠背压（Backpressure）消费引擎">
 <meta itemprop="description" content="1. 前言 在处理跨境电商千万级 Listing 标签计算等高并发业务时，我们经常遇到一个痛点：上游生产太快，下游消费太慢。传统的 PHP-FPM 脚本在面对 Redis 堆积时，往往会盲目"><meta itemprop="datePublished" content="2026-03-25T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2026-03-25T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1401">
+<meta itemprop="wordCount" content="1743">
 <meta itemprop="keywords" content="Swoole,Redis,Go,PHP,Lua," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="深度实战：基于 Swoole &#43; Redis 打造高可靠背压（Backpressure）消费引擎"/>
 <meta name="twitter:description" content="1. 前言 在处理跨境电商千万级 Listing 标签计算等高并发业务时，我们经常遇到一个痛点：上游生产太快，下游消费太慢。传统的 PHP-FPM 脚本在面对 Redis 堆积时，往往会盲目"/>
@@ -191,6 +191,7 @@
 <h2 id="3-服务端实现swoole-高性能消费者">3. 服务端实现：Swoole 高性能消费者</h2>
 <p>针对 <strong>Redis 6.0</strong> 之前的版本不支持 <code>LPOP count</code> 的限制，我们引入了 <strong>Lua 脚本</strong> 实现原子化批量拉取。</p>
 <h3 id="31-核心逻辑-php">3.1 核心逻辑 (PHP)</h3>
+<p><code>sw.php</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -331,6 +332,7 @@
 <h2 id="4-压力测试go-语言高并发模拟器">4. 压力测试：Go 语言高并发模拟器</h2>
 <p>为了验证背压效果，我们需要一个比 <code>PHP</code> 生产更快的工具。<code>Go</code> 的 <code>Goroutine</code> 是天然的压测利器。</p>
 <h3 id="41-压测脚本-go">4.1 压测脚本 (Go)</h3>
+<p><code>sw.go</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -393,6 +395,78 @@
     <span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
     <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;10万条模拟数据写入完成！&#34;</span><span class="p">)</span>
 <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>先运行消费端 <code>php sw.php</code></li>
+<li>在运行客户端模拟大量数据写入</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">go mod init my-test-tools
+go mod tidy
+go run sw.go
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>客户端运行结果</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">开始模拟生产: 总数 100000, 并发协程 50
+
+生产完成！
+耗时: 1.384198594s
+写入速度: 72243.97 ops/s
+</code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>查看消费终端结果，自己可以在代码中加入一些日志方便观察</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">📈 处理中: 2288000 | 速度: 161.22 ops/s | 积压: 500
+📈 处理中: 2289000 | 速度: 161.29 ops/s | 积压: 500
+📈 处理中: 2290000 | 速度: 161.36 ops/s | 积压: 500
+📈 处理中: 2291000 | 速度: 161.43 ops/s | 积压: 500
+📈 处理中: 2292000 | 速度: 161.50 ops/s | 积压: 500
+📈 处理中: 2293000 | 速度: 161.57 ops/s | 积压: 500
+📈 处理中: 2294000 | 速度: 161.64 ops/s | 积压: 500
+📈 处理中: 2295000 | 速度: 161.71 ops/s | 积压: 500
+📈 处理中: 2296000 | 速度: 161.78 ops/s | 积压: 500
+📈 处理中: 2297000 | 速度: 161.85 ops/s | 积压: 500
+📈 处理中: 2298000 | 速度: 161.92 ops/s | 积压: 500
+📈 处理中: 2299000 | 速度: 161.98 ops/s | 积压: 500
+📈 处理中: 2300000 | 速度: 162.05 ops/s | 积压: 0
+
 </code></pre></td></tr></table>
 </div>
 </div><hr>
