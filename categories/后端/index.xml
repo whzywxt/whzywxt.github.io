@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>后端 on 小叨笔记</title>
+    <link>https://www.zouwan.top/categories/%E5%90%8E%E7%AB%AF/</link>
+    <description>Recent content in 后端 on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 25 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/categories/%E5%90%8E%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>深度实战：基于 Swoole &#43; Redis 打造高可靠背压（Backpressure）消费引擎</title>
+      <link>https://www.zouwan.top/post/20260325/</link>
+      <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.zouwan.top/post/20260325/</guid>
+      <description>1. 前言 在处理跨境电商千万级 Listing 标签计算等高并发业务时，我们经常遇到一个痛点：上游生产太快，下游消费太慢。传统的 PHP-FPM 脚本在面对 Redis 堆积时，往往会盲目</description>
+    </item>
+    
+  </channel>
+</rss>

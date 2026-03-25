@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>电商企业经历内部技术回顾 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author"
+  content="小叨" /><meta name="description" content="2015~2017 经历 商城销售端 销售端基于ecshop建站，订单通过定时任务抛给ERP系统OMS ERP系统拆分 ERP单体应用，拆分子系统 OMS：订单管理系统" /><meta name="keywords"
+  content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.zouwan.top/post/dian-shang-qi-ye-jing-li-nei-bu-ji-shu-hui-gu/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/%20apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/%20favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/%20favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="me" href="https://gallery.zouwan.top/">
+<link rel="dns-prefetch" href="//gallery.zouwan.top">
+<link rel="alternate" hreflang="zh-Hans" href="https://www.zouwan.top/" />
+<link rel="alternate" hreflang="en" href="https://gallery.zouwan.top/" />
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="电商企业经历内部技术回顾" />
+<meta property="og:description" content="2015~2017 经历 商城销售端 销售端基于ecshop建站，订单通过定时任务抛给ERP系统OMS ERP系统拆分 ERP单体应用，拆分子系统 OMS：订单管理系统" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.zouwan.top/post/dian-shang-qi-ye-jing-li-nei-bu-ji-shu-hui-gu/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-05-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-13T00:00:00+00:00" />
+
+<meta itemprop="name" content="电商企业经历内部技术回顾">
+<meta itemprop="description" content="2015~2017 经历 商城销售端 销售端基于ecshop建站，订单通过定时任务抛给ERP系统OMS ERP系统拆分 ERP单体应用，拆分子系统 OMS：订单管理系统"><meta itemprop="datePublished" content="2020-05-13T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-05-13T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3121">
+<meta itemprop="keywords" content="," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="电商企业经历内部技术回顾"/>
+<meta name="twitter:description" content="2015~2017 经历 商城销售端 销售端基于ecshop建站，订单通过定时任务抛给ERP系统OMS ERP系统拆分 ERP单体应用，拆分子系统 OMS：订单管理系统"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">所有文章</li>
+      </a><a href="/gopl-zh/">
+        <li class="mobile-menu-item">Gopl Book</li>
+      </a><a href="/magic-sudoku.html">
+        <li class="mobile-menu-item">数独游戏</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a><a href="https://gallery.zouwan.top/">
+        <li class="mobile-menu-item">壁纸画廊 (EN)</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">所有文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/gopl-zh/">Gopl Book</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/magic-sudoku.html">数独游戏</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://gallery.zouwan.top/">壁纸画廊 (EN)</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">电商企业经历内部技术回顾</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-05-13 </span>
+        <div class="post-category">
+            <a href="/categories//">  </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#20152017-经历">2015~2017 经历</a></li>
+            <li><a href="#20172020-经历">2017~2020 经历</a></li>
+            <li><a href="#经历思考与收获">经历思考与收获</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="20152017-经历">2015~2017 经历</h3>
+<h4 id="商城销售端">商城销售端</h4>
+<ul>
+<li>销售端基于ecshop建站，订单通过定时任务抛给ERP系统OMS</li>
+</ul>
+<h4 id="erp系统拆分">ERP系统拆分</h4>
+<ul>
+<li>
+<p>ERP单体应用，拆分子系统</p>
+<ul>
+<li>OMS：订单管理系统</li>
+<li>PDM：商品管理系统</li>
+<li>WMS：仓库管理系统</li>
+<li>FMS：财务管理系统</li>
+</ul>
+</li>
+<li>
+<p>销售端依然是基于ecshop维护</p>
+<ul>
+<li>开发语言：PHP为主</li>
+<li>版本工具：SNV</li>
+<li>后端架构：LNMP，剔除了Apache</li>
+<li>无文档管理系统</li>
+</ul>
+</li>
+</ul>
+<h4 id="基于框架探索和重构阶段">基于框架探索和重构阶段</h4>
+<ul>
+<li>公司内部新项目试错很多，销售端的新项目的开发和维护成本很高</li>
+<li>随着ERP的拆分，也分组出来各个供应链的业务技术团队，负责供应链的四块业务</li>
+<li>该阶段技术中心整体技术栈还是PHP，单体框架的引入和尝试（ZF、Yii、Laravel)，虽然问题较多，但整体的业务响应速度还是较快</li>
+<li>负责W项目（站点）前期，业务快速发展，W项目到家APP（商家端接单+用户端）、B2B、官网、社区等
+<ul>
+<li>W项目（站点）的除主要的销售站点，W项目（站点）其他新的系统都统一选择了L框架，有了框架和标准化的模块设计划分，维护成本较低</li>
+<li>W项目（站点）加入了文档管理与文件资源内部共享服务</li>
+</ul>
+</li>
+</ul>
+<h4 id="技术引入与内部技术尝试">技术引入与内部技术尝试</h4>
+<ul>
+<li>
+<p>网站业务同质化，设立大数据、中间件团队</p>
+<ul>
+<li>中间件搜索从Sphinx转ES</li>
+<li>SOA服务化团队，基于Java重构原有商城业务系统</li>
+</ul>
+</li>
+<li>
+<p>中期</p>
+<ul>
+<li>引入Swoole框架，解决任务处理，耗时任务不再使用cron定时脚本</li>
+<li>Swoole多进程+Redis实现消息队列 （MQ中间件初始阶段，未申请资源，所以自己开发消息队列来解决问题）
+<ul>
+<li>短信发送</li>
+<li>公众号海报推送</li>
+<li>商家APP订单接单</li>
+<li>&hellip;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>后期</p>
+<ul>
+<li>进口业务没有重大突破</li>
+<li>业务需求变少，个人学习 MQ 等中间件知识，Swoole相关知识</li>
+</ul>
+</li>
+</ul>
+<h3 id="20172020-经历">2017~2020 经历</h3>
+<ul>
+<li>
+<p>2017，原 Leader 去负责 G 站，将我也申请调入该部门，主要负责 G 站重构，对接SOA服务。</p>
+<ul>
+<li>接入Gitlab，整体转git</li>
+<li>接入Wiki(基于Confluence)、Jira，都是基于Atlassian的产品线（java系，整体效果还是不错）</li>
+</ul>
+</li>
+<li>
+<p>2018，SOA服务化</p>
+<ul>
+<li>业务团队SOA团队进一步基础抽象，做了一些三端业务的通用服务，虽然后续对接过程中</li>
+<li>G站点团队转SOA重构，前面3端（PC\WAP\APP)，基于L框架对接完SOA（时间以及团队水平的衡量），分3次切完了线上流量（实际是4次，第一次出现了回滚，没有考虑到推广流量问题）</li>
+<li>对接完后SOA，优化，扛过双11</li>
+<li>技术中心
+<ul>
+<li>AI、大数据、运维都开始有一定的改变，比如业务信息化、数字信息化（通过一些系统管理资源或业务）</li>
+<li>服务意识有了一定的开化，一些小型业务尝试以独立服务形式提供（库存）</li>
+<li>搜索、推荐、大数据曝光度度足够高</li>
+</ul>
+</li>
+<li><strong>个人主要负责</strong>
+<ul>
+<li>营销模块（价格、优惠券、活动）</li>
+<li>专题活动（大促双十一页面基于该模块配置</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>2019 - 中台化</p>
+<ul>
+<li>技术中心
+<ul>
+<li>中台化：期望做到资源整合与复用</li>
+<li>项目制：期望通过项目制拉通各组织部门人员</li>
+</ul>
+</li>
+<li>个人
+<ul>
+<li>学习 Lua 语言，redis nginx 都可以结合，OpenRetry也是的</li>
+<li>redis 实践</li>
+<li>python、 golang 基础学习</li>
+<li>极客时间课程</li>
+</ul>
+</li>
+<li>组织架构变更，其他模块业务问题排查、修改、优化也断断续续介入。</li>
+</ul>
+</li>
+</ul>
+<h3 id="经历思考与收获">经历思考与收获</h3>
+<h4 id="组织结构演变出现过的问题">组织结构演变，出现过的问题？</h4>
+<ul>
+<li>新的技术和思想引入，这些都没有问题，但是忽略了最基本的人的问题；</li>
+<li>技术过快的引入，但对技术没有吃透，组织中对技术的一知半解，缺乏架构设计思维以及业务和产品的思维，导致技术变成了业务快速发展带来了掣肘；</li>
+<li>没有技术积累，导致了目前的技术泥浆感，陷入技术债，业务跑不动，沟通部门墙；</li>
+<li>组织结构变革依旧还是没有摆脱原有的弗雷德里克-泰勒的管理思想，树形结构以及层级管理思维依旧盛行</li>
+</ul>
+<h4 id="管控新的业务">管控新的业务</h4>
+<ol>
+<li>第一阶段，优先业务发展和试错，打开市场，积累资源
+<ul>
+<li>业务小团队少，企业规模小的情况下，采用单体结构，通过模块化分，适当的系统分割，能够足矣支持业务即可，不要一味的追求技术的怪圈，目前大多数的单体足矣支持很多企业的业务发展</li>
+<li>小型技术团队难以支持起微服务套件，大多会停留在小规模尝试基础上，不要拿个锤子，总想着到处找钉子</li>
+<li>这一阶段，注意用户数据的积累与规整，做好相应的数据收集，为后期大数据赋能准备（万一大了呢）</li>
+</ul>
+</li>
+<li>第二阶段，业务快速发展期，技术某些特定情况下，成为技术的瓶颈（比如大促、秒杀活动）
+<ul>
+<li>尝试将单体应用中的某些模块，解耦独立出来，将高频业务与低频业务分割，重型事务性业务与轻型业务分割解耦</li>
+<li>独立出来业务与原有的单体系统进行数据通信可以基于MQ解耦或者统一的API网关调用，同时也方便扩展</li>
+<li>独立出来业务做成服务化，需要考服务设计的标准，为后续更多的服务迁移打好基础，因此，最前面的几个抽离服务要么做得比较好，成为典范，要么准备后面再继续重构</li>
+<li>这一阶段，考虑技术对业务的支撑为主，同时提前预测好相关的技术转型储备（比如微服务架构）</li>
+<li>由于服务的逐步拆分，导致整体业务应用的监控逐步变得困难，因此一个好的链路监控系统，需要开始设计</li>
+</ul>
+</li>
+<li>第三阶段，业务高速发展期，企业核心业务成型
+<ul>
+<li>考虑到业务很多基础形态已经足够清晰和明确，可以对应用系统进一步的重构演变，此时可以将更多的基础服务下沉，方便顶层前端应用的组装</li>
+<li>微服务可以大规模的推广（依托于第二阶段的一些前期工作准备），此时，服务标准化、服务注册发现、服务治理、服务监控、CI/CD、容器化等都提出来了</li>
+<li>微服务的开发需要有标准，方能自动化，以及快速CI/CD</li>
+<li>业务和产品的抽象，以及业务与技术的结合，需要拥有优秀架构思维的架构师来打通。同时公司内部划分成多个职能组织，架构师是能看清楚全貌的人，需要拥有良好的沟通技巧，协调各组织成员，拉通项目研发流程（如果架构师在业务与技术方面没有问题，但在沟通方面存在一定问题，可以安排一个PMO或者项目管理配合）</li>
+<li>各类新的技术的结合与数据反哺和加持业务，比如AI和大数据</li>
+</ul>
+</li>
+<li>第四阶段，分久必合合久必分
+<ul>
+<li>企业内部的服务，能做资源整合的做资源整合</li>
+<li>大的业务，存在维护困难的，考虑逐步进一步拆分</li>
+</ul>
+</li>
+</ol>
+<h4 id="收获">收获</h4>
+<ol>
+<li>人的重要性，企业成功，是管理者的成功，是员工的成功
+<ul>
+<li>业务、产品、技术，形成短板效应（研发吐槽产品文档不清晰，产品说业务没调研清楚，业务说技术不给力）</li>
+<li>更进一步是招人考核，优秀的人能招来更加优秀的人</li>
+</ul>
+</li>
+<li>技术过早引入与技术变革，带来不一定是业务的增长，可能是掣肘
+<ul>
+<li>思考当下企业或团队存在哪些问题，是否新的技术引入就能够解决这些问题，使用技术的人能否hold住这块新的技术</li>
+<li>提出有意义和价值问题的人，往往比解决问题的人更厉害</li>
+</ul>
+</li>
+<li>工具化、标准化以及自动化，甚至智能化
+<ul>
+<li>标准化，可以让做事情流程化（这个是工业机械时代的最大效率的提升）</li>
+<li>工具化，可以替代原有手工或者人力做的事情（比如统计，报表）</li>
+<li>自动化，在标准化和工具化的前提下，更进一步的释放人，以及提升工作效率</li>
+<li>智能化，结合大数据，AI的一些分析，反哺和加持业务或者技术</li>
+</ul>
+</li>
+<li>基础理论的重要性
+<ul>
+<li>在解决各类系统底层或者性能优化时候，对计算机科学的理论知识了解得越透彻，则对软件的开发调优更加容易</li>
+<li>软件工程师，需要有软件编写设计的能力（DSA、设计模式、编程语言）与工程实践的能力（SRE），除此以外，沟通和协助的能力也很重要</li>
+<li>学习东西需要成体系</li>
+<li>进一步看清自己的不足</li>
+</ul>
+</li>
+<li>圈子的重要性
+<ul>
+<li>跟对人的重要性</li>
+<li>没有好的师傅，则自己找师傅，虽然比较难，有条件先提高自己的基线</li>
+<li>学会提出问题，往往比直接给出解决方案有效（管理手段）</li>
+</ul>
+</li>
+<li>机会选择的重要性</li>
+<li>技术演变
+<ul>
+<li>基于PHP的技术栈，到基于Golang技术栈的转变</li>
+<li>直接到K8S+Istio，微服务技术栈</li>
+</ul>
+</li>
+<li>业务把控
+<ul>
+<li>熟悉业务</li>
+<li>明确当前阶段业务开发，哪些点不适合做，不断沟通协调，同时把控项目进度</li>
+<li>业务系统，业务模块，要有做精品项目的思维</li>
+<li>技术服务于业务</li>
+</ul>
+</li>
+</ol>
+<h4 id="下一步计划">下一步计划</h4>
+<ul>
+<li>理论强化</li>
+<li>强化工程实践，拿出一套微服务技术解决方案，更多的项目学习、试错与总结；</li>
+<li>增加见识，技术系统化，以及将技术整理和输出；</li>
+<li>进一步深造，提升自己的基线（企业&amp;学业）；</li>
+<li>与业务更好的结合（技术服务于业务）；</li>
+</ul>
+<!--
+I get 10 times more traffic from Google[^1] than from [Yahoo][2] or [MSN][3].  
+
+[^1]: http://google.com/        "Google" 
+[2]: http://search.yahoo.com/  "Yahoo Search" 
+[3]: http://search.msn.com/    "MSN Search"
+-->
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">小叨</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-05-13
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags//"></a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/fen-bu-shi-li-lun-xie-yi-ji-suan-fa-xiang-guan/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">分布式理论、协议及算法相关</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/xing-neng-you-hua-lu-xian-tu/">
+            <span class="next-text nav-default">性能优化路线图</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:whzywxt@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whzywxt" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.zouwan.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+<section style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #ddd; text-align: center; font-size: 0.9rem;">
+    <div class="global-resources">
+        <span>推荐资源:</span> 
+        <a href="https://gallery.zouwan.top/" target="_blank" rel="noopener" title="High Quality 4K Mobile Wallpapers" style="color: #2563eb; font-weight: 600;">
+            HD Wallpapers Gallery
+        </a>
+        <p style="color: #666; font-size: 0.8rem; margin-top: 5px;">Explore aesthetic, minimalist, and 4K backgrounds for iPhone & Android.</p>
+    </div>
+</section>
+<div class="copyright">
+  
+  
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-156364991-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

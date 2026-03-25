@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>大厂必考 on 小叨笔记</title>
+    <link>https://www.zouwan.top/tags/%E5%A4%A7%E5%8E%82%E5%BF%85%E8%80%83/</link>
+    <description>Recent content in 大厂必考 on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 18 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/tags/%E5%A4%A7%E5%8E%82%E5%BF%85%E8%80%83/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>大厂必考性能问题</title>
+      <link>https://www.zouwan.top/post/da-chang-bi-kao-xing-neng-wen-ti/</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.zouwan.top/post/da-chang-bi-kao-xing-neng-wen-ti/</guid>
+      <description>1、多进程和多线程实现实现的并发编程各自优势和劣势是什么？ 2、协程为什么能够实现更高的并发？ 3、下面两种访问数组的方式，哪种更快，为什么？ 1</description>
+    </item>
+    
+    <item>
+      <title>大厂必考网络问题</title>
+      <link>https://www.zouwan.top/post/da-chang-bi-kao-wang-luo-wen-ti/</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.zouwan.top/post/da-chang-bi-kao-wang-luo-wen-ti/</guid>
+      <description>1. 请详细介绍下TCP的三次握手机制,为什么要三次握手? 1.1 为什么要有握手? TCP协议提供可靠的连接服务，采用三次握手建立一个连接。 1.2 为什么是三</description>
+    </item>
+    
+  </channel>
+</rss>

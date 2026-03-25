@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>大厂必考性能问题 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author"
+  content="小叨" /><meta name="description" content="1、多进程和多线程实现实现的并发编程各自优势和劣势是什么？ 2、协程为什么能够实现更高的并发？ 3、下面两种访问数组的方式，哪种更快，为什么？ 1" /><meta name="keywords"
+  content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.zouwan.top/post/da-chang-bi-kao-xing-neng-wen-ti/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/%20apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/%20favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/%20favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="me" href="https://gallery.zouwan.top/">
+<link rel="dns-prefetch" href="//gallery.zouwan.top">
+<link rel="alternate" hreflang="zh-Hans" href="https://www.zouwan.top/" />
+<link rel="alternate" hreflang="en" href="https://gallery.zouwan.top/" />
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="大厂必考性能问题" />
+<meta property="og:description" content="1、多进程和多线程实现实现的并发编程各自优势和劣势是什么？ 2、协程为什么能够实现更高的并发？ 3、下面两种访问数组的方式，哪种更快，为什么？ 1" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.zouwan.top/post/da-chang-bi-kao-xing-neng-wen-ti/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-05-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-18T00:00:00+00:00" />
+
+<meta itemprop="name" content="大厂必考性能问题">
+<meta itemprop="description" content="1、多进程和多线程实现实现的并发编程各自优势和劣势是什么？ 2、协程为什么能够实现更高的并发？ 3、下面两种访问数组的方式，哪种更快，为什么？ 1"><meta itemprop="datePublished" content="2020-05-18T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-05-18T00:00:00+00:00" />
+<meta itemprop="wordCount" content="753">
+<meta itemprop="keywords" content="性能问题,大厂必考," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="大厂必考性能问题"/>
+<meta name="twitter:description" content="1、多进程和多线程实现实现的并发编程各自优势和劣势是什么？ 2、协程为什么能够实现更高的并发？ 3、下面两种访问数组的方式，哪种更快，为什么？ 1"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">所有文章</li>
+      </a><a href="/gopl-zh/">
+        <li class="mobile-menu-item">Gopl Book</li>
+      </a><a href="/magic-sudoku.html">
+        <li class="mobile-menu-item">数独游戏</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a><a href="https://gallery.zouwan.top/">
+        <li class="mobile-menu-item">壁纸画廊 (EN)</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">所有文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/gopl-zh/">Gopl Book</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/magic-sudoku.html">数独游戏</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://gallery.zouwan.top/">壁纸画廊 (EN)</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">大厂必考性能问题</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-05-18 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> linux </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#1多进程和多线程实现实现的并发编程各自优势和劣势是什么">1、多进程和多线程实现实现的并发编程各自优势和劣势是什么？</a></li>
+            <li><a href="#2协程为什么能够实现更高的并发">2、协程为什么能够实现更高的并发？</a></li>
+            <li><a href="#3下面两种访问数组的方式哪种更快为什么">3、下面两种访问数组的方式，哪种更快，为什么？</a></li>
+            <li><a href="#4fibnacci-数列fnfn-1fn-2实现fn-函数">4.Fibnacci 数列F(n)=F(n-1)+F(n-2)，实现F(n) 函数</a></li>
+            <li><a href="#5哈希表和二叉查找树相比各自的优缺点是什么">5、哈希表和二叉查找树相比，各自的优、缺点是什么？</a></li>
+            <li><a href="#6解决哈希表冲突有哪些方法各自的优缺点是什么">6、解决哈希表冲突有哪些方法？各自的优缺点是什么？</a></li>
+            <li><a href="#7自旋锁有什么特点不适合用在哪些场景">7、自旋锁有什么特点？不适合用在哪些场景？</a></li>
+            <li><a href="#8读写锁用于解决什么问题读优先和写优先指什么">8、读写锁用于解决什么问题？读优先和写优先指什么？</a></li>
+            <li><a href="#9怎样快速将文件发给客户端">9、怎样快速将文件发给客户端？</a></li>
+            <li><a href="#10相比堆为什么栈上分配对象的速度更快">10、相比堆，为什么栈上分配对象的速度更快？</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="1多进程和多线程实现实现的并发编程各自优势和劣势是什么">1、多进程和多线程实现实现的并发编程各自优势和劣势是什么？</h3>
+<h3 id="2协程为什么能够实现更高的并发">2、协程为什么能够实现更高的并发？</h3>
+<h3 id="3下面两种访问数组的方式哪种更快为什么">3、下面两种访问数组的方式，哪种更快，为什么？</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">for(i=0;i++;i&lt;n)
+    for(j=0;j++;j&lt;n)
+        array[i][j]
+
+for(i=0;i++;i&lt;n)
+    for(j=0;j++;j&lt;n)
+        array[j][i]
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="a三个点">A：三个点</h5>
+<ul>
+<li>内存布局，按行
+<ul>
+<li>利用 CPU 缓存</li>
+<li>
+<table>
+<thead>
+<tr>
+<th>L1</th>
+</tr>
+</thead>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4fibnacci-数列fnfn-1fn-2实现fn-函数">4.Fibnacci 数列F(n)=F(n-1)+F(n-2)，实现F(n) 函数</h3>
+<ul>
+<li>递归</li>
+</ul>
+<h3 id="5哈希表和二叉查找树相比各自的优缺点是什么">5、哈希表和二叉查找树相比，各自的优、缺点是什么？</h3>
+<h3 id="6解决哈希表冲突有哪些方法各自的优缺点是什么">6、解决哈希表冲突有哪些方法？各自的优缺点是什么？</h3>
+<ul>
+<li>
+<p>开散列</p>
+</li>
+<li>
+<p>闭散列 一组哈希函数</p>
+</li>
+</ul>
+<h3 id="7自旋锁有什么特点不适合用在哪些场景">7、自旋锁有什么特点？不适合用在哪些场景？</h3>
+<p>性能特别高的场景</p>
+<p>多核CPU才会用到</p>
+<p>多个线程同时改一个数据</p>
+<ul>
+<li>自旋锁
+<ul>
+<li>盲等待</li>
+<li>性能高</li>
+</ul>
+</li>
+<li>互斥锁
+<ul>
+<li>休眠等待</li>
+</ul>
+</li>
+</ul>
+<h5 id="内核锁">内核锁</h5>
+<h5 id="自旋锁">自旋锁</h5>
+<p>原子操作+自循环，用户构造模式。
+线程不休眠，一直循环尝试对资源访问直到可用。</p>
+<p>优点：完美解决内核锁的缺点。
+缺点：长时间一直循环会导致cpu的白白浪费，高并发竞争下，cpu消耗特别严重。</p>
+<h5 id="混合锁">混合锁</h5>
+<p>内核锁+自旋锁。先是自旋锁一段时间或自旋多少次，再转成内核锁。</p>
+<h5 id="自旋锁雨互斥锁比较">自旋锁雨互斥锁比较</h5>
+<ul>
+<li>自旋锁是一种非阻塞，某线程需要获取自旋锁，但该锁已经被其他线程占用时，该线程不会被挂起，而是在不断的消耗CPU的时间，不停的试图获取自旋锁。</li>
+<li>互斥锁是阻塞的，当某线程无法获取互斥锁时，该线程会被直接挂起，不再消耗CPU时间，当其他线程释放互斥锁后，操作系统会激活那个被挂起的线程，投入运行。</li>
+</ul>
+<p>场景：
+多核处理器，预计线程等待锁时间很短，短到比线程两次上下文切换时间要少的情况下，使用自旋锁是划算的。</p>
+<h3 id="8读写锁用于解决什么问题读优先和写优先指什么">8、读写锁用于解决什么问题？读优先和写优先指什么？</h3>
+<h3 id="9怎样快速将文件发给客户端">9、怎样快速将文件发给客户端？</h3>
+<p>Linux下 零拷贝 sendfile</p>
+<h4 id="普通的发送">普通的发送</h4>
+<p>磁盘文件 -&gt; 内核态（page cache）-&gt; 用户态读取 产生切换 -&gt; 内核态 socket缓冲区 -&gt; 网卡</p>
+<h3 id="10相比堆为什么栈上分配对象的速度更快">10、相比堆，为什么栈上分配对象的速度更快？</h3>
+<p>大概三个点</p>
+<ul>
+<li>每个线程都有一个栈，调用栈，独立的，不用加锁；8M</li>
+<li>分配</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">小叨</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-05-18
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/">性能问题</a>
+          <a href="/tags/%E5%A4%A7%E5%8E%82%E5%BF%85%E8%80%83/">大厂必考</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux-xing-neng-you-hua-si-wang-luo-xing-neng-pian/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux性能优化（四）- 网络性能篇</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/da-chang-bi-kao-wang-luo-wen-ti/">
+            <span class="next-text nav-default">大厂必考网络问题</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:whzywxt@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whzywxt" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.zouwan.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+<section style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #ddd; text-align: center; font-size: 0.9rem;">
+    <div class="global-resources">
+        <span>推荐资源:</span> 
+        <a href="https://gallery.zouwan.top/" target="_blank" rel="noopener" title="High Quality 4K Mobile Wallpapers" style="color: #2563eb; font-weight: 600;">
+            HD Wallpapers Gallery
+        </a>
+        <p style="color: #666; font-size: 0.8rem; margin-top: 5px;">Explore aesthetic, minimalist, and 4K backgrounds for iPhone & Android.</p>
+    </div>
+</section>
+<div class="copyright">
+  
+  
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-156364991-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

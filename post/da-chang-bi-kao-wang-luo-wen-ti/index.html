@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>大厂必考网络问题 - 小叨笔记</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author"
+  content="小叨" /><meta name="description" content="1. 请详细介绍下TCP的三次握手机制,为什么要三次握手? 1.1 为什么要有握手? TCP协议提供可靠的连接服务，采用三次握手建立一个连接。 1.2 为什么是三" /><meta name="keywords"
+  content="后端开发, PHP, Python, Golang, Linux Mysql Nginx Web开发技术, 生活感悟" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.zouwan.top/post/da-chang-bi-kao-wang-luo-wen-ti/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/%20apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/%20favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/%20favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="me" href="https://gallery.zouwan.top/">
+<link rel="dns-prefetch" href="//gallery.zouwan.top">
+<link rel="alternate" hreflang="zh-Hans" href="https://www.zouwan.top/" />
+<link rel="alternate" hreflang="en" href="https://gallery.zouwan.top/" />
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="大厂必考网络问题" />
+<meta property="og:description" content="1. 请详细介绍下TCP的三次握手机制,为什么要三次握手? 1.1 为什么要有握手? TCP协议提供可靠的连接服务，采用三次握手建立一个连接。 1.2 为什么是三" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.zouwan.top/post/da-chang-bi-kao-wang-luo-wen-ti/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-05-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-18T00:00:00+00:00" />
+
+<meta itemprop="name" content="大厂必考网络问题">
+<meta itemprop="description" content="1. 请详细介绍下TCP的三次握手机制,为什么要三次握手? 1.1 为什么要有握手? TCP协议提供可靠的连接服务，采用三次握手建立一个连接。 1.2 为什么是三"><meta itemprop="datePublished" content="2020-05-18T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-05-18T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3790">
+<meta itemprop="keywords" content="网络问题,大厂必考," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="大厂必考网络问题"/>
+<meta name="twitter:description" content="1. 请详细介绍下TCP的三次握手机制,为什么要三次握手? 1.1 为什么要有握手? TCP协议提供可靠的连接服务，采用三次握手建立一个连接。 1.2 为什么是三"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">小叨笔记</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">所有文章</li>
+      </a><a href="/gopl-zh/">
+        <li class="mobile-menu-item">Gopl Book</li>
+      </a><a href="/magic-sudoku.html">
+        <li class="mobile-menu-item">数独游戏</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a><a href="https://gallery.zouwan.top/">
+        <li class="mobile-menu-item">壁纸画廊 (EN)</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">小叨笔记</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">所有文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/gopl-zh/">Gopl Book</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/magic-sudoku.html">数独游戏</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://gallery.zouwan.top/">壁纸画廊 (EN)</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">大厂必考网络问题</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-05-18 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> linux </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#1-请详细介绍下tcp的三次握手机制为什么要三次握手">1. 请详细介绍下TCP的三次握手机制,为什么要三次握手?</a></li>
+            <li><a href="#2-简单介绍下http协议中缓存的处理流程">2. 简单介绍下HTTP协议中缓存的处理流程?</a></li>
+            <li><a href="#3-在地址栏键入url后网络世界发生么什么">3. 在地址栏键入URL后,网络世界发生么什么?</a></li>
+            <li><a href="#4-使用http长连接有哪些优点">4. 使用HTTP长连接有哪些优点?</a></li>
+            <li><a href="#8-tcp和udp协议该如何选择">8. TCP和UDP协议该如何选择?</a></li>
+            <li><a href="#9-tlsssl协议是如何保障信息安全的">9. TLS/SSL协议是如何保障信息安全的?</a></li>
+            <li><a href="#10-http2协议有哪些优点">10. HTTP2协议有哪些优点?</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="1-请详细介绍下tcp的三次握手机制为什么要三次握手">1. 请详细介绍下TCP的三次握手机制,为什么要三次握手?</h3>
+<h4 id="11-为什么要有握手">1.1 为什么要有握手?</h4>
+<p>TCP协议提供可靠的连接服务，采用三次握手建立一个连接。</p>
+<h4 id="12-为什么是三次">1.2 为什么是三次?</h4>
+<p>第一次握手：建立连接时，客户端发送syn包（syn=j）到服务器，并进入SYN_SEND状态，等待服务器确认；
+第二次握手：服务器收到syn包，必须确认客户的SYN（ack=j+1）,同时自己也发送一个SYN包（syn=k）,即SYN+ACK包，此时服务器进入SYN_RECV状态；
+第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK（ack=k+1）,此包发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手。</p>
+<p>三次握手的最主要目的是保证连接时双工的，可靠更多的时通过重传机制来保证的。</p>
+<h3 id="2-简单介绍下http协议中缓存的处理流程">2. 简单介绍下HTTP协议中缓存的处理流程?</h3>
+<p>2.1 缓存的应用流程是什么?
+2.2 与缓存相关的HTTP头部有哪些?</p>
+<p>Request
+IF-Modified-Since:&quot;&quot;
+IF-None-match:&ldquo;xyz&rdquo;</p>
+<p>Respone
+Last-Modified:&quot;&quot;
+Etag:&ldquo;xyz2&rdquo;</p>
+<p>过期的共享缓存
+Cache-Control:&ldquo;max-age=100&rdquo;
+Age:&quot;&quot;</p>
+<p>Cache-Control 头部在请求中的值</p>
+<ul>
+<li>max-age 告诉服务器，客户端不会接受 Age 超出 max-age 秒的缓存。</li>
+<li>no-cache 告诉服务器，不能直接使用已有缓存作为响应返回，除非带着缓存条件到上游服务器得到304验证返回码蔡可以使用现有缓存。</li>
+<li>no-store 告诉各代理服务器不要对该请求的响应缓存（实际有不少不遵守该规定的代理服务器）</li>
+<li>no-transform</li>
+<li>only-if-cached 仅能返回缓存的响应，否则若没有缓存则返回504错误码</li>
+</ul>
+<p>Cache-Control 头部在响应中的值</p>
+<ul>
+<li>public：表示无论是由缓存或共享缓存，皆可将该响应缓存。</li>
+<li>private：不能被代理服务器作为共享缓存使用。</li>
+<li>no-store: 告诉下游节点不能对响应进行缓存。</li>
+</ul>
+<h3 id="3-在地址栏键入url后网络世界发生么什么">3. 在地址栏键入URL后,网络世界发生么什么?</h3>
+<h3 id="4-使用http长连接有哪些优点">4. 使用HTTP长连接有哪些优点?</h3>
+<ul>
+<li>减少握手次数</li>
+<li>减少慢启动影响
+<ul>
+<li>传1个字节，还是传1个GB</li>
+<li>网络带宽是有限的, 慢慢的将带宽占满</li>
+</ul>
+</li>
+<li>有缺点？
+<ul>
+<li>TCP 字符流协议，一个一个来，有顺序的</li>
+<li>队首阻塞</li>
+</ul>
+</li>
+</ul>
+<ol start="5">
+<li>
+<p>CLOSE_WAIT状态产生的原因?
+一般是代码出问题，改配置，重用端口。</p>
+</li>
+<li>
+<p>介绍下多播是怎样实现的?</p>
+</li>
+<li>
+<p>服务器的最大并发连接数是多少?</p>
+</li>
+</ol>
+<ul>
+<li>TCP 四元组
+<ul>
+<li>源IP地址</li>
+<li>目标IP地址</li>
+<li>源端口，端口和进程关联的</li>
+<li>目的端口</li>
+</ul>
+</li>
+<li>一台机器可以有多个IP，也可以有多个端口</li>
+<li>打开端口限制
+在TCP、UDP协议的开头,会分别有16位来存储源端口号和目标端口号,所以端口个数是2^16-1=65535个</li>
+<li>延申
+<ul>
+<li>怎样实现高并发？
+<ul>
+<li>响应的时间要短</li>
+<li>事件驱动，无阻塞</li>
+</ul>
+</li>
+<li>Linux下的高并发优化？
+<ul>
+<li>进程、线程</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="8-tcp和udp协议该如何选择">8. TCP和UDP协议该如何选择?</h3>
+<ul>
+<li>
+<p>UDP</p>
+<ul>
+<li>一对多</li>
+<li>效率高</li>
+<li>简单</li>
+<li>实时性好</li>
+<li>无对头阻塞问题</li>
+</ul>
+</li>
+<li>
+<p>TCP</p>
+<ul>
+<li>
+<p>传递任意长度消息</p>
+</li>
+<li>
+<p>可靠</p>
+</li>
+<li>
+<p>流量控制，TCP有自己的流量控制，滑动窗口的流量，两台主机之间的流量</p>
+<ul>
+<li>非常高频的应用？</li>
+<li>防止发送方发送的太快，耗尽接收方的资源，从而使接收方来不急处理。</li>
+</ul>
+</li>
+<li>
+<p>拥塞控制，</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="流量控制知识点">流量控制知识点</h4>
+<ul>
+<li>接收端抑制发送端的依据：接收端缓冲区的大小</li>
+<li>流量控制的目标时接收端，是怕接收端来不急不处理</li>
+<li>流量控制的机制时丢包</li>
+</ul>
+<h4 id="怎样实现流量控制">怎样实现流量控制</h4>
+<h5 id="滑动窗口时什么">滑动窗口时什么</h5>
+<p>滑动窗口，标记了接收端缓冲区的大小，告诉发送端可以发送的大小。</p>
+<h5 id="为什么出现滑动窗口">为什么出现滑动窗口</h5>
+<p>在确认应答策略中，对每一个发送的数据，都要给ACK应答，收到ACK应答后再发送下一个数据短，这样做缺点<strong>性能比较差</strong>，就其实数据往返时间长的时候。</p>
+<p>使用滑动窗口，可以一次发送多条数据。</p>
+<h5 id="滑动窗口知识点">滑动窗口知识点</h5>
+<ol>
+<li>接收端将自己可以接收的缓冲区大小放入TCP首部中的“窗口大小”字段，通过ACK来通知发送端。</li>
+<li>窗口大小字段越大，说明网络吞吐率越高。</li>
+<li>窗口大小指的是无需等待确认应答而可以继续发送数据的最大值，就是说不需要接收端的应答，可以一次连续的发送数据。</li>
+<li>内核为了维护滑动窗口，需要开辟缓冲区，来标记当前还有哪些数据没有应答，只有确认应答过的数据，才能从缓冲区删掉。</li>
+</ol>
+<blockquote>
+<p>发送缓冲区如果太大，就会有空间开销</p>
+</blockquote>
+<ol start="5">
+<li>接收端一旦发现缓冲区快满了，就会将窗口大小设置成一个更小的值通知发送端，发送端收到这个值后，就会减慢自己的发送速度。</li>
+<li>接收端发现自己的缓冲区满了，就会将窗口的大小设置为0，此时发送端将不再发送数据，但是需要定期发送一个窗口探测数据段，使接收端把窗口大小告诉发送端</li>
+</ol>
+<blockquote>
+<p>再TCP的首部中，有一个16为窗口字段，此字段就是用来存放窗口大小信息的。</p>
+</blockquote>
+<h5 id="滑动窗口的有点">滑动窗口的有点</h5>
+<p>可以高效可靠的发送打量的数据</p>
+<h4 id="拥塞控制">拥塞控制</h4>
+<h5 id="1什么是拥塞控制">1.什么是拥塞控制</h5>
+<p>防止发送方发的太快，使得网络来不及处理，从而导致网络拥塞</p>
+<h5 id="2拥塞控制使用的机制">2.拥塞控制使用的机制</h5>
+<p>慢启动</p>
+<ul>
+<li>
+<p>加法增加
+使拥塞窗口缓慢增大，以防止网络过早出现拥塞</p>
+</li>
+<li>
+<p>乘法减少
+出现一次超时，即出现一次网络拥塞，就把慢开始门限制乘以0.5</p>
+</li>
+</ul>
+<h3 id="9-tlsssl协议是如何保障信息安全的">9. TLS/SSL协议是如何保障信息安全的?</h3>
+<ul>
+<li>PKI证书体系 解决信任问题
+PKI是一套以公钥技术为基础、提供安全服务的架构, 由认证机构(CA), 数字证书库, 密钥备份和恢复, 证书作废系统, 应用接口等组成。CA是PKI的核心，CA的主要功能有：证书发放、证书管理（更新、撤消、验证）。</li>
+<li>密钥交换协议
+<ul>
+<li>前向安全性</li>
+</ul>
+</li>
+<li>对称加密算法</li>
+</ul>
+<h3 id="10-http2协议有哪些优点">10. HTTP2协议有哪些优点?</h3>
+<ul>
+<li>服务推送，客户端请求一个资源，服务端把客户端可能需要请求的其他资源一起主动发送给它，减少交互次数。</li>
+<li>多路复用，可以通过单一的连接发起多重的请求（可以避免tcp 慢启动）</li>
+<li>二进制分帧，专门讲消息分成更小的二进制编码的帧，减小传输量。</li>
+<li>首部压缩，新的压缩算法，减小首部大小，提升发送效率。</li>
+</ul>
+<p>HTTP/0.9</p>
+<ul>
+<li>不涉及数据包传输</li>
+<li>规定客户端和服务器之间的通信格式</li>
+<li>只能GET请求</li>
+</ul>
+<p>HTTP/1.0</p>
+<ul>
+<li>传输内容格式不限制，增加PUT、PATCH、HEAD、OPTIONS、DELETE命令</li>
+</ul>
+<p>HTTP/1.1</p>
+<ul>
+<li>持久连接（长连接）， keep-alive</li>
+<li>节约带宽</li>
+<li>HOST域</li>
+<li>管道机制， 可以在一个TCP连接上发送多个HTTP请求与响应</li>
+<li>分块传输编码</li>
+</ul>
+<p>HTTP/2.0</p>
+<ul>
+<li>多路复用，解决了浏览器限制同一个域名下的请求数量的问题</li>
+<li>服务器推送，减少请求次数</li>
+<li>头信息压缩，HTTP/1.x的header携带大量信息且重复，HTTP/2.0的通信双方各执一份header fields缓存，减少了传输大小与重复header的传输</li>
+<li>二进制协议，HTTP/1.x是基于文本解析的</li>
+</ul>
+<p>http2.0成功解决了http1.1的<strong>队首阻塞</strong>问题，同时，也不需要通过http1.x的pipeline机制用多条tcp连接来实现并行请求和响应；减少了tcp连接数对服务器性能的影响，同时将页面的多个数据css，js，jpg等通过一个数据链接进行传输，能够加快页面组件的传输速度。</p>
+<p>QUIC协议 HTTP/3.0</p>
+<ul>
+<li>
+<p>机制一：自定义连接机制
+一条tcp连接是由四元组标识的，分别是源ip、源端口、目的端口，一旦一个元素发生变化时，就会断开重连，重新连接。在次进行三次握手，导致一定的延时
+在TCP是没有办法的，但是基于UDP，就可以在QUIC自己的逻辑里面维护连接的机制，不再以四元组标识，而是以一个64
+位的随机数作为ID来标识，而且UDP是无连接的，所以当ip或者端口变化的时候，只要ID不变，就不需要重新建立连接</p>
+</li>
+<li>
+<p>机制二：自定义重传机制
+tcp为了保证可靠性，通过使用序号和应答机制，来解决顺序问题和丢包问题
+任何一个序号的包发过去，都要在一定的时间内得到应答，否则一旦超时，就会重发这个序号的包，通过自适应重传算法（通过采样往返时间RTT不断调整）</p>
+</li>
+</ul>
+<p>但是，在TCP里面超时的采样存在不准确的问题。例如发送一个包，序号100，发现没有返回，于是在发送一个100，过一阵返回ACK101.客户端收到了，但是往返的时间是多少，没法计算。是ACK到达的时候减去第一还是第二。</p>
+<p>QUIC也有个序列号，是递增的，任何宇哥序列号的包只发送一次，下次就要加1，那样就计算可以准确了</p>
+<p>但是有一个问题，就是怎么知道包100和包101发送的是同样的内容呢？quic定义了一个offset概念。QUIC既然是面向连接的，也就像TCP一样，是一个数据流，发送的数据在这个数据流里面有个偏移量offset，可以通过offset查看数据发送到了那里，这样只有这个offset的包没有来，就要重发。如果来了，按照offset拼接，还是能够拼成一个流。</p>
+<ul>
+<li>机制三： 无阻塞的多路复用
+有了自定义的连接和重传机制，就可以解决上面HTTP2.0的多路复用问题</li>
+</ul>
+<p>同HTTP2.0一样，同一条 QUIC连接上可以创建多个stream，来发送多个HTTP请求，但是，QUIC是基于UDP的，一个连接上的多个stream之间没有依赖。这样，假如stream2丢了一个UDP包，后面跟着stream3的一个UDP包，虽然stream2的那个包需要重新传，但是stream3的包无需等待，就可以发给用户。</p>
+<ul>
+<li>机制四：自定义流量控制
+TCP的流量控制是通过滑动窗口协议。QUIC的流量控制也是通过window_update，来告诉对端它可以接受的字节数。但是QUIC的窗口是适应自己的多路复用机制的，不但在一个连接上控制窗口，还在一个连接中的每个steam控制窗口。</li>
+</ul>
+<p>在TCP协议中，接收端的窗口的起始点是下一个要接收并且ACK的包，即便后来的包都到了，放在缓存里面，窗口也不能右移，因为TCP的ACK机制是基于序列号的累计应答，一旦ACK了一个序列号，就说明前面的都到了，所以是要前面的没到，后面的到了也不能ACK,就会导致后面的到了，也有可能超时重传，浪费带宽</p>
+<p>QUIC的ACK是基于offset的，每个offset的包来了，进了缓存，就可以应答，应答后就不会重发，中间的空档会等待到来或者重发，而窗口的起始位置为当前收到的最大offset，从这个offset到当前的stream所能容纳的最大缓存，是真正的窗口的大小，显然，那样更加准确。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">小叨</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-05-18
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/">网络问题</a>
+          <a href="/tags/%E5%A4%A7%E5%8E%82%E5%BF%85%E8%80%83/">大厂必考</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/da-chang-bi-kao-xing-neng-wen-ti/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">大厂必考性能问题</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/linux-xing-neng-you-hua-san-i-o-xing-neng-pian/">
+            <span class="next-text nav-default">Linux性能优化（三）- I/O性能篇</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:whzywxt@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whzywxt" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.zouwan.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+<section style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #ddd; text-align: center; font-size: 0.9rem;">
+    <div class="global-resources">
+        <span>推荐资源:</span> 
+        <a href="https://gallery.zouwan.top/" target="_blank" rel="noopener" title="High Quality 4K Mobile Wallpapers" style="color: #2563eb; font-weight: 600;">
+            HD Wallpapers Gallery
+        </a>
+        <p style="color: #666; font-size: 0.8rem; margin-top: 5px;">Explore aesthetic, minimalist, and 4K backgrounds for iPhone & Android.</p>
+    </div>
+</section>
+<div class="copyright">
+  
+  
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span>小叨</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-156364991-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>性能问题 on 小叨笔记</title>
+    <link>https://www.zouwan.top/tags/%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/</link>
+    <description>Recent content in 性能问题 on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 18 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/tags/%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>大厂必考性能问题</title>
+      <link>https://www.zouwan.top/post/da-chang-bi-kao-xing-neng-wen-ti/</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.zouwan.top/post/da-chang-bi-kao-xing-neng-wen-ti/</guid>
+      <description>1、多进程和多线程实现实现的并发编程各自优势和劣势是什么？ 2、协程为什么能够实现更高的并发？ 3、下面两种访问数组的方式，哪种更快，为什么？ 1</description>
+    </item>
+    
+  </channel>
+</rss>

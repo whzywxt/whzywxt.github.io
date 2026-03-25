@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>English on 小叨笔记</title>
+    <link>https://www.zouwan.top/tags/english/</link>
+    <description>Recent content in English on 小叨笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 04 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/tags/english/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[English] Creating a New Theme</title>
+      <link>https://www.zouwan.top/post/example-site/iam/</link>
+      <pubDate>Thu, 04 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.zouwan.top/post/example-site/iam/</guid>
+      <description>安装 iam-apiserver 可执行程序 1 2 3 4 cd $IAM_ROOT source scripts/install/environment.sh make build BINS=iam-apiserver sudo cp _output/platforms/linux/amd64/iam-apiserver ${IAM_INSTALL_DIR}/bin 生成并安装 iam-apiserver 的配置文件（iam-apiserver.yaml） 1 2 ./scripts/genconfig.sh scripts/install/environment.sh configs/iam-apiserver.yaml &amp;gt; iam-apiserver.yaml sudo mv iam-apiserver.yaml ${IAM_CONFIG_DIR} 创建并安装</description>
+    </item>
+    
+    <item>
+      <title>[English] Creating a New Theme</title>
+      <link>https://www.zouwan.top/post/example-site/english-preview/</link>
+      <pubDate>Thu, 31 Aug 2017 15:43:48 +0800</pubDate>
+      
+      <guid>https://www.zouwan.top/post/example-site/english-preview/</guid>
+      <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&amp;rsquo;t cover using CSS to style your theme.
+We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
+    </item>
+    
+  </channel>
+</rss>
