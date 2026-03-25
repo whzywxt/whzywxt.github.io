@@ -327,7 +327,8 @@
 <span class="p">});</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="4-压力测试go-语言高并发模拟器">4. 压力测试：Go 语言高并发模拟器</h2>
+</div><hr>
+<h2 id="4-压力测试go-语言高并发模拟器">4. 压力测试：Go 语言高并发模拟器</h2>
 <p>为了验证背压效果，我们需要一个比 <code>PHP</code> 生产更快的工具。<code>Go</code> 的 <code>Goroutine</code> 是天然的压测利器。</p>
 <h3 id="41-压测脚本-go">4.1 压测脚本 (Go)</h3>
 <div class="highlight"><div class="chroma">
@@ -394,7 +395,8 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="5-压测现象与性能复盘">5. 压测现象与性能复盘</h2>
+</div><hr>
+<h2 id="5-压测现象与性能复盘">5. 压测现象与性能复盘</h2>
 <p>当我们运行 Go 模拟器瞬间向 Redis 灌入海量数据时，可以观察到以下硬核指标：</p>
 <ol>
 <li>
@@ -415,6 +417,7 @@
 <ol start="3">
 <li><strong>IO 极致压榨</strong>：通过 Lua 脚本批量拉取，单次 RTT 网络开销均摊到多条任务上，单机吞吐量（TPS）显著提升。</li>
 </ol>
+<hr>
 <h2 id="6-经验总结与避坑">6. 经验总结与避坑</h2>
 <p><strong>死锁问题 (Deadlock)</strong>：在 <code>Swoole</code> 中，如果所有消费者因异常或超时退出，而生产者仍尝试 <code>push</code> 到已满的 <code>Channel</code>，会因“无活跃唤醒协程”触发 <code>Fatal Error</code>。生产环境务必保证消费者常驻。</p>
 <p><strong>控制台损耗</strong><code>：在大流量消费下，echo</code> 和 <code>var_dump</code> 会产生巨大的系统调用开销。建议采用 计数器取模 的方式（如每 1000 条打一次日志）观察性能。</p>
@@ -446,11 +449,7 @@
           <a href="/tags/lua/">Lua</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/example-site/even-preview/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Theme preview</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
+        
         <a class="next" href="/post/wallpaper-gallery-launch/">
             <span class="next-text nav-default">资源分享：我们的英文壁纸站 Gallery 正式上线</span>
             <span class="next-text nav-mobile">下一篇</span>
