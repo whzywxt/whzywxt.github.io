@@ -6,7 +6,16 @@
     <description>Recent content on 小叨笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 25 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 27 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://www.zouwan.top/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 LCEL 构建一个简单的 LLM 翻译应用</title>
+      <link>https://www.zouwan.top/post/20260327/</link>
+      <pubDate>Fri, 27 Mar 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.zouwan.top/post/20260327/</guid>
+      <description>之前做了一个图库站点，语言是英文的，一直想把英文翻译成中文，恰好最近学习LLM (Large Language Model)（大语言模型），小试一下</description>
+    </item>
+    
     <item>
       <title>深度实战：基于 Swoole &#43; Redis 打造高可靠背压（Backpressure）消费引擎</title>
       <link>https://www.zouwan.top/post/20260325/</link>

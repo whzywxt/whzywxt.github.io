@@ -1,3 +1,2 @@
 User-agent: *
-Disallow: /gopl-zh/
 Sitemap: https://www.zouwan.top/sitemap.xml
